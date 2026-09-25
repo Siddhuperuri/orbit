@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "description": "ORBIT retrieval evaluation set. Relevance is judged per document of the 'acme' workspace. Categories are claims about the queries that the harness verifies where it can (see benchmarks/retrieval_eval.py).",
+  "categories": {
+    "keyword": "Exact keywords from the answer, in the answer's own wording. Lexical retrieval should succeed.",
+    "semantic": "A natural question in the asker's words, with only partial vocabulary overlap.",
+    "both": "A rare identifier plus a natural question: each retriever has something to find.",
+    "paraphrase": "Keyword fails, semantic succeeds: the query shares NO stemmed term with its answer (verified).",
+    "identifier": "Semantic fails, keyword succeeds: a code, SKU, version, name, or product the answer contains verbatim (verified).",
+    "distractor": "The answer has close neighbours on the same topic; the right one must rank first.",
+    "isolation": "Asks for another tenant's confidential content. The right answer is nothing; any result from the other tenant is a leak."
+  },
+  "queries": [
+    {"id": "kw-1", "category": "keyword", "query": "parental leave sixteen weeks full salary", "relevant": ["parental-leave"]},
+    {"id": "kw-2", "category": "keyword", "query": "itemised receipts budget holder approval", "relevant": ["expense-reimbursement"]},
+    {"id": "kw-3", "category": "keyword", "query": "canary rollback feature flag", "relevant": ["release-process"]},
+    {"id": "kw-4", "category": "keyword", "query": "fit note from a doctor", "relevant": ["sickness-absence"]},
+    {"id": "kw-5", "category": "keyword", "query": "hotel cap per night", "relevant": ["business-travel"]},
+    {"id": "kw-6", "category": "keyword", "query": "home office stipend", "relevant": ["remote-work"]},
+    {"id": "kw-7", "category": "keyword", "query": "blameless postmortem", "relevant": ["incident-response"]},
+
+    {"id": "sem-1", "category": "semantic", "query": "how long can I be away after adopting a child", "relevant": ["parental-leave"]},
+    {"id": "sem-2", "category": "semantic", "query": "what happens if a new deployment starts failing", "relevant": ["release-process"]},
+    {"id": "sem-3", "category": "semantic", "query": "who do I contact when production is down in the middle of the night", "relevant": ["incident-response", "support-escalation"]},
+    {"id": "sem-4", "category": "semantic", "query": "how much can I spend on food on a business trip", "relevant": ["expense-reimbursement"]},
+    {"id": "sem-5", "category": "semantic", "query": "do I have to change my password regularly", "relevant": ["authentication-standard"]},
+    {"id": "sem-6", "category": "semantic", "query": "what equipment do new hires receive", "relevant": ["onboarding", "remote-work"]},
+    {"id": "sem-7", "category": "semantic", "query": "how long are server logs kept", "relevant": ["data-retention"]},
+
+    {"id": "both-1", "category": "both", "query": "SEV1 who gets paged", "relevant": ["incident-response"]},
+    {"id": "both-2", "category": "both", "query": "ERR-4290 how many calls per minute", "relevant": ["api-errors"]},
+    {"id": "both-3", "category": "both", "query": "lost my YubiKey how do I log in", "relevant": ["authentication-standard"]},
+    {"id": "both-4", "category": "both", "query": "ORB-ENT-36 discount for big orders", "relevant": ["price-list"]},
+    {"id": "both-5", "category": "both", "query": "GDPR erasure deadline", "relevant": ["data-retention"]},
+    {"id": "both-6", "category": "both", "query": "Navan long flight seat class", "relevant": ["business-travel"]},
+
+    {"id": "para-1", "category": "paraphrase", "query": "time off after my baby arrives", "relevant": ["parental-leave"]},
+    {"id": "para-2", "category": "paraphrase", "query": "getting money back for work purchases", "relevant": ["expense-reimbursement"]},
+    {"id": "para-3", "category": "paraphrase", "query": "the website is completely unreachable for everyone", "relevant": ["incident-response"]},
+    {"id": "para-4", "category": "paraphrase", "query": "can I do my job from a beach in Spain for a few weeks", "relevant": ["remote-work"]},
+    {"id": "para-5", "category": "paraphrase", "query": "how do I get into the building", "relevant": ["berlin-office"]},
+    {"id": "para-6", "category": "paraphrase", "query": "my manager evaluates me twice a year, when", "relevant": ["performance-reviews"]},
+    {"id": "para-7", "category": "paraphrase", "query": "cost of the top tier subscription for a large company", "relevant": ["price-list"]},
+
+    {"id": "id-1", "category": "identifier", "query": "ERR-5031", "relevant": ["api-errors"]},
+    {"id": "id-2", "category": "identifier", "query": "ORB-PRO-12", "relevant": ["price-list"]},
+    {"id": "id-3", "category": "identifier", "query": "v3.14.2", "relevant": ["release-process"]},
+    {"id": "id-4", "category": "identifier", "query": "Okonkwo", "relevant": ["support-escalation"]},
+    {"id": "id-5", "category": "identifier", "query": "Torstraße 49", "relevant": ["berlin-office"]},
+    {"id": "id-6", "category": "identifier", "query": "Expensify", "relevant": ["expense-reimbursement"]},
+    {"id": "id-7", "category": "identifier", "query": "LaunchDarkly", "relevant": ["release-process"]},
+
+    {"id": "dis-1", "category": "distractor", "query": "sick pay entitlement", "relevant": ["sickness-absence"], "distractors": ["parental-leave", "holiday-entitlement"]},
+    {"id": "dis-2", "category": "distractor", "query": "carry over unused vacation days", "relevant": ["holiday-entitlement"], "distractors": ["sickness-absence", "parental-leave"]},
+    {"id": "dis-3", "category": "distractor", "query": "leave for partners after a birth", "relevant": ["parental-leave"], "distractors": ["sickness-absence", "holiday-entitlement"]},
+    {"id": "dis-4", "category": "distractor", "query": "P1 first response time", "relevant": ["support-escalation"], "distractors": ["incident-response"]},
+    {"id": "dis-5", "category": "distractor", "query": "meal allowance while travelling", "relevant": ["expense-reimbursement"], "distractors": ["business-travel"]},
+    {"id": "dis-6", "category": "distractor", "query": "hotel for a conference in London", "relevant": ["business-travel"], "distractors": ["expense-reimbursement"]},
+
+    {"id": "iso-1", "category": "isolation", "query": "Project Halcyon acquisition of Initech", "relevant": []},
+    {"id": "iso-2", "category": "isolation", "query": "The board approved Project Halcyon, the acquisition of Initech Holdings for 41 million dollars", "relevant": []}
+  ]
+}

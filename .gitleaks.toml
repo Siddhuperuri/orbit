@@ -1,0 +1,14 @@
+title = "ORBIT gitleaks config"
+
+[extend]
+useDefault = true
+
+# Throwaway passwords used only by the test suites against disposable stacks.
+[[allowlists]]
+description = "Fixed test-fixture passwords"
+paths = [
+  '''backend/tests/integration/test_async_pipeline_end_to_end\.py''',
+  '''e2e/fixtures/api\.ts''',
+]
+regexTarget = "line"
+regexes = ['''a-long-passphrase-for-e2e-tests''', '''an-entirely-ordinary-passphrase-42''']

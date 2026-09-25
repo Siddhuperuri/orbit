@@ -1,0 +1,68 @@
+{
+  "name": "orbit",
+  "private": true,
+  "description": "ORBIT — intelligent knowledge and document platform",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "setup": "npm run backend:install && npm run web:install",
+
+    "infra:up": "docker compose up -d --wait postgres redis minio && docker compose up --exit-code-from minio-init minio-init",
+    "infra:down": "docker compose down",
+    "infra:reset": "docker compose down -v && npm run infra:up",
+    "infra:logs": "docker compose logs -f",
+    "infra:psql": "docker compose exec postgres psql -U orbit -d orbit",
+
+    "stack:up": "docker compose --profile app up -d --build --wait",
+    "stack:down": "docker compose --profile app down",
+    "stack:logs": "docker compose --profile app logs -f api worker scheduler web",
+
+    "dev:api": "cd backend && uv run uvicorn orbit.composition.asgi:app --reload --port 8000",
+    "dev:worker": "cd backend && uv run celery --app orbit.composition.worker:celery_app worker --pool=solo --loglevel=INFO",
+    "dev:beat": "cd backend && uv run celery --app orbit.composition.worker:celery_app beat --loglevel=INFO --schedule=.celerybeat-schedule",
+    "worker:recover": "cd backend && uv run python -m orbit.composition.worker recover",
+    "worker:index-status": "cd backend && uv run python -m orbit.composition.worker index-status",
+    "worker:reindex": "cd backend && uv run python -m orbit.composition.worker reindex-embeddings",
+    "bench:vector": "cd backend && uv run python -m benchmarks.vector_search",
+    "eval:retrieval": "cd backend && uv run python -m benchmarks.retrieval_eval",
+    "dev:web": "cd web && npm run dev",
+
+    "backend:install": "cd backend && uv sync --all-groups",
+    "backend:format": "cd backend && uv run ruff format .",
+    "backend:format:check": "cd backend && uv run ruff format --check .",
+    "backend:lint": "cd backend && uv run ruff check --fix .",
+    "backend:lint:check": "cd backend && uv run ruff check .",
+    "backend:typecheck": "cd backend && uv run mypy",
+    "backend:arch": "cd backend && uv run lint-imports",
+    "backend:test": "cd backend && uv run pytest -m \"not integration and not e2e\"",
+    "backend:test:coverage": "cd backend && uv run pytest -m \"not integration and not e2e\" --cov --cov-report=term-missing --cov-report=html:.coverage-html",
+    "backend:test:coverage:all": "cd backend && uv run pytest --cov --cov-report=term-missing --cov-report=html:.coverage-html",
+    "backend:test:integration": "cd backend && uv run pytest -m integration",
+    "backend:test:all": "cd backend && uv run pytest",
+    "backend:migrate": "cd backend && uv run alembic upgrade head",
+    "backend:migration": "cd backend && uv run alembic revision --autogenerate -m",
+
+    "web:install": "cd web && npm ci --no-audit --no-fund",
+    "web:format": "cd web && npm run format",
+    "web:format:check": "cd web && npm run format:check",
+    "web:lint": "cd web && npm run lint",
+    "web:typecheck": "cd web && npm run typecheck",
+    "web:test": "cd web && npm run test",
+    "web:build": "cd web && npm run build",
+    "web:api-types": "cd web && npm run api:types",
+    "web:api-types:check": "cd web && npm run api:types:check",
+    "web:test:coverage": "cd web && npx vitest run --coverage.enabled --coverage.provider=v8",
+
+    "e2e:install": "cd e2e && npm ci --no-audit --no-fund && npm run install:browsers",
+    "e2e:test": "cd e2e && npm test",
+    "e2e:typecheck": "cd e2e && npm run typecheck",
+    "e2e:report": "cd e2e && npm run report",
+
+    "verify:backend": "npm run backend:format:check && npm run backend:lint:check && npm run backend:typecheck && npm run backend:arch && npm run backend:test",
+    "verify:contract": "npm run web:api-types:check",
+    "verify:web": "npm run web:format:check && npm run web:lint && npm run web:typecheck && npm run web:test && npm run web:build",
+    "verify": "npm run verify:backend && npm run verify:contract && npm run verify:web",
+    "fix": "npm run backend:format && npm run backend:lint && npm run web:format"
+  }
+}

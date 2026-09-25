@@ -1,0 +1,5585 @@
+{
+  "run_at": "2026-09-18T16:17:03+00:00",
+  "provider": {
+    "ai_provider": "fake",
+    "space": "orbit-fake-embedding-v1@1536",
+    "semantic_is_meaningful": false
+  },
+  "corpus": {
+    "acme_documents": 16,
+    "acme_chunks": 35,
+    "globex_documents": 2,
+    "globex_chunks": 2
+  },
+  "settings": {
+    "candidates_per_retriever": 50,
+    "ef_search": 100,
+    "production_configuration": "hybrid_rrf_k60"
+  },
+  "production_path_matches_harness": true,
+  "production_path_mismatches": [],
+  "summary": {
+    "overall": {
+      "lexical": {
+        "p@1": 0.725,
+        "p@3": 0.25,
+        "r@5": 0.775,
+        "r@10": 0.787,
+        "mrr@10": 0.75
+      },
+      "lexical_ts_rank_cd_only": {
+        "p@1": 0.7,
+        "p@3": 0.25,
+        "r@5": 0.775,
+        "r@10": 0.787,
+        "mrr@10": 0.738
+      },
+      "lexical_all_terms": {
+        "p@1": 0.375,
+        "p@3": 0.125,
+        "r@5": 0.375,
+        "r@10": 0.375,
+        "mrr@10": 0.375
+      },
+      "semantic": {
+        "p@1": 0.625,
+        "p@3": 0.25,
+        "r@5": 0.825,
+        "r@10": 0.9,
+        "mrr@10": 0.701
+      },
+      "hybrid_rrf_k60": {
+        "p@1": 0.675,
+        "p@3": 0.267,
+        "r@5": 0.825,
+        "r@10": 0.925,
+        "mrr@10": 0.753
+      },
+      "hybrid_rrf_k10": {
+        "p@1": 0.675,
+        "p@3": 0.267,
+        "r@5": 0.825,
+        "r@10": 0.925,
+        "mrr@10": 0.745
+      },
+      "hybrid_min_max_50_50": {
+        "p@1": 0.725,
+        "p@3": 0.25,
+        "r@5": 0.838,
+        "r@10": 0.925,
+        "mrr@10": 0.771
+      }
+    },
+    "by_category": {
+      "both": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.833,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.889
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.333,
+          "p@3": 0.111,
+          "r@5": 0.333,
+          "r@10": 0.333,
+          "mrr@10": 0.333
+        },
+        "semantic": {
+          "p@1": 0.667,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.806
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "identifier": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "keyword": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.857,
+          "p@3": 0.286,
+          "r@5": 0.857,
+          "r@10": 0.857,
+          "mrr@10": 0.857
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "paraphrase": {
+        "lexical": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.048,
+          "r@5": 0.429,
+          "r@10": 0.714,
+          "mrr@10": 0.166
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.286,
+          "r@10": 0.714,
+          "mrr@10": 0.115
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.286,
+          "r@10": 0.714,
+          "mrr@10": 0.115
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.286,
+          "r@10": 0.714,
+          "mrr@10": 0.118
+        }
+      },
+      "semantic": {
+        "lexical": {
+          "p@1": 0.429,
+          "p@3": 0.19,
+          "r@5": 0.714,
+          "r@10": 0.786,
+          "mrr@10": 0.571
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.286,
+          "p@3": 0.19,
+          "r@5": 0.714,
+          "r@10": 0.786,
+          "mrr@10": 0.5
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.286,
+          "p@3": 0.143,
+          "r@5": 0.571,
+          "r@10": 0.714,
+          "mrr@10": 0.387
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.143,
+          "p@3": 0.286,
+          "r@5": 0.714,
+          "r@10": 0.857,
+          "mrr@10": 0.476
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.143,
+          "p@3": 0.286,
+          "r@5": 0.714,
+          "r@10": 0.857,
+          "mrr@10": 0.429
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.429,
+          "p@3": 0.19,
+          "r@5": 0.786,
+          "r@10": 0.857,
+          "mrr@10": 0.571
+        }
+      }
+    },
+    "distractor_outranks_answer": {
+      "lexical": 0,
+      "lexical_ts_rank_cd_only": 0,
+      "lexical_all_terms": 0,
+      "semantic": 0,
+      "hybrid_rrf_k60": 0,
+      "hybrid_rrf_k10": 0,
+      "hybrid_min_max_50_50": 0
+    },
+    "leaked_results": {
+      "lexical": 0,
+      "lexical_ts_rank_cd_only": 0,
+      "lexical_all_terms": 0,
+      "semantic": 0,
+      "hybrid_rrf_k60": 0,
+      "hybrid_rrf_k10": 0,
+      "hybrid_min_max_50_50": 0,
+      "production_use_case": 0
+    }
+  },
+  "queries": [
+    {
+      "id": "kw-1",
+      "category": "keyword",
+      "query": "parental leave sixteen weeks full salary",
+      "relevant": [
+        "parental-leave"
+      ],
+      "top": {
+        "lexical": [
+          "parental-leave",
+          "sickness-absence",
+          "onboarding",
+          "holiday-entitlement"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "parental-leave",
+          "onboarding",
+          "sickness-absence",
+          "holiday-entitlement"
+        ],
+        "lexical_all_terms": [
+          "parental-leave"
+        ],
+        "semantic": [
+          "parental-leave",
+          "berlin-office",
+          "sickness-absence",
+          "holiday-entitlement",
+          "remote-work"
+        ],
+        "hybrid_rrf_k60": [
+          "parental-leave",
+          "sickness-absence",
+          "holiday-entitlement",
+          "onboarding",
+          "berlin-office"
+        ],
+        "hybrid_rrf_k10": [
+          "parental-leave",
+          "sickness-absence",
+          "holiday-entitlement",
+          "onboarding",
+          "berlin-office"
+        ],
+        "hybrid_min_max_50_50": [
+          "parental-leave",
+          "sickness-absence",
+          "berlin-office",
+          "holiday-entitlement",
+          "remote-work"
+        ],
+        "production_use_case": [
+          "parental-leave",
+          "sickness-absence",
+          "holiday-entitlement",
+          "onboarding",
+          "berlin-office"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "kw-2",
+      "category": "keyword",
+      "query": "itemised receipts budget holder approval",
+      "relevant": [
+        "expense-reimbursement"
+      ],
+      "top": {
+        "lexical": [
+          "expense-reimbursement",
+          "holiday-entitlement",
+          "performance-reviews",
+          "remote-work"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "expense-reimbursement",
+          "holiday-entitlement",
+          "performance-reviews",
+          "remote-work"
+        ],
+        "lexical_all_terms": [
+          "expense-reimbursement"
+        ],
+        "semantic": [
+          "expense-reimbursement",
+          "holiday-entitlement",
+          "incident-response",
+          "remote-work",
+          "api-errors"
+        ],
+        "hybrid_rrf_k60": [
+          "expense-reimbursement",
+          "holiday-entitlement",
+          "remote-work",
+          "performance-reviews",
+          "incident-response"
+        ],
+        "hybrid_rrf_k10": [
+          "expense-reimbursement",
+          "holiday-entitlement",
+          "remote-work",
+          "performance-reviews",
+          "incident-response"
+        ],
+        "hybrid_min_max_50_50": [
+          "expense-reimbursement",
+          "holiday-entitlement",
+          "incident-response",
+          "remote-work",
+          "api-errors"
+        ],
+        "production_use_case": [
+          "expense-reimbursement",
+          "holiday-entitlement",
+          "remote-work",
+          "performance-reviews",
+          "incident-response"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "kw-3",
+      "category": "keyword",
+      "query": "canary rollback feature flag",
+      "relevant": [
+        "release-process"
+      ],
+      "top": {
+        "lexical": [
+          "release-process",
+          "support-escalation"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "release-process",
+          "support-escalation"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "release-process",
+          "support-escalation",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office"
+        ],
+        "hybrid_rrf_k60": [
+          "release-process",
+          "support-escalation",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office"
+        ],
+        "hybrid_rrf_k10": [
+          "release-process",
+          "support-escalation",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office"
+        ],
+        "hybrid_min_max_50_50": [
+          "release-process",
+          "support-escalation",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office"
+        ],
+        "production_use_case": [
+          "release-process",
+          "support-escalation",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "kw-4",
+      "category": "keyword",
+      "query": "fit note from a doctor",
+      "relevant": [
+        "sickness-absence"
+      ],
+      "top": {
+        "lexical": [
+          "sickness-absence",
+          "release-process"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "sickness-absence",
+          "release-process"
+        ],
+        "lexical_all_terms": [
+          "sickness-absence"
+        ],
+        "semantic": [
+          "sickness-absence",
+          "incident-response",
+          "performance-reviews",
+          "onboarding",
+          "authentication-standard"
+        ],
+        "hybrid_rrf_k60": [
+          "sickness-absence",
+          "release-process",
+          "incident-response",
+          "performance-reviews",
+          "onboarding"
+        ],
+        "hybrid_rrf_k10": [
+          "sickness-absence",
+          "release-process",
+          "incident-response",
+          "performance-reviews",
+          "onboarding"
+        ],
+        "hybrid_min_max_50_50": [
+          "sickness-absence",
+          "incident-response",
+          "performance-reviews",
+          "onboarding",
+          "authentication-standard"
+        ],
+        "production_use_case": [
+          "sickness-absence",
+          "release-process",
+          "incident-response",
+          "performance-reviews",
+          "onboarding"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "kw-5",
+      "category": "keyword",
+      "query": "hotel cap per night",
+      "relevant": [
+        "business-travel"
+      ],
+      "top": {
+        "lexical": [
+          "business-travel",
+          "price-list",
+          "api-errors",
+          "expense-reimbursement",
+          "holiday-entitlement"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "business-travel",
+          "price-list",
+          "api-errors",
+          "expense-reimbursement",
+          "holiday-entitlement"
+        ],
+        "lexical_all_terms": [
+          "business-travel"
+        ],
+        "semantic": [
+          "business-travel",
+          "price-list",
+          "onboarding",
+          "incident-response",
+          "remote-work"
+        ],
+        "hybrid_rrf_k60": [
+          "business-travel",
+          "price-list",
+          "api-errors",
+          "remote-work",
+          "holiday-entitlement"
+        ],
+        "hybrid_rrf_k10": [
+          "business-travel",
+          "price-list",
+          "api-errors",
+          "remote-work",
+          "holiday-entitlement"
+        ],
+        "hybrid_min_max_50_50": [
+          "business-travel",
+          "price-list",
+          "onboarding",
+          "incident-response",
+          "remote-work"
+        ],
+        "production_use_case": [
+          "business-travel",
+          "price-list",
+          "api-errors",
+          "remote-work",
+          "holiday-entitlement"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "kw-6",
+      "category": "keyword",
+      "query": "home office stipend",
+      "relevant": [
+        "remote-work"
+      ],
+      "top": {
+        "lexical": [
+          "remote-work",
+          "berlin-office",
+          "onboarding"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "remote-work",
+          "berlin-office",
+          "onboarding"
+        ],
+        "lexical_all_terms": [
+          "remote-work"
+        ],
+        "semantic": [
+          "remote-work",
+          "berlin-office",
+          "parental-leave",
+          "holiday-entitlement",
+          "onboarding"
+        ],
+        "hybrid_rrf_k60": [
+          "remote-work",
+          "berlin-office",
+          "onboarding",
+          "parental-leave",
+          "holiday-entitlement"
+        ],
+        "hybrid_rrf_k10": [
+          "remote-work",
+          "berlin-office",
+          "onboarding",
+          "parental-leave",
+          "holiday-entitlement"
+        ],
+        "hybrid_min_max_50_50": [
+          "remote-work",
+          "berlin-office",
+          "parental-leave",
+          "holiday-entitlement",
+          "onboarding"
+        ],
+        "production_use_case": [
+          "remote-work",
+          "berlin-office",
+          "onboarding",
+          "parental-leave",
+          "holiday-entitlement"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "kw-7",
+      "category": "keyword",
+      "query": "blameless postmortem",
+      "relevant": [
+        "incident-response"
+      ],
+      "top": {
+        "lexical": [
+          "incident-response"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "incident-response"
+        ],
+        "lexical_all_terms": [
+          "incident-response"
+        ],
+        "semantic": [
+          "incident-response",
+          "berlin-office",
+          "api-errors",
+          "authentication-standard",
+          "business-travel"
+        ],
+        "hybrid_rrf_k60": [
+          "incident-response",
+          "berlin-office",
+          "api-errors",
+          "authentication-standard",
+          "business-travel"
+        ],
+        "hybrid_rrf_k10": [
+          "incident-response",
+          "berlin-office",
+          "api-errors",
+          "authentication-standard",
+          "business-travel"
+        ],
+        "hybrid_min_max_50_50": [
+          "incident-response",
+          "berlin-office",
+          "api-errors",
+          "authentication-standard",
+          "business-travel"
+        ],
+        "production_use_case": [
+          "incident-response",
+          "berlin-office",
+          "api-errors",
+          "authentication-standard",
+          "business-travel"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "sem-1",
+      "category": "semantic",
+      "query": "how long can I be away after adopting a child",
+      "relevant": [
+        "parental-leave"
+      ],
+      "top": {
+        "lexical": [
+          "parental-leave",
+          "authentication-standard",
+          "sickness-absence"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "parental-leave",
+          "authentication-standard",
+          "sickness-absence"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "incident-response",
+          "sickness-absence",
+          "authentication-standard",
+          "performance-reviews",
+          "expense-reimbursement"
+        ],
+        "hybrid_rrf_k60": [
+          "authentication-standard",
+          "sickness-absence",
+          "parental-leave",
+          "incident-response",
+          "performance-reviews"
+        ],
+        "hybrid_rrf_k10": [
+          "authentication-standard",
+          "sickness-absence",
+          "parental-leave",
+          "incident-response",
+          "performance-reviews"
+        ],
+        "hybrid_min_max_50_50": [
+          "incident-response",
+          "parental-leave",
+          "sickness-absence",
+          "authentication-standard",
+          "performance-reviews"
+        ],
+        "production_use_case": [
+          "authentication-standard",
+          "sickness-absence",
+          "parental-leave",
+          "incident-response",
+          "performance-reviews"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.125
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.3333333333333333
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.3333333333333333
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.3333333333333333
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "sem-2",
+      "category": "semantic",
+      "query": "what happens if a new deployment starts failing",
+      "relevant": [
+        "release-process"
+      ],
+      "top": {
+        "lexical": [
+          "onboarding",
+          "api-errors",
+          "business-travel",
+          "release-process"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "onboarding",
+          "api-errors",
+          "business-travel",
+          "release-process"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "onboarding",
+          "incident-response",
+          "authentication-standard",
+          "release-process",
+          "remote-work"
+        ],
+        "hybrid_rrf_k60": [
+          "onboarding",
+          "release-process",
+          "api-errors",
+          "business-travel",
+          "incident-response"
+        ],
+        "hybrid_rrf_k10": [
+          "onboarding",
+          "api-errors",
+          "release-process",
+          "business-travel",
+          "incident-response"
+        ],
+        "hybrid_min_max_50_50": [
+          "onboarding",
+          "incident-response",
+          "authentication-standard",
+          "release-process",
+          "remote-work"
+        ],
+        "production_use_case": [
+          "onboarding",
+          "release-process",
+          "api-errors",
+          "business-travel",
+          "incident-response"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.25
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.25
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.25
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.3333333333333333
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.25
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "sem-3",
+      "category": "semantic",
+      "query": "who do I contact when production is down in the middle of the night",
+      "relevant": [
+        "incident-response",
+        "support-escalation"
+      ],
+      "top": {
+        "lexical": [
+          "business-travel",
+          "onboarding",
+          "release-process",
+          "support-escalation"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "business-travel",
+          "onboarding",
+          "release-process",
+          "support-escalation"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "api-errors",
+          "parental-leave",
+          "incident-response",
+          "authentication-standard",
+          "support-escalation"
+        ],
+        "hybrid_rrf_k60": [
+          "release-process",
+          "support-escalation",
+          "business-travel",
+          "onboarding",
+          "api-errors"
+        ],
+        "hybrid_rrf_k10": [
+          "business-travel",
+          "release-process",
+          "support-escalation",
+          "onboarding",
+          "api-errors"
+        ],
+        "hybrid_min_max_50_50": [
+          "business-travel",
+          "api-errors",
+          "parental-leave",
+          "incident-response",
+          "authentication-standard"
+        ],
+        "production_use_case": [
+          "release-process",
+          "support-escalation",
+          "business-travel",
+          "onboarding",
+          "api-errors"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.5,
+          "r@10": 0.5,
+          "mrr@10": 0.25
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.5,
+          "r@10": 0.5,
+          "mrr@10": 0.25
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.3333333333333333
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 0.5,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 0.5,
+          "r@10": 1.0,
+          "mrr@10": 0.3333333333333333
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.5,
+          "r@10": 1.0,
+          "mrr@10": 0.25
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 0.5,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "sem-4",
+      "category": "semantic",
+      "query": "how much can I spend on food on a business trip",
+      "relevant": [
+        "expense-reimbursement"
+      ],
+      "top": {
+        "lexical": [
+          "business-travel",
+          "support-escalation"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "business-travel",
+          "support-escalation"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "business-travel",
+          "price-list",
+          "authentication-standard",
+          "incident-response",
+          "berlin-office"
+        ],
+        "hybrid_rrf_k60": [
+          "business-travel",
+          "support-escalation",
+          "price-list",
+          "authentication-standard",
+          "incident-response"
+        ],
+        "hybrid_rrf_k10": [
+          "business-travel",
+          "support-escalation",
+          "price-list",
+          "authentication-standard",
+          "incident-response"
+        ],
+        "hybrid_min_max_50_50": [
+          "business-travel",
+          "support-escalation",
+          "price-list",
+          "authentication-standard",
+          "incident-response"
+        ],
+        "production_use_case": [
+          "business-travel",
+          "support-escalation",
+          "price-list",
+          "authentication-standard",
+          "incident-response"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "sem-5",
+      "category": "semantic",
+      "query": "do I have to change my password regularly",
+      "relevant": [
+        "authentication-standard"
+      ],
+      "top": {
+        "lexical": [
+          "authentication-standard",
+          "holiday-entitlement"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "authentication-standard",
+          "holiday-entitlement"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "holiday-entitlement",
+          "sickness-absence",
+          "support-escalation",
+          "onboarding",
+          "incident-response"
+        ],
+        "hybrid_rrf_k60": [
+          "holiday-entitlement",
+          "authentication-standard",
+          "sickness-absence",
+          "support-escalation",
+          "onboarding"
+        ],
+        "hybrid_rrf_k10": [
+          "holiday-entitlement",
+          "authentication-standard",
+          "sickness-absence",
+          "support-escalation",
+          "onboarding"
+        ],
+        "hybrid_min_max_50_50": [
+          "authentication-standard",
+          "holiday-entitlement",
+          "sickness-absence",
+          "support-escalation",
+          "onboarding"
+        ],
+        "production_use_case": [
+          "holiday-entitlement",
+          "authentication-standard",
+          "sickness-absence",
+          "support-escalation",
+          "onboarding"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "sem-6",
+      "category": "semantic",
+      "query": "what equipment do new hires receive",
+      "relevant": [
+        "onboarding",
+        "remote-work"
+      ],
+      "top": {
+        "lexical": [
+          "onboarding",
+          "release-process",
+          "holiday-entitlement",
+          "price-list",
+          "api-errors"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "holiday-entitlement",
+          "onboarding",
+          "price-list",
+          "release-process",
+          "api-errors"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "onboarding",
+          "holiday-entitlement",
+          "price-list",
+          "remote-work",
+          "api-errors"
+        ],
+        "hybrid_rrf_k60": [
+          "onboarding",
+          "holiday-entitlement",
+          "price-list",
+          "release-process",
+          "api-errors"
+        ],
+        "hybrid_rrf_k10": [
+          "onboarding",
+          "holiday-entitlement",
+          "price-list",
+          "release-process",
+          "api-errors"
+        ],
+        "hybrid_min_max_50_50": [
+          "onboarding",
+          "release-process",
+          "holiday-entitlement",
+          "price-list",
+          "remote-work"
+        ],
+        "production_use_case": [
+          "onboarding",
+          "holiday-entitlement",
+          "price-list",
+          "release-process",
+          "api-errors"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 0.5,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 0.5,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 0.5,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 0.5,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 0.5,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "sem-7",
+      "category": "semantic",
+      "query": "how long are server logs kept",
+      "relevant": [
+        "data-retention"
+      ],
+      "top": {
+        "lexical": [
+          "authentication-standard",
+          "data-retention",
+          "sickness-absence"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "authentication-standard",
+          "data-retention",
+          "sickness-absence"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "data-retention",
+          "authentication-standard",
+          "expense-reimbursement",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_rrf_k60": [
+          "authentication-standard",
+          "data-retention",
+          "sickness-absence",
+          "expense-reimbursement",
+          "berlin-office"
+        ],
+        "hybrid_rrf_k10": [
+          "authentication-standard",
+          "data-retention",
+          "sickness-absence",
+          "expense-reimbursement",
+          "berlin-office"
+        ],
+        "hybrid_min_max_50_50": [
+          "data-retention",
+          "authentication-standard",
+          "sickness-absence",
+          "expense-reimbursement",
+          "berlin-office"
+        ],
+        "production_use_case": [
+          "authentication-standard",
+          "data-retention",
+          "sickness-absence",
+          "expense-reimbursement",
+          "berlin-office"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "both-1",
+      "category": "both",
+      "query": "SEV1 who gets paged",
+      "relevant": [
+        "incident-response"
+      ],
+      "top": {
+        "lexical": [
+          "incident-response"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "incident-response"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "incident-response",
+          "parental-leave",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office"
+        ],
+        "hybrid_rrf_k60": [
+          "incident-response",
+          "parental-leave",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office"
+        ],
+        "hybrid_rrf_k10": [
+          "incident-response",
+          "parental-leave",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office"
+        ],
+        "hybrid_min_max_50_50": [
+          "incident-response",
+          "parental-leave",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office"
+        ],
+        "production_use_case": [
+          "incident-response",
+          "parental-leave",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "both-2",
+      "category": "both",
+      "query": "ERR-4290 how many calls per minute",
+      "relevant": [
+        "api-errors"
+      ],
+      "top": {
+        "lexical": [
+          "api-errors",
+          "incident-response",
+          "price-list",
+          "business-travel",
+          "expense-reimbursement"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "api-errors",
+          "price-list",
+          "incident-response",
+          "business-travel",
+          "expense-reimbursement"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "api-errors",
+          "price-list",
+          "business-travel",
+          "holiday-entitlement",
+          "expense-reimbursement"
+        ],
+        "hybrid_rrf_k60": [
+          "api-errors",
+          "price-list",
+          "business-travel",
+          "holiday-entitlement",
+          "expense-reimbursement"
+        ],
+        "hybrid_rrf_k10": [
+          "api-errors",
+          "price-list",
+          "business-travel",
+          "holiday-entitlement",
+          "expense-reimbursement"
+        ],
+        "hybrid_min_max_50_50": [
+          "api-errors",
+          "price-list",
+          "business-travel",
+          "incident-response",
+          "holiday-entitlement"
+        ],
+        "production_use_case": [
+          "api-errors",
+          "price-list",
+          "business-travel",
+          "holiday-entitlement",
+          "expense-reimbursement"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "both-3",
+      "category": "both",
+      "query": "lost my YubiKey how do I log in",
+      "relevant": [
+        "authentication-standard"
+      ],
+      "top": {
+        "lexical": [
+          "authentication-standard",
+          "data-retention"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "authentication-standard",
+          "data-retention"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "parental-leave",
+          "expense-reimbursement",
+          "authentication-standard",
+          "holiday-entitlement",
+          "berlin-office"
+        ],
+        "hybrid_rrf_k60": [
+          "authentication-standard",
+          "data-retention",
+          "parental-leave",
+          "expense-reimbursement",
+          "holiday-entitlement"
+        ],
+        "hybrid_rrf_k10": [
+          "authentication-standard",
+          "data-retention",
+          "parental-leave",
+          "expense-reimbursement",
+          "holiday-entitlement"
+        ],
+        "hybrid_min_max_50_50": [
+          "authentication-standard",
+          "parental-leave",
+          "expense-reimbursement",
+          "holiday-entitlement",
+          "berlin-office"
+        ],
+        "production_use_case": [
+          "authentication-standard",
+          "data-retention",
+          "parental-leave",
+          "expense-reimbursement",
+          "holiday-entitlement"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.3333333333333333
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "both-4",
+      "category": "both",
+      "query": "ORB-ENT-36 discount for big orders",
+      "relevant": [
+        "price-list"
+      ],
+      "top": {
+        "lexical": [
+          "price-list"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "price-list"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "price-list",
+          "business-travel",
+          "data-retention",
+          "remote-work",
+          "parental-leave"
+        ],
+        "hybrid_rrf_k60": [
+          "price-list",
+          "business-travel",
+          "data-retention",
+          "remote-work",
+          "parental-leave"
+        ],
+        "hybrid_rrf_k10": [
+          "price-list",
+          "business-travel",
+          "data-retention",
+          "remote-work",
+          "parental-leave"
+        ],
+        "hybrid_min_max_50_50": [
+          "price-list",
+          "business-travel",
+          "data-retention",
+          "remote-work",
+          "parental-leave"
+        ],
+        "production_use_case": [
+          "price-list",
+          "business-travel",
+          "data-retention",
+          "remote-work",
+          "parental-leave"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "both-5",
+      "category": "both",
+      "query": "GDPR erasure deadline",
+      "relevant": [
+        "data-retention"
+      ],
+      "top": {
+        "lexical": [
+          "data-retention",
+          "api-errors"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "data-retention",
+          "api-errors"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "data-retention",
+          "authentication-standard",
+          "api-errors",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_rrf_k60": [
+          "data-retention",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_rrf_k10": [
+          "data-retention",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_min_max_50_50": [
+          "data-retention",
+          "authentication-standard",
+          "api-errors",
+          "berlin-office",
+          "business-travel"
+        ],
+        "production_use_case": [
+          "data-retention",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "both-6",
+      "category": "both",
+      "query": "Navan long flight seat class",
+      "relevant": [
+        "business-travel"
+      ],
+      "top": {
+        "lexical": [
+          "business-travel",
+          "price-list",
+          "authentication-standard",
+          "sickness-absence"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "business-travel",
+          "price-list",
+          "authentication-standard",
+          "sickness-absence"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "business-travel",
+          "sickness-absence",
+          "authentication-standard",
+          "price-list",
+          "api-errors"
+        ],
+        "hybrid_rrf_k60": [
+          "business-travel",
+          "price-list",
+          "sickness-absence",
+          "authentication-standard",
+          "api-errors"
+        ],
+        "hybrid_rrf_k10": [
+          "business-travel",
+          "price-list",
+          "sickness-absence",
+          "authentication-standard",
+          "api-errors"
+        ],
+        "hybrid_min_max_50_50": [
+          "business-travel",
+          "sickness-absence",
+          "authentication-standard",
+          "price-list",
+          "api-errors"
+        ],
+        "production_use_case": [
+          "business-travel",
+          "price-list",
+          "sickness-absence",
+          "authentication-standard",
+          "api-errors"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "para-1",
+      "category": "paraphrase",
+      "query": "time off after my baby arrives",
+      "relevant": [
+        "parental-leave"
+      ],
+      "top": {
+        "lexical": [
+          "holiday-entitlement"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "holiday-entitlement"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "holiday-entitlement",
+          "release-process",
+          "expense-reimbursement",
+          "remote-work",
+          "support-escalation"
+        ],
+        "hybrid_rrf_k60": [
+          "holiday-entitlement",
+          "release-process",
+          "expense-reimbursement",
+          "remote-work",
+          "support-escalation"
+        ],
+        "hybrid_rrf_k10": [
+          "holiday-entitlement",
+          "release-process",
+          "expense-reimbursement",
+          "remote-work",
+          "support-escalation"
+        ],
+        "hybrid_min_max_50_50": [
+          "holiday-entitlement",
+          "release-process",
+          "expense-reimbursement",
+          "remote-work",
+          "support-escalation"
+        ],
+        "production_use_case": [
+          "holiday-entitlement",
+          "release-process",
+          "expense-reimbursement",
+          "remote-work",
+          "support-escalation"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "para-2",
+      "category": "paraphrase",
+      "query": "getting money back for work purchases",
+      "relevant": [
+        "expense-reimbursement"
+      ],
+      "top": {
+        "lexical": [
+          "remote-work",
+          "incident-response",
+          "parental-leave",
+          "release-process",
+          "sickness-absence"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "remote-work",
+          "incident-response",
+          "parental-leave",
+          "release-process",
+          "sickness-absence"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "remote-work",
+          "business-travel",
+          "parental-leave",
+          "data-retention",
+          "release-process"
+        ],
+        "hybrid_rrf_k60": [
+          "remote-work",
+          "parental-leave",
+          "incident-response",
+          "release-process",
+          "sickness-absence"
+        ],
+        "hybrid_rrf_k10": [
+          "remote-work",
+          "parental-leave",
+          "incident-response",
+          "release-process",
+          "sickness-absence"
+        ],
+        "hybrid_min_max_50_50": [
+          "remote-work",
+          "business-travel",
+          "parental-leave",
+          "data-retention",
+          "release-process"
+        ],
+        "production_use_case": [
+          "remote-work",
+          "parental-leave",
+          "incident-response",
+          "release-process",
+          "sickness-absence"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.1
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.1
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.1
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.1
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.1
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "para-3",
+      "category": "paraphrase",
+      "query": "the website is completely unreachable for everyone",
+      "relevant": [
+        "incident-response"
+      ],
+      "top": {
+        "lexical": [
+          "data-retention",
+          "holiday-entitlement"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "data-retention",
+          "holiday-entitlement"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "authentication-standard",
+          "incident-response",
+          "api-errors",
+          "support-escalation",
+          "parental-leave"
+        ],
+        "hybrid_rrf_k60": [
+          "data-retention",
+          "holiday-entitlement",
+          "authentication-standard",
+          "incident-response",
+          "api-errors"
+        ],
+        "hybrid_rrf_k10": [
+          "data-retention",
+          "holiday-entitlement",
+          "authentication-standard",
+          "incident-response",
+          "api-errors"
+        ],
+        "hybrid_min_max_50_50": [
+          "data-retention",
+          "holiday-entitlement",
+          "authentication-standard",
+          "incident-response",
+          "api-errors"
+        ],
+        "production_use_case": [
+          "data-retention",
+          "holiday-entitlement",
+          "authentication-standard",
+          "incident-response",
+          "api-errors"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.25
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.25
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.25
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.25
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "para-4",
+      "category": "paraphrase",
+      "query": "can I do my job from a beach in Spain for a few weeks",
+      "relevant": [
+        "remote-work"
+      ],
+      "top": {
+        "lexical": [
+          "onboarding",
+          "parental-leave",
+          "holiday-entitlement"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "onboarding",
+          "parental-leave",
+          "holiday-entitlement"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "sickness-absence",
+          "incident-response",
+          "performance-reviews",
+          "remote-work",
+          "authentication-standard"
+        ],
+        "hybrid_rrf_k60": [
+          "onboarding",
+          "parental-leave",
+          "holiday-entitlement",
+          "sickness-absence",
+          "incident-response"
+        ],
+        "hybrid_rrf_k10": [
+          "onboarding",
+          "parental-leave",
+          "holiday-entitlement",
+          "sickness-absence",
+          "incident-response"
+        ],
+        "hybrid_min_max_50_50": [
+          "onboarding",
+          "parental-leave",
+          "sickness-absence",
+          "incident-response",
+          "performance-reviews"
+        ],
+        "production_use_case": [
+          "onboarding",
+          "parental-leave",
+          "holiday-entitlement",
+          "sickness-absence",
+          "incident-response"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.25
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.14285714285714285
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.14285714285714285
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.16666666666666666
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.14285714285714285
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "para-5",
+      "category": "paraphrase",
+      "query": "how do I get into the building",
+      "relevant": [
+        "berlin-office"
+      ],
+      "top": {
+        "lexical": [],
+        "lexical_ts_rank_cd_only": [],
+        "lexical_all_terms": [],
+        "semantic": [
+          "api-errors",
+          "incident-response",
+          "parental-leave",
+          "release-process",
+          "berlin-office"
+        ],
+        "hybrid_rrf_k60": [
+          "api-errors",
+          "incident-response",
+          "parental-leave",
+          "release-process",
+          "berlin-office"
+        ],
+        "hybrid_rrf_k10": [
+          "api-errors",
+          "incident-response",
+          "parental-leave",
+          "release-process",
+          "berlin-office"
+        ],
+        "hybrid_min_max_50_50": [
+          "api-errors",
+          "incident-response",
+          "parental-leave",
+          "release-process",
+          "berlin-office"
+        ],
+        "production_use_case": [
+          "api-errors",
+          "incident-response",
+          "parental-leave",
+          "release-process",
+          "berlin-office"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.2
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.2
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.2
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.2
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.2
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "para-6",
+      "category": "paraphrase",
+      "query": "my manager evaluates me twice a year, when",
+      "relevant": [
+        "performance-reviews"
+      ],
+      "top": {
+        "lexical": [
+          "remote-work",
+          "holiday-entitlement",
+          "onboarding",
+          "sickness-absence",
+          "support-escalation"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "remote-work",
+          "holiday-entitlement",
+          "onboarding",
+          "sickness-absence",
+          "support-escalation"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "release-process",
+          "incident-response",
+          "holiday-entitlement",
+          "data-retention",
+          "authentication-standard"
+        ],
+        "hybrid_rrf_k60": [
+          "holiday-entitlement",
+          "onboarding",
+          "sickness-absence",
+          "remote-work",
+          "support-escalation"
+        ],
+        "hybrid_rrf_k10": [
+          "holiday-entitlement",
+          "remote-work",
+          "onboarding",
+          "sickness-absence",
+          "support-escalation"
+        ],
+        "hybrid_min_max_50_50": [
+          "remote-work",
+          "release-process",
+          "incident-response",
+          "holiday-entitlement",
+          "data-retention"
+        ],
+        "production_use_case": [
+          "holiday-entitlement",
+          "onboarding",
+          "sickness-absence",
+          "remote-work",
+          "support-escalation"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "para-7",
+      "category": "paraphrase",
+      "query": "cost of the top tier subscription for a large company",
+      "relevant": [
+        "price-list"
+      ],
+      "top": {
+        "lexical": [
+          "support-escalation"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "support-escalation"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "parental-leave",
+          "release-process",
+          "authentication-standard",
+          "incident-response",
+          "api-errors"
+        ],
+        "hybrid_rrf_k60": [
+          "support-escalation",
+          "parental-leave",
+          "release-process",
+          "authentication-standard",
+          "incident-response"
+        ],
+        "hybrid_rrf_k10": [
+          "support-escalation",
+          "parental-leave",
+          "release-process",
+          "authentication-standard",
+          "incident-response"
+        ],
+        "hybrid_min_max_50_50": [
+          "support-escalation",
+          "parental-leave",
+          "release-process",
+          "authentication-standard",
+          "incident-response"
+        ],
+        "production_use_case": [
+          "support-escalation",
+          "parental-leave",
+          "release-process",
+          "authentication-standard",
+          "incident-response"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.1111111111111111
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.1111111111111111
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.1111111111111111
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.1111111111111111
+        },
+        "production_use_case": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 1.0,
+          "mrr@10": 0.1111111111111111
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "id-1",
+      "category": "identifier",
+      "query": "ERR-5031",
+      "relevant": [
+        "api-errors"
+      ],
+      "top": {
+        "lexical": [
+          "api-errors"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "api-errors"
+        ],
+        "lexical_all_terms": [
+          "api-errors"
+        ],
+        "semantic": [
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel",
+          "data-retention"
+        ],
+        "hybrid_rrf_k60": [
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel",
+          "data-retention"
+        ],
+        "hybrid_rrf_k10": [
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel",
+          "data-retention"
+        ],
+        "hybrid_min_max_50_50": [
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel",
+          "data-retention"
+        ],
+        "production_use_case": [
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel",
+          "data-retention"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "id-2",
+      "category": "identifier",
+      "query": "ORB-PRO-12",
+      "relevant": [
+        "price-list"
+      ],
+      "top": {
+        "lexical": [
+          "price-list",
+          "holiday-entitlement",
+          "onboarding"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "price-list",
+          "holiday-entitlement",
+          "onboarding"
+        ],
+        "lexical_all_terms": [
+          "price-list"
+        ],
+        "semantic": [
+          "price-list",
+          "holiday-entitlement",
+          "onboarding",
+          "api-errors",
+          "authentication-standard"
+        ],
+        "hybrid_rrf_k60": [
+          "price-list",
+          "holiday-entitlement",
+          "onboarding",
+          "api-errors",
+          "authentication-standard"
+        ],
+        "hybrid_rrf_k10": [
+          "price-list",
+          "holiday-entitlement",
+          "onboarding",
+          "api-errors",
+          "authentication-standard"
+        ],
+        "hybrid_min_max_50_50": [
+          "price-list",
+          "holiday-entitlement",
+          "onboarding",
+          "api-errors",
+          "authentication-standard"
+        ],
+        "production_use_case": [
+          "price-list",
+          "holiday-entitlement",
+          "onboarding",
+          "api-errors",
+          "authentication-standard"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "id-3",
+      "category": "identifier",
+      "query": "v3.14.2",
+      "relevant": [
+        "release-process"
+      ],
+      "top": {
+        "lexical": [
+          "release-process"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "release-process"
+        ],
+        "lexical_all_terms": [
+          "release-process"
+        ],
+        "semantic": [
+          "release-process",
+          "holiday-entitlement",
+          "sickness-absence",
+          "authentication-standard",
+          "parental-leave"
+        ],
+        "hybrid_rrf_k60": [
+          "release-process",
+          "holiday-entitlement",
+          "sickness-absence",
+          "authentication-standard",
+          "parental-leave"
+        ],
+        "hybrid_rrf_k10": [
+          "release-process",
+          "holiday-entitlement",
+          "sickness-absence",
+          "authentication-standard",
+          "parental-leave"
+        ],
+        "hybrid_min_max_50_50": [
+          "release-process",
+          "holiday-entitlement",
+          "sickness-absence",
+          "authentication-standard",
+          "parental-leave"
+        ],
+        "production_use_case": [
+          "release-process",
+          "holiday-entitlement",
+          "sickness-absence",
+          "authentication-standard",
+          "parental-leave"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "id-4",
+      "category": "identifier",
+      "query": "Okonkwo",
+      "relevant": [
+        "support-escalation"
+      ],
+      "top": {
+        "lexical": [
+          "support-escalation"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "support-escalation"
+        ],
+        "lexical_all_terms": [
+          "support-escalation"
+        ],
+        "semantic": [
+          "support-escalation",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_rrf_k60": [
+          "support-escalation",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_rrf_k10": [
+          "support-escalation",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_min_max_50_50": [
+          "support-escalation",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "production_use_case": [
+          "support-escalation",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "id-5",
+      "category": "identifier",
+      "query": "Torstra\u00dfe 49",
+      "relevant": [
+        "berlin-office"
+      ],
+      "top": {
+        "lexical": [
+          "berlin-office",
+          "price-list"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "berlin-office",
+          "price-list"
+        ],
+        "lexical_all_terms": [
+          "berlin-office"
+        ],
+        "semantic": [
+          "berlin-office",
+          "price-list",
+          "api-errors",
+          "authentication-standard",
+          "business-travel"
+        ],
+        "hybrid_rrf_k60": [
+          "berlin-office",
+          "price-list",
+          "api-errors",
+          "authentication-standard",
+          "business-travel"
+        ],
+        "hybrid_rrf_k10": [
+          "berlin-office",
+          "price-list",
+          "api-errors",
+          "authentication-standard",
+          "business-travel"
+        ],
+        "hybrid_min_max_50_50": [
+          "berlin-office",
+          "price-list",
+          "api-errors",
+          "authentication-standard",
+          "business-travel"
+        ],
+        "production_use_case": [
+          "berlin-office",
+          "price-list",
+          "api-errors",
+          "authentication-standard",
+          "business-travel"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "id-6",
+      "category": "identifier",
+      "query": "Expensify",
+      "relevant": [
+        "expense-reimbursement"
+      ],
+      "top": {
+        "lexical": [
+          "expense-reimbursement"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "expense-reimbursement"
+        ],
+        "lexical_all_terms": [
+          "expense-reimbursement"
+        ],
+        "semantic": [
+          "expense-reimbursement",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_rrf_k60": [
+          "expense-reimbursement",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_rrf_k10": [
+          "expense-reimbursement",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_min_max_50_50": [
+          "expense-reimbursement",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "production_use_case": [
+          "expense-reimbursement",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "id-7",
+      "category": "identifier",
+      "query": "LaunchDarkly",
+      "relevant": [
+        "release-process"
+      ],
+      "top": {
+        "lexical": [
+          "release-process"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "release-process"
+        ],
+        "lexical_all_terms": [
+          "release-process"
+        ],
+        "semantic": [
+          "release-process",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_rrf_k60": [
+          "release-process",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_rrf_k10": [
+          "release-process",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "hybrid_min_max_50_50": [
+          "release-process",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ],
+        "production_use_case": [
+          "release-process",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office",
+          "business-travel"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "dis-1",
+      "category": "distractor",
+      "query": "sick pay entitlement",
+      "relevant": [
+        "sickness-absence"
+      ],
+      "top": {
+        "lexical": [
+          "sickness-absence",
+          "parental-leave",
+          "holiday-entitlement"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "sickness-absence",
+          "parental-leave",
+          "holiday-entitlement"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "sickness-absence",
+          "holiday-entitlement",
+          "parental-leave",
+          "api-errors",
+          "authentication-standard"
+        ],
+        "hybrid_rrf_k60": [
+          "sickness-absence",
+          "holiday-entitlement",
+          "parental-leave",
+          "api-errors",
+          "authentication-standard"
+        ],
+        "hybrid_rrf_k10": [
+          "sickness-absence",
+          "holiday-entitlement",
+          "parental-leave",
+          "api-errors",
+          "authentication-standard"
+        ],
+        "hybrid_min_max_50_50": [
+          "sickness-absence",
+          "holiday-entitlement",
+          "parental-leave",
+          "api-errors",
+          "authentication-standard"
+        ],
+        "production_use_case": [
+          "sickness-absence",
+          "holiday-entitlement",
+          "parental-leave",
+          "api-errors",
+          "authentication-standard"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {
+        "lexical": false,
+        "lexical_ts_rank_cd_only": false,
+        "lexical_all_terms": false,
+        "semantic": false,
+        "hybrid_rrf_k60": false,
+        "hybrid_rrf_k10": false,
+        "hybrid_min_max_50_50": false,
+        "production_use_case": false
+      },
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "dis-2",
+      "category": "distractor",
+      "query": "carry over unused vacation days",
+      "relevant": [
+        "holiday-entitlement"
+      ],
+      "top": {
+        "lexical": [
+          "holiday-entitlement",
+          "data-retention",
+          "parental-leave",
+          "sickness-absence",
+          "authentication-standard"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "holiday-entitlement",
+          "data-retention",
+          "parental-leave",
+          "sickness-absence",
+          "authentication-standard"
+        ],
+        "lexical_all_terms": [
+          "holiday-entitlement"
+        ],
+        "semantic": [
+          "holiday-entitlement",
+          "parental-leave",
+          "data-retention",
+          "incident-response",
+          "sickness-absence"
+        ],
+        "hybrid_rrf_k60": [
+          "holiday-entitlement",
+          "data-retention",
+          "parental-leave",
+          "sickness-absence",
+          "incident-response"
+        ],
+        "hybrid_rrf_k10": [
+          "holiday-entitlement",
+          "data-retention",
+          "parental-leave",
+          "sickness-absence",
+          "incident-response"
+        ],
+        "hybrid_min_max_50_50": [
+          "holiday-entitlement",
+          "parental-leave",
+          "data-retention",
+          "incident-response",
+          "sickness-absence"
+        ],
+        "production_use_case": [
+          "holiday-entitlement",
+          "data-retention",
+          "parental-leave",
+          "sickness-absence",
+          "incident-response"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {
+        "lexical": false,
+        "lexical_ts_rank_cd_only": false,
+        "lexical_all_terms": false,
+        "semantic": false,
+        "hybrid_rrf_k60": false,
+        "hybrid_rrf_k10": false,
+        "hybrid_min_max_50_50": false,
+        "production_use_case": false
+      },
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "dis-3",
+      "category": "distractor",
+      "query": "leave for partners after a birth",
+      "relevant": [
+        "parental-leave"
+      ],
+      "top": {
+        "lexical": [
+          "parental-leave"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "parental-leave"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "parental-leave",
+          "incident-response",
+          "sickness-absence",
+          "expense-reimbursement",
+          "authentication-standard"
+        ],
+        "hybrid_rrf_k60": [
+          "parental-leave",
+          "incident-response",
+          "sickness-absence",
+          "expense-reimbursement",
+          "authentication-standard"
+        ],
+        "hybrid_rrf_k10": [
+          "parental-leave",
+          "incident-response",
+          "sickness-absence",
+          "expense-reimbursement",
+          "authentication-standard"
+        ],
+        "hybrid_min_max_50_50": [
+          "parental-leave",
+          "incident-response",
+          "sickness-absence",
+          "expense-reimbursement",
+          "authentication-standard"
+        ],
+        "production_use_case": [
+          "parental-leave",
+          "incident-response",
+          "sickness-absence",
+          "expense-reimbursement",
+          "authentication-standard"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {
+        "lexical": false,
+        "lexical_ts_rank_cd_only": false,
+        "lexical_all_terms": false,
+        "semantic": false,
+        "hybrid_rrf_k60": false,
+        "hybrid_rrf_k10": false,
+        "hybrid_min_max_50_50": false,
+        "production_use_case": false
+      },
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "dis-4",
+      "category": "distractor",
+      "query": "P1 first response time",
+      "relevant": [
+        "support-escalation"
+      ],
+      "top": {
+        "lexical": [
+          "support-escalation",
+          "onboarding",
+          "authentication-standard",
+          "berlin-office",
+          "holiday-entitlement"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "support-escalation",
+          "onboarding",
+          "authentication-standard",
+          "berlin-office",
+          "holiday-entitlement"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "support-escalation",
+          "onboarding",
+          "incident-response",
+          "holiday-entitlement",
+          "parental-leave"
+        ],
+        "hybrid_rrf_k60": [
+          "support-escalation",
+          "onboarding",
+          "incident-response",
+          "holiday-entitlement",
+          "berlin-office"
+        ],
+        "hybrid_rrf_k10": [
+          "support-escalation",
+          "onboarding",
+          "incident-response",
+          "holiday-entitlement",
+          "berlin-office"
+        ],
+        "hybrid_min_max_50_50": [
+          "support-escalation",
+          "onboarding",
+          "incident-response",
+          "holiday-entitlement",
+          "parental-leave"
+        ],
+        "production_use_case": [
+          "support-escalation",
+          "onboarding",
+          "incident-response",
+          "holiday-entitlement",
+          "berlin-office"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {
+        "lexical": false,
+        "lexical_ts_rank_cd_only": false,
+        "lexical_all_terms": false,
+        "semantic": false,
+        "hybrid_rrf_k60": false,
+        "hybrid_rrf_k10": false,
+        "hybrid_min_max_50_50": false,
+        "production_use_case": false
+      },
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "dis-5",
+      "category": "distractor",
+      "query": "meal allowance while travelling",
+      "relevant": [
+        "expense-reimbursement"
+      ],
+      "top": {
+        "lexical": [
+          "expense-reimbursement",
+          "business-travel",
+          "holiday-entitlement",
+          "remote-work"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "expense-reimbursement",
+          "business-travel",
+          "holiday-entitlement",
+          "remote-work"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "holiday-entitlement",
+          "expense-reimbursement",
+          "api-errors",
+          "authentication-standard",
+          "berlin-office"
+        ],
+        "hybrid_rrf_k60": [
+          "expense-reimbursement",
+          "holiday-entitlement",
+          "remote-work",
+          "business-travel",
+          "api-errors"
+        ],
+        "hybrid_rrf_k10": [
+          "expense-reimbursement",
+          "holiday-entitlement",
+          "business-travel",
+          "remote-work",
+          "api-errors"
+        ],
+        "hybrid_min_max_50_50": [
+          "expense-reimbursement",
+          "holiday-entitlement",
+          "api-errors",
+          "remote-work",
+          "authentication-standard"
+        ],
+        "production_use_case": [
+          "expense-reimbursement",
+          "holiday-entitlement",
+          "remote-work",
+          "business-travel",
+          "api-errors"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 0.0,
+          "p@3": 0.0,
+          "r@5": 0.0,
+          "r@10": 0.0,
+          "mrr@10": 0.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.5
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {
+        "lexical": false,
+        "lexical_ts_rank_cd_only": false,
+        "lexical_all_terms": false,
+        "semantic": false,
+        "hybrid_rrf_k60": false,
+        "hybrid_rrf_k10": false,
+        "hybrid_min_max_50_50": false,
+        "production_use_case": false
+      },
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "dis-6",
+      "category": "distractor",
+      "query": "hotel for a conference in London",
+      "relevant": [
+        "business-travel"
+      ],
+      "top": {
+        "lexical": [
+          "business-travel"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "business-travel"
+        ],
+        "lexical_all_terms": [
+          "business-travel"
+        ],
+        "semantic": [
+          "incident-response",
+          "performance-reviews",
+          "business-travel",
+          "sickness-absence",
+          "release-process"
+        ],
+        "hybrid_rrf_k60": [
+          "business-travel",
+          "incident-response",
+          "performance-reviews",
+          "sickness-absence",
+          "release-process"
+        ],
+        "hybrid_rrf_k10": [
+          "business-travel",
+          "incident-response",
+          "performance-reviews",
+          "sickness-absence",
+          "release-process"
+        ],
+        "hybrid_min_max_50_50": [
+          "business-travel",
+          "incident-response",
+          "performance-reviews",
+          "sickness-absence",
+          "release-process"
+        ],
+        "production_use_case": [
+          "business-travel",
+          "incident-response",
+          "performance-reviews",
+          "sickness-absence",
+          "release-process"
+        ]
+      },
+      "scores": {
+        "lexical": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_ts_rank_cd_only": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "lexical_all_terms": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "semantic": {
+          "p@1": 0.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 0.3333333333333333
+        },
+        "hybrid_rrf_k60": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_rrf_k10": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "hybrid_min_max_50_50": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        },
+        "production_use_case": {
+          "p@1": 1.0,
+          "p@3": 0.3333333333333333,
+          "r@5": 1.0,
+          "r@10": 1.0,
+          "mrr@10": 1.0
+        }
+      },
+      "distractor_first": {
+        "lexical": false,
+        "lexical_ts_rank_cd_only": false,
+        "lexical_all_terms": false,
+        "semantic": false,
+        "hybrid_rrf_k60": false,
+        "hybrid_rrf_k10": false,
+        "hybrid_min_max_50_50": false,
+        "production_use_case": false
+      },
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "iso-1",
+      "category": "isolation",
+      "query": "Project Halcyon acquisition of Initech",
+      "relevant": [],
+      "top": {
+        "lexical": [],
+        "lexical_ts_rank_cd_only": [],
+        "lexical_all_terms": [],
+        "semantic": [
+          "incident-response",
+          "parental-leave",
+          "data-retention",
+          "remote-work",
+          "sickness-absence"
+        ],
+        "hybrid_rrf_k60": [
+          "incident-response",
+          "parental-leave",
+          "data-retention",
+          "remote-work",
+          "sickness-absence"
+        ],
+        "hybrid_rrf_k10": [
+          "incident-response",
+          "parental-leave",
+          "data-retention",
+          "remote-work",
+          "sickness-absence"
+        ],
+        "hybrid_min_max_50_50": [
+          "incident-response",
+          "parental-leave",
+          "data-retention",
+          "remote-work",
+          "sickness-absence"
+        ],
+        "production_use_case": [
+          "incident-response",
+          "parental-leave",
+          "data-retention",
+          "remote-work",
+          "sickness-absence"
+        ]
+      },
+      "scores": {},
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    },
+    {
+      "id": "iso-2",
+      "category": "isolation",
+      "query": "The board approved Project Halcyon, the acquisition of Initech Holdings for 41 million dollars",
+      "relevant": [],
+      "top": {
+        "lexical": [
+          "expense-reimbursement",
+          "business-travel",
+          "data-retention",
+          "price-list",
+          "holiday-entitlement"
+        ],
+        "lexical_ts_rank_cd_only": [
+          "expense-reimbursement",
+          "business-travel",
+          "data-retention",
+          "price-list",
+          "holiday-entitlement"
+        ],
+        "lexical_all_terms": [],
+        "semantic": [
+          "parental-leave",
+          "incident-response",
+          "api-errors",
+          "release-process",
+          "business-travel"
+        ],
+        "hybrid_rrf_k60": [
+          "business-travel",
+          "expense-reimbursement",
+          "data-retention",
+          "price-list",
+          "performance-reviews"
+        ],
+        "hybrid_rrf_k10": [
+          "business-travel",
+          "expense-reimbursement",
+          "data-retention",
+          "price-list",
+          "parental-leave"
+        ],
+        "hybrid_min_max_50_50": [
+          "expense-reimbursement",
+          "parental-leave",
+          "incident-response",
+          "api-errors",
+          "release-process"
+        ],
+        "production_use_case": [
+          "business-travel",
+          "expense-reimbursement",
+          "data-retention",
+          "price-list",
+          "performance-reviews"
+        ]
+      },
+      "scores": {},
+      "distractor_first": {},
+      "leaked": {
+        "lexical": 0,
+        "lexical_ts_rank_cd_only": 0,
+        "lexical_all_terms": 0,
+        "semantic": 0,
+        "hybrid_rrf_k60": 0,
+        "hybrid_rrf_k10": 0,
+        "hybrid_min_max_50_50": 0,
+        "production_use_case": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,417 @@
+@import "tailwindcss";
+
+/*
+ * ORBIT design system -- the whole of it.
+ *
+ * Tailwind v4 is configured in CSS, so this file is the foundation: raw tokens
+ * per theme, and a `@theme` block that maps them to utilities. Feature code uses
+ * the semantic utilities (`bg-surface`, `text-fg-muted`, `border-line`) and
+ * never a raw colour, an arbitrary value, or a Tailwind palette colour -- the
+ * default palette is switched off below, so `bg-red-500` simply does not exist.
+ *
+ * Three typographic voices, each with one job:
+ *   serif  (Newsreader)  -- content: document titles, answers, source excerpts.
+ *                           If it is set in serif, it is the user's material or
+ *                           something derived from it.
+ *   sans   (IBM Plex Sans) -- the interface: labels, buttons, navigation.
+ *   mono   (IBM Plex Mono) -- identifiers: request ids, citation handles, sizes.
+ * The split is functional. It lets a reader tell "their material" from "the
+ * application" at a glance, which is the distinction a grounded-answer product
+ * most needs to keep visible.
+ *
+ * One accent (ink blue) carries interaction: primary actions, focus, links,
+ * selection. Semantic colours exist for state that means something and are
+ * always paired with an icon and a label -- never colour alone.
+ *
+ * Values are OKLCH so lightness steps are perceptually even. Contrast of every
+ * text/background pair is asserted by `app/tokens.test.ts`, which parses this
+ * file, so a token edit that breaks WCAG AA fails the build.
+ */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces: a warm paper canvas, slightly brighter panels, slightly sunken chrome. */
+  --canvas: oklch(97.4% 0.007 85);
+  --surface: oklch(99.3% 0.003 85);
+  --sunken: oklch(95.2% 0.009 85);
+  --overlay: oklch(20% 0.02 265 / 0.42);
+
+  --line: oklch(90% 0.01 85);
+  --line-strong: oklch(78% 0.013 85);
+  /* Borders that identify a control (inputs, checkboxes): 3:1 per WCAG 1.4.11. */
+  --control: oklch(63% 0.016 265);
+
+  /* Ink. Three steps, all AA on canvas, surface and sunken. */
+  --fg: oklch(22% 0.022 265);
+  --fg-muted: oklch(41% 0.02 265);
+  --fg-subtle: oklch(48% 0.018 265);
+
+  /* The accent. `accent` is for text and icons; `accent-solid` fills controls. */
+  --accent: oklch(45% 0.125 255);
+  --accent-solid: oklch(45% 0.125 255);
+  --accent-solid-hover: oklch(39% 0.115 255);
+  --on-accent: oklch(99% 0.004 255);
+  --accent-soft: oklch(93.5% 0.03 255);
+  --accent-soft-fg: oklch(34% 0.105 255);
+  --focus: oklch(52% 0.16 255);
+
+  --success: oklch(41% 0.105 155);
+  --success-soft: oklch(94% 0.035 155);
+  --warning: oklch(43% 0.095 65);
+  --warning-soft: oklch(95% 0.05 85);
+  --danger: oklch(45% 0.17 27);
+  --danger-soft: oklch(95% 0.03 27);
+  --danger-solid: oklch(48% 0.18 27);
+  --on-danger: oklch(99% 0.004 27);
+
+  --elevation: 0 1px 2px oklch(20% 0.02 265 / 0.06), 0 8px 24px oklch(20% 0.02 265 / 0.12);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --canvas: oklch(18.5% 0.012 265);
+  --surface: oklch(22% 0.014 265);
+  --sunken: oklch(15.5% 0.012 265);
+  --overlay: oklch(8% 0.01 265 / 0.62);
+
+  --line: oklch(29% 0.016 265);
+  --line-strong: oklch(41% 0.018 265);
+  --control: oklch(52% 0.018 265);
+
+  --fg: oklch(93% 0.008 85);
+  --fg-muted: oklch(75% 0.012 265);
+  --fg-subtle: oklch(68% 0.014 265);
+
+  --accent: oklch(78% 0.11 255);
+  --accent-solid: oklch(78% 0.1 255);
+  --accent-solid-hover: oklch(84% 0.09 255);
+  --on-accent: oklch(20% 0.03 255);
+  --accent-soft: oklch(30% 0.05 255);
+  --accent-soft-fg: oklch(87% 0.07 255);
+  --focus: oklch(76% 0.13 255);
+
+  --success: oklch(78% 0.13 155);
+  --success-soft: oklch(28% 0.05 155);
+  --warning: oklch(80% 0.12 80);
+  --warning-soft: oklch(29% 0.05 80);
+  --danger: oklch(76% 0.13 27);
+  --danger-soft: oklch(28% 0.055 27);
+  --danger-solid: oklch(72% 0.15 27);
+  --on-danger: oklch(18% 0.03 27);
+
+  --elevation: 0 1px 2px oklch(0% 0 0 / 0.3), 0 10px 28px oklch(0% 0 0 / 0.45);
+}
+
+@theme {
+  /* Only the tokens mapped in the `inline` block below exist as colours. */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Type. A tool kept open all day needs density, not display sizes. */
+  --font-sans:
+    "IBM Plex Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader Variable", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  --text-*: initial;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 0.875rem;
+  --text-base--line-height: 1.375rem;
+  --text-md: 1rem;
+  --text-md--line-height: 1.625rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.375rem;
+  --text-xl--line-height: 1.75rem;
+  --text-2xl: 1.75rem;
+  --text-2xl--line-height: 2.125rem;
+
+  /* Restrained radii. Nothing in ORBIT is a pill except a status chip. */
+  --radius-*: initial;
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.1875rem;
+  --radius-md: 0.3125rem;
+  --radius-lg: 0.5rem;
+
+  /* Shadows exist only for layers that float above the page. */
+  --shadow-*: initial;
+  --shadow-float: var(--elevation);
+
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Functional motion: 100-200ms, state and direction only. */
+  --animate-fade-in: fade-in 140ms var(--ease-out);
+  --animate-fade-out: fade-out 100ms ease-in;
+  --animate-pop-in: pop-in 140ms var(--ease-out);
+  --animate-pop-out: pop-out 100ms ease-in;
+  --animate-slide-in-left: slide-in-left 180ms var(--ease-out);
+  --animate-slide-out-left: slide-out-left 140ms ease-in;
+  --animate-spin: spin 0.8s linear infinite;
+  --animate-skeleton: skeleton-pulse 1.6s ease-in-out infinite;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes pop-out {
+    from {
+      opacity: 1;
+      transform: none;
+    }
+    to {
+      opacity: 0;
+      transform: translateY(2px) scale(0.99);
+    }
+  }
+  @keyframes slide-in-left {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes slide-out-left {
+    from {
+      transform: none;
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes skeleton-pulse {
+    50% {
+      opacity: 0.55;
+    }
+  }
+}
+
+/*
+ * Semantic colour utilities. This block must come after the reset above: the reset
+ * (`--color-*: initial`) clears every colour declared before it, so mappings placed
+ * earlier silently produce no utilities at all. `inline` makes each utility read
+ * the theme variable at the point of use, so a themed subtree can override it.
+ */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-overlay: var(--overlay);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-control: var(--control);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-accent: var(--accent);
+  --color-accent-solid: var(--accent-solid);
+  --color-accent-solid-hover: var(--accent-solid-hover);
+  --color-on-accent: var(--on-accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-fg: var(--accent-soft-fg);
+  --color-focus: var(--focus);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-solid: var(--danger-solid);
+  --color-on-danger: var(--on-danger);
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    /* Prevents layout shift when a page grows past one viewport. */
+    scrollbar-gutter: stable;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--accent-soft);
+    color: var(--accent-soft-fg);
+  }
+
+  /*
+   * One focus indicator for the whole application. `:focus-visible` rather than
+   * `:focus`, so keyboard users get a ring without every mouse click adding one.
+   * Removing this without a replacement makes the app unusable by keyboard, so
+   * it is defined once, here, and components never override it with `outline-none`.
+   */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* The main landmark is focused programmatically after navigation; a ring around
+     the whole page would be noise, and it is not an interactive control. */
+  main:focus {
+    outline: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @media (forced-colors: active) {
+    :focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}
+
+@layer components {
+  /*
+   * Long-form content typography, for text the user reads rather than scans:
+   * assistant answers, source excerpts. Serif by design (see the header). It is
+   * a hand-written block, not a plugin, because it styles exactly the elements
+   * `react-markdown` can emit -- and no raw HTML ever reaches the page.
+   */
+  .reading {
+    font-family: var(--font-serif);
+    font-size: var(--text-md);
+    line-height: var(--text-md--line-height);
+    color: var(--fg);
+    overflow-wrap: anywhere;
+    font-optical-sizing: auto;
+  }
+  .reading > * + * {
+    margin-top: 0.85em;
+  }
+  .reading h1,
+  .reading h2,
+  .reading h3,
+  .reading h4 {
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 1.3em;
+  }
+  .reading h1 {
+    font-size: var(--text-lg);
+  }
+  .reading h2,
+  .reading h3,
+  .reading h4 {
+    font-size: var(--text-md);
+  }
+  .reading ul,
+  .reading ol {
+    padding-inline-start: 1.4em;
+  }
+  .reading ul {
+    list-style: disc;
+  }
+  .reading ol {
+    list-style: decimal;
+  }
+  .reading li + li {
+    margin-top: 0.3em;
+  }
+  .reading li::marker {
+    color: var(--fg-subtle);
+  }
+  .reading strong {
+    font-weight: 600;
+  }
+  .reading em {
+    font-style: italic;
+  }
+  .reading a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .reading code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background: var(--sunken);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xs);
+    padding: 0.05em 0.3em;
+  }
+  .reading pre {
+    background: var(--sunken);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    overflow-x: auto;
+  }
+  .reading pre code {
+    border: 0;
+    padding: 0;
+    background: none;
+  }
+  .reading blockquote {
+    border-inline-start: 2px solid var(--line-strong);
+    padding-inline-start: 1rem;
+    color: var(--fg-muted);
+  }
+  .reading table {
+    border-collapse: collapse;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+  }
+  .reading th,
+  .reading td {
+    border: 1px solid var(--line);
+    padding: 0.35rem 0.6rem;
+    text-align: start;
+  }
+  .reading th {
+    background: var(--sunken);
+    font-weight: 600;
+  }
+}

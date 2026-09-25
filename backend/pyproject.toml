@@ -1,0 +1,176 @@
+[project]
+name = "orbit"
+version = "0.1.0"
+description = "ORBIT — intelligent knowledge and document platform (API + worker)"
+requires-python = ">=3.11,<3.13"
+license = { text = "Proprietary" }
+
+# Runtime dependencies are added per milestone rather than declared speculatively,
+# so that an unused package never silently becomes part of the production image.
+dependencies = [
+    "fastapi>=0.115,<0.121",
+    "uvicorn[standard]>=0.32,<0.40",
+    "pydantic>=2.9,<3",
+    "pydantic-settings>=2.6,<3",
+    "sqlalchemy[asyncio]>=2.0.36,<2.1",
+    "alembic>=1.14,<2",
+    "asyncpg>=0.30,<0.31",
+    "pgvector>=0.3.6,<0.5",
+    "redis>=5.2,<7",
+    "celery>=5.4,<6",
+    "structlog>=24.4,<26",
+    "argon2-cffi>=23.1,<26",
+    "pyjwt>=2.10,<3",
+    "python-multipart>=0.0.20,<0.1",
+    "boto3>=1.35,<2",
+    "httpx>=0.28,<0.29",
+    # Used directly for dispatching blocking boto3 calls off the event loop.
+    # Already present transitively via Starlette; declared because we import it.
+    "anyio>=4.6,<5",
+    # M4 document pipeline (ADR-0012). pypdf is pure Python and BSD-licensed:
+    # no native code runs against a hostile PDF except CPython itself, and the
+    # AGPL of PyMuPDF would be a licensing decision, not a technical one.
+    "pypdf>=5.1,<7",
+    # CommonMark-compliant tokenizer with source line maps, which is what lets
+    # a Markdown block carry its line range as provenance.
+    "markdown-it-py>=3.0,<5",
+    "prometheus-client>=0.21,<1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3,<9",
+    "pytest-asyncio>=0.25,<1.3",
+    "pytest-cov>=6.0,<8",
+    "ruff>=0.8,<0.20",
+    "mypy>=1.13,<3",
+    "import-linter>=2.1,<3",
+    "boto3-stubs[s3]>=1.35,<2",
+    "celery-types>=0.22,<1",
+    # Mocks the S3 API in-process (no network, no container), which is what
+    # makes the object-storage adapter's multipart/presigned-URL/error-path
+    # behaviour testable without Docker or a live MinIO -- exactly the gap
+    # this environment has had all milestone (see docs/security/ for the
+    # WSL/Docker note). A real MinIO integration test still exists
+    # (tests/integration/test_infrastructure.py) for what moto cannot verify:
+    # that ORBIT's own configuration actually reaches a real S3-compatible
+    # endpoint.
+    "moto[s3]>=5.0,<6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/orbit"]
+
+# ---------------------------------------------------------------------------
+# Ruff — formatter + linter. Replaces black/isort/flake8 with one tool.
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",      # pycodestyle
+    "F",           # pyflakes
+    "I",           # isort
+    "N",           # pep8-naming
+    "UP",          # pyupgrade
+    "ANN",         # flake8-annotations — enforces the "strict typing is mandatory" rule
+    "ASYNC",       # flake8-async — catches blocking calls in async defs
+    "S",           # flake8-bandit — security
+    "B",           # flake8-bugbear
+    "A",           # flake8-builtins
+    "C4",          # flake8-comprehensions
+    "DTZ",         # flake8-datetimez — forbids naive datetimes
+    "T20",         # flake8-print — no stray print() in a structured-logging codebase
+    "SIM",         # flake8-simplify
+    "TID",         # flake8-tidy-imports
+    "PTH",         # flake8-use-pathlib
+    "PL",          # pylint
+    "TRY",         # tryceratops — enforces disciplined exception handling
+    "RUF",
+]
+ignore = [
+    # Long messages passed directly to exception constructors are more readable
+    # than the indirection TRY003 asks for, and our errors carry structured codes.
+    "TRY003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests legitimately use asserts (S101), hardcoded test credentials (S105/S106),
+# and do not need return-type annotations on every test function (ANN201).
+"tests/**/*.py" = ["S101", "S105", "S106", "S107", "ANN201", "PLR2004"]
+# Alembic migration templates are generated and follow their own conventions.
+"alembic/**/*.py" = ["ANN", "E501", "INP001"]
+# `from sqlalchemy.dialects.postgresql import UUID as PgUUID` is the idiomatic
+# alias across the SQLAlchemy ecosystem; N811 reads the uppercase source name as
+# a constant. Importing the module instead would make every column declaration
+# noticeably noisier for no safety gain.
+"src/orbit/infrastructure/db/models/*.py" = ["N811"]
+# FastAPI route handlers take one parameter per dependency by design --
+# that is the whole mechanism of its DI system -- so the positional/keyword
+# argument-count rules that flag a "too complex" function signature elsewhere
+# are false positives here.
+"src/orbit/api/v1/routers/*.py" = ["PLR0913", "PLR0917"]
+# S105 flags any constant whose *name* contains "password"/"token". These
+# modules enumerate audit action names and token purposes -- identifiers for
+# events, never credentials. The rule stays on everywhere else, where it
+# earns its keep.
+"src/orbit/domain/ports/audit.py" = ["S105"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+# ---------------------------------------------------------------------------
+# Mypy — strict. Untyped code is a defect, not a style preference.
+# ---------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.11"
+files = ["src", "tests", "benchmarks"]
+strict = true
+warn_unreachable = true
+warn_no_return = true
+disallow_any_unimported = true
+show_error_codes = true
+pretty = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+# These ship without type information; we isolate the untyped surface here
+# instead of scattering `# type: ignore` through application code.
+module = ["pgvector.*", "argon2.*", "asyncpg.*"]
+ignore_missing_imports = true
+
+[tool.pydantic-mypy]
+init_typed = true
+warn_required_dynamic_aliases = true
+
+# ---------------------------------------------------------------------------
+# Pytest
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+# One event loop for the whole session. The integration suite's migrated
+# engine is session-scoped, and an asyncpg connection is bound to the loop that
+# opened it: with per-test loops, the second test to touch the pool fails with
+# "attached to a different loop" before it asserts anything.
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+addopts = "--strict-markers --strict-config -ra"
+markers = [
+    "integration: requires PostgreSQL/Redis/MinIO from docker-compose",
+    "e2e: full-stack test",
+]
+
+[tool.coverage.run]
+source = ["src/orbit"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError"]

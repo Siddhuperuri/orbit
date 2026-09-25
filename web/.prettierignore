@@ -1,0 +1,8 @@
+.next/
+node_modules/
+out/
+next-env.d.ts
+lib/api/generated.ts
+lib/api/access.ts
+coverage/
+.next-e2e/

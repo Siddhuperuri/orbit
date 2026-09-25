@@ -1,0 +1,36 @@
+# Build context hygiene: everything not needed to build an image is excluded, so
+# the context stays small and no secret can be copied in by accident.
+
+.git/
+.github/
+.venv/
+**/.venv/
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+
+# Never allow a real dotenv into an image layer.
+.env
+.env.*
+!.env.example
+
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.import_linter_cache/
+**/htmlcov/
+**/.coverage
+
+docs/
+e2e/
+**/test-results/
+**/playwright-report/
+
+*.md
+!README.md
+
+.dockerignore
+docker-compose*.yml

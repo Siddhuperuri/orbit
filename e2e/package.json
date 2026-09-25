@@ -1,0 +1,20 @@
+{
+  "name": "@orbit/e2e",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "ORBIT end-to-end tests (Playwright)",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report .artifacts/html",
+    "typecheck": "tsc --noEmit",
+    "install:browsers": "playwright install --with-deps chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "@types/node": "^22.20.4",
+    "typescript": "^5.9.3"
+  }
+}

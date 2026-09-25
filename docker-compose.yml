@@ -1,0 +1,258 @@
+# Local development stack for ORBIT.
+#
+# Infrastructure (postgres, redis, minio) is what most development needs; the
+# application services live behind the `app` profile so that
+# `docker compose up` stays fast and developers can run the API, worker, and
+# frontend on the host with hot reload.
+#
+#   npm run infra:up   -> postgres + redis + minio only
+#   npm run stack:up   -> the full stack, including api, worker, and web
+#
+# All ports bind to 127.0.0.1 rather than 0.0.0.0 so that a developer's
+# database and object store are not exposed to the local network.
+
+name: orbit
+
+services:
+  postgres:
+    # pgvector's own image tracks upstream Postgres and ships the extension
+    # prebuilt, which avoids maintaining a Dockerfile just to run `CREATE EXTENSION`.
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-orbit}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-orbit}
+      # Deterministic collation and encoding so index behaviour and text sort
+      # order match across developer machines and production.
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./docker/postgres/initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-orbit} -d ${POSTGRES_DB:-orbit}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    # Persistence is enabled because Redis is the Celery broker: losing the
+    # queue on restart would silently drop in-flight document processing jobs.
+    command:
+      - redis-server
+      - --appendonly
+      - "yes"
+      - --save
+      - "60"
+      - "1"
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
+
+  minio:
+    # MinIO stopped publishing images (Docker Hub and, later, quay.io reject
+    # anonymous pulls). Chainguard's rebuild is public; -dev is used because it
+    # ships a shell and wget for the healthcheck.
+    image: cgr.dev/chainguard/minio:latest-dev
+    user: "0:0"  # the named volume is root-owned
+    restart: unless-stopped
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?MINIO_ROOT_USER must be set in .env}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?MINIO_ROOT_PASSWORD must be set in .env}
+    ports:
+      - "127.0.0.1:9000:9000"   # S3 API
+      - "127.0.0.1:9001:9001"   # Web console
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:9000/minio/health/live"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+
+  # One-shot: creates the documents bucket and denies anonymous access.
+  # Runs to completion on every `up`; bucket creation is idempotent.
+  minio-init:
+    image: cgr.dev/chainguard/minio-client:latest-dev
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?}
+      ORBIT_S3_BUCKET: ${ORBIT_S3_BUCKET:-orbit-documents}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -eu
+        mc alias set orbit http://minio:9000 "$$MINIO_ROOT_USER" "$$MINIO_ROOT_PASSWORD"
+        mc mb --ignore-existing "orbit/$$ORBIT_S3_BUCKET"
+        mc anonymous set none "orbit/$$ORBIT_S3_BUCKET"
+        echo "bucket $$ORBIT_S3_BUCKET ready"
+
+  # ---------------------------------------------------------------------------
+  # Application services. Behind the `app` profile -- see the header.
+  # ---------------------------------------------------------------------------
+
+  api:
+    profiles: ["app"]
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    restart: unless-stopped
+    environment:
+      # Inside the compose network, services resolve by service name rather than
+      # localhost, so the host-facing URLs in .env cannot be reused verbatim.
+      ORBIT_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-orbit}:${POSTGRES_PASSWORD:?}@postgres:5432/${POSTGRES_DB:-orbit}
+      ORBIT_REDIS_URL: redis://redis:6379/0
+      ORBIT_CELERY_BROKER_URL: redis://redis:6379/1
+      ORBIT_CELERY_RESULT_BACKEND: redis://redis:6379/2
+      ORBIT_S3_ENDPOINT_URL: http://minio:9000
+      ORBIT_S3_BUCKET: ${ORBIT_S3_BUCKET:-orbit-documents}
+      ORBIT_S3_ACCESS_KEY_ID: ${MINIO_ROOT_USER:?}
+      ORBIT_S3_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:?}
+      ORBIT_SECRET_KEY: ${ORBIT_SECRET_KEY:?}
+      ORBIT_ENV: ${ORBIT_ENV:-development}
+      ORBIT_LOG_FORMAT: ${ORBIT_LOG_FORMAT:-console}
+      ORBIT_AI_PROVIDER: ${ORBIT_AI_PROVIDER:-fake}
+      ORBIT_OPENAI_API_KEY: ${ORBIT_OPENAI_API_KEY:-}
+      ORBIT_OPENAI_BASE_URL: ${ORBIT_OPENAI_BASE_URL:-}
+      ORBIT_EMBEDDING_MODEL: ${ORBIT_EMBEDDING_MODEL:-}
+      # Required: schema, not a default (docs/database/embeddings.md).
+      ORBIT_EMBEDDING_DIMENSIONS: ${ORBIT_EMBEDDING_DIMENSIONS:?}
+      # Metrics have their own port (ADR-0015). 0.0.0.0 is the container's
+      # own interface; the host publish below is loopback-only, and an ingress
+      # must never route this port.
+      ORBIT_METRICS_HOST: 0.0.0.0
+    ports:
+      - "127.0.0.1:8000:8000"
+      - "127.0.0.1:9100:9100"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+
+  worker:
+    profiles: ["app"]
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    restart: unless-stopped
+    # Same image as the API, different entrypoint (ADR-0001), so the two can
+    # never be running different code.
+    command:
+      - celery
+      - --app
+      - orbit.composition.worker:celery_app
+      - worker
+      # Prefork is the default pool, and it is the reason Celery was chosen:
+      # it is what makes a hard time limit and a memory ceiling enforceable
+      # against an untrusted document parser (ADR-0002).
+      - --pool=prefork
+      - --concurrency=2
+      - --loglevel=INFO
+    environment:
+      ORBIT_SERVICE_NAME: orbit-worker
+      ORBIT_METRICS_HOST: 0.0.0.0
+      # Prefork children each hold their own counters; this directory is how
+      # the main process merges them into one scrape. It must be set before
+      # the process starts, and must start empty (hence tmpfs).
+      PROMETHEUS_MULTIPROC_DIR: /tmp/orbit-prometheus
+      ORBIT_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-orbit}:${POSTGRES_PASSWORD:?}@postgres:5432/${POSTGRES_DB:-orbit}
+      ORBIT_REDIS_URL: redis://redis:6379/0
+      ORBIT_CELERY_BROKER_URL: redis://redis:6379/1
+      ORBIT_CELERY_RESULT_BACKEND: redis://redis:6379/2
+      ORBIT_S3_ENDPOINT_URL: http://minio:9000
+      ORBIT_S3_BUCKET: ${ORBIT_S3_BUCKET:-orbit-documents}
+      ORBIT_S3_ACCESS_KEY_ID: ${MINIO_ROOT_USER:?}
+      ORBIT_S3_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:?}
+      ORBIT_SECRET_KEY: ${ORBIT_SECRET_KEY:?}
+      ORBIT_ENV: ${ORBIT_ENV:-development}
+      ORBIT_LOG_FORMAT: ${ORBIT_LOG_FORMAT:-console}
+      ORBIT_AI_PROVIDER: ${ORBIT_AI_PROVIDER:-fake}
+      ORBIT_OPENAI_API_KEY: ${ORBIT_OPENAI_API_KEY:-}
+      ORBIT_OPENAI_BASE_URL: ${ORBIT_OPENAI_BASE_URL:-}
+      ORBIT_EMBEDDING_MODEL: ${ORBIT_EMBEDDING_MODEL:-}
+      # Required: schema, not a default (docs/database/embeddings.md).
+      ORBIT_EMBEDDING_DIMENSIONS: ${ORBIT_EMBEDDING_DIMENSIONS:?}
+    tmpfs:
+      - /tmp/orbit-prometheus
+    ports:
+      - "127.0.0.1:9101:9101"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+
+  # Runs the recovery sweep on a schedule: jobs abandoned by dead workers and
+  # messages the broker lost are found from the database (ADR-0019). Exactly
+  # one per deployment.
+  scheduler:
+    profiles: ["app"]
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    restart: unless-stopped
+    command:
+      - celery
+      - --app
+      - orbit.composition.worker:celery_app
+      - beat
+      - --loglevel=INFO
+      - --schedule=/tmp/celerybeat-schedule
+    environment:
+      ORBIT_SERVICE_NAME: orbit-scheduler
+      ORBIT_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-orbit}:${POSTGRES_PASSWORD:?}@postgres:5432/${POSTGRES_DB:-orbit}
+      ORBIT_REDIS_URL: redis://redis:6379/0
+      ORBIT_CELERY_BROKER_URL: redis://redis:6379/1
+      ORBIT_CELERY_RESULT_BACKEND: redis://redis:6379/2
+      ORBIT_S3_ENDPOINT_URL: http://minio:9000
+      ORBIT_S3_BUCKET: ${ORBIT_S3_BUCKET:-orbit-documents}
+      ORBIT_S3_ACCESS_KEY_ID: ${MINIO_ROOT_USER:?}
+      ORBIT_S3_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:?}
+      ORBIT_SECRET_KEY: ${ORBIT_SECRET_KEY:?}
+      ORBIT_ENV: ${ORBIT_ENV:-development}
+      ORBIT_LOG_FORMAT: ${ORBIT_LOG_FORMAT:-console}
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  web:
+    profiles: ["app"]
+    build:
+      context: .
+      dockerfile: docker/web.Dockerfile
+    restart: unless-stopped
+    environment:
+      # The browser only ever talks to this origin; /api/* is rewritten to the
+      # api service (ADR-0009).
+      ORBIT_DEV_API_PROXY_TARGET: http://api:8000
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  postgres-data:
+  redis-data:
+  minio-data:

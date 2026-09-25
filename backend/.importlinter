@@ -1,0 +1,44 @@
+# Architectural boundaries are enforced by CI, not by convention.
+# Section 4 of the ORBIT engineering brief mandates a strict dependency direction;
+# without a machine-checked contract that direction erodes within weeks.
+
+[importlinter]
+root_package = orbit
+include_external_packages = False
+
+[importlinter:contract:layers]
+name = Layered architecture (composition > api > {application, infrastructure} > domain > core)
+type = layers
+layers =
+    orbit.composition
+    orbit.api
+    orbit.application : orbit.infrastructure
+    orbit.domain
+    orbit.core
+
+[importlinter:contract:domain-purity]
+name = Domain contains no infrastructure or framework concerns
+type = forbidden
+source_modules =
+    orbit.domain
+forbidden_modules =
+    orbit.infrastructure
+    orbit.api
+    orbit.application
+    orbit.composition
+
+[importlinter:contract:api-uses-ports-only]
+name = HTTP layer depends on ports, never on concrete adapters
+type = forbidden
+source_modules =
+    orbit.api
+forbidden_modules =
+    orbit.infrastructure
+
+[importlinter:contract:application-uses-ports-only]
+name = Use cases depend on ports, never on concrete adapters
+type = forbidden
+source_modules =
+    orbit.application
+forbidden_modules =
+    orbit.infrastructure

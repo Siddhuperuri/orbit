@@ -1,0 +1,11 @@
+# Normalize line endings so Windows and Linux contributors produce identical diffs.
+* text=auto eol=lf
+
+# Shell scripts and Dockerfiles are executed inside Linux containers and MUST stay LF.
+*.sh text eol=lf
+Dockerfile text eol=lf
+*.Dockerfile text eol=lf
+
+# Lockfiles are generated; collapse them in review diffs.
+uv.lock linguist-generated=true -diff
+package-lock.json linguist-generated=true -diff

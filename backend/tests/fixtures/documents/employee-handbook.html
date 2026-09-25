@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Northwind Employee Handbook</title>
+<style>
+  body { font-family: Georgia, serif; font-size: 11pt; line-height: 1.45; margin: 0 12mm; }
+  h1 { font-size: 20pt; }
+  h2 { font-size: 14pt; margin-top: 18pt; }
+  table { border-collapse: collapse; }
+  td, th { border: 1px solid #999; padding: 2pt 6pt; }
+  .break { page-break-before: always; }
+</style>
+</head>
+<body>
+<h1>Northwind Employee Handbook</h1>
+<p>This handbook explains how Northwind Traders works: how we protect customer data, how we
+handle time away from work, and what to do when something goes wrong. It applies to every
+employee and contractor, and it is reviewed by the operations team every January.</p>
+
+<h2>1 Information Security</h2>
+<p>Every laptop issued by Northwind uses full-disk encryption, and the encryption key is
+escrowed with the IT department so that a lost device can be recovered. Passwords must be at
+least fourteen characters long and must never be reused across services. Multi-factor
+authentication is mandatory for email, source control, and the finance system.</p>
+<p>Customer records may only be stored in the approved data warehouse. Copying customer data
+to a personal device, a personal cloud account, or an unapproved spreadsheet is a disciplinary
+offence, even when the intent is to work more efficiently. Suspected data exposure must be
+reported to security@northwind.example within one hour of discovery.</p>
+<p>Access to production systems is granted for a maximum of thirty days at a time and is
+reviewed by a second engineer. Shared accounts are not permitted; every action must be
+attributable to a named person.</p>
+
+<h2>2 Leave and Time Off</h2>
+<p>Full-time employees accrue twenty-five days of paid annual leave per year, plus public
+holidays. Up to five unused days may be carried over into the first quarter of the following
+year; any remaining balance expires on the thirty-first of March. Leave requests of more than
+ten consecutive working days require approval from a department director.</p>
+<p>Parental leave is sixteen weeks at full pay for the primary caregiver and six weeks at full
+pay for the secondary caregiver, available to employees with at least six months of service.
+Sick leave does not count against annual leave and requires a medical certificate only after
+five consecutive days of absence.</p>
+
+<div class="break"></div>
+<h2>3 Expenses</h2>
+<p>Travel must be booked through the corporate travel portal. Economy class is required for
+flights under six hours; premium economy is permitted for longer flights. Hotel costs are
+reimbursed up to the city limits in the table below, and receipts must be submitted within
+thirty days of the trip ending.</p>
+<table>
+  <tr><th>City</th><th>Nightly limit</th></tr>
+  <tr><td>London</td><td>GBP 220</td></tr>
+  <tr><td>New York</td><td>USD 310</td></tr>
+  <tr><td>Singapore</td><td>SGD 350</td></tr>
+</table>
+<p>Meals are reimbursed at actual cost up to seventy-five dollars per day. Alcohol is never
+reimbursable. Corporate cards must not be used for personal purchases, even if the employee
+intends to repay the amount.</p>
+
+<h2>4 Incident Response</h2>
+<p>When a production incident is declared, the on-call engineer becomes incident commander
+until they explicitly hand the role to someone else. The commander opens an incident channel,
+posts a status update every thirty minutes, and decides when customers are notified. Customer
+notification is required for any incident that exposes customer data or causes more than one
+hour of unavailability.</p>
+<p>Within five working days of resolution, the commander publishes a blameless post-incident
+review describing the timeline, the contributing factors, and the follow-up actions with named
+owners and due dates. Follow-up actions are tracked in the reliability backlog and reviewed
+weekly until every one is closed.</p>
+</body>
+</html>
