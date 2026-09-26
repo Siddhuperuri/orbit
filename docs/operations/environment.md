@@ -235,6 +235,7 @@ Semantics, alerting, and runbook: [worker.md](worker.md).
 | `ORBIT_SEARCH_LEXICAL_MATCH` | `any` | `any` (OR) or `all` (AND) over query terms. `all` halved MRR in evaluation. |
 | `ORBIT_LLM_MODEL` | `gpt-4o-mini` | Chat model for answers. Ignored by `fake` (`orbit-fake-llm-v1`). Must not be blank. |
 | `ORBIT_LLM_CONTEXT_WINDOW` | `128000` | The model's window; the context budget is computed from it. |
+| `ORBIT_LLM_REASONING_EFFORT` | unset | `none` \| `minimal` \| `low` \| `medium` \| `high`, sent as `reasoning_effort`, for reasoning models only (unset sends nothing; gpt-4o-mini rejects it). A reasoning model counts its thinking against `ORBIT_ANSWER_MAX_TOKENS`, so at its default level it can spend the whole budget thinking and truncate the answer -- Gemini does; use `low`. |
 | `ORBIT_LLM_REQUEST_TIMEOUT_SECONDS` | `30` | Per request, and between streamed chunks. |
 | `ORBIT_LLM_MAX_RETRIES` | `2` | In-process retries; a stream is retried only before its first token. |
 | `ORBIT_LLM_RETRY_BASE_SECONDS` | `0.5` | First retry delay ceiling; doubles, equal jitter. |
@@ -264,6 +265,23 @@ and no network.
 > [docs/database/embeddings.md](../database/embeddings.md). It is not a knob.
 > Changing `ORBIT_EMBEDDING_MODEL` at the same width is a re-index, not a
 > migration: `npm run worker:index-status`, then `npm run worker:reindex`.
+
+### Using Google Gemini
+
+`openai` names the HTTP API, not the vendor. Google serves the same API for
+Gemini at `https://generativelanguage.googleapis.com/v1beta/openai`, so Gemini
+is configuration only -- see the commented block in `.env.example`. Measured
+against it (2026-09):
+
+- `gemini-embedding-001` honours `dimensions: 1536`, so the schema is unchanged.
+  It omits `index` on the first item of a batch (protobuf drops zero values);
+  the adapter reads a missing index as 0.
+- Chat models are reasoning models; set `ORBIT_LLM_REASONING_EFFORT=low`, or
+  answers are cut short. `gemini-2.5-flash` is closed to new keys.
+- Errors arrive as a one-element JSON list, and the retry delay is in the body
+  (`google.rpc.RetryInfo`), not a `Retry-After` header; both are read.
+- The free tier allows 100 embedded texts per minute, each text counting as a
+  request. Batch below that and let retries wait out the window (65 s).
 
 ## Observability
 
