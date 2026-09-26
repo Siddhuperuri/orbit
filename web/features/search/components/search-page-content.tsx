@@ -202,7 +202,7 @@ function SearchTips() {
           <span className="border-line-strong text-accent mb-10 inline-flex size-9 items-center justify-center border">
             <Icon className="size-4" strokeWidth={1.5} aria-hidden="true" />
           </span>
-          <p className="text-fg font-serif text-xl font-light tracking-tight">{title}</p>
+          <p className="text-fg text-xl font-medium tracking-tight">{title}</p>
           <p className="text-fg-muted mt-2 text-sm">{body}</p>
         </li>
       ))}

@@ -26,7 +26,7 @@ export function FirstWorkspacePanel() {
     <div className="@container mx-auto w-full max-w-2xl px-4 py-14 sm:py-20">
       <div className="text-center">
         <OrbitIcon icon={FolderPlus} className="enter mb-8" />
-        <h1 className="text-fg font-serif text-[clamp(2.5rem,1rem+6cqi,4.5rem)] leading-[0.95] font-light tracking-[-0.035em] text-balance">
+        <h1 className="text-fg text-[clamp(2.5rem,1rem+6cqi,4.5rem)] leading-[0.95] font-semibold tracking-[-0.035em] text-balance">
           <KineticText text={first ? "Create your first workspace" : "Create a workspace"} />
         </h1>
         <p className="enter enter-2 text-fg-muted mx-auto mt-5 max-w-md text-base">
@@ -50,7 +50,7 @@ export function FirstWorkspacePanel() {
                 {String(index + 1).padStart(2, "0")}
                 <Icon className="text-accent size-4" strokeWidth={1.5} aria-hidden="true" />
               </span>
-              <p className="text-fg mt-6 font-serif text-lg font-light tracking-tight">{title}</p>
+              <p className="text-fg mt-6 text-lg font-medium tracking-tight">{title}</p>
               <p className="text-fg-muted mt-1 text-sm">{body}</p>
             </li>
           ))}

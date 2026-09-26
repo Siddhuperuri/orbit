@@ -33,7 +33,7 @@ export function SettingsSection({
         <h2
           id={headingId}
           className={cn(
-            "font-serif text-xl font-normal tracking-tight",
+            "text-xl font-normal tracking-tight",
             tone === "danger" ? "text-danger" : "text-fg",
           )}
         >
@@ -41,7 +41,9 @@ export function SettingsSection({
         </h2>
         {description ? <p className="text-fg-muted mt-2 text-sm">{description}</p> : null}
       </div>
-      <div className={cn(tone === "danger" && "border-danger/40 border p-5")}>{children}</div>
+      <div className={cn(tone === "danger" && "border-danger/40 rounded-xl border p-5")}>
+        {children}
+      </div>
     </section>
   );
 }

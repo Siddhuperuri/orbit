@@ -82,12 +82,12 @@ export function DocumentAskPanel({ document }: { document: Document }) {
   return (
     <section
       aria-labelledby="ask-heading"
-      className="scroll-reveal border-line bg-canvas overflow-hidden border"
+      className="scroll-reveal border-line bg-surface/70 overflow-hidden rounded-2xl border"
     >
       <div className="px-5 pt-5">
         <h2
           id="ask-heading"
-          className="text-fg flex items-center gap-2.5 font-serif text-xl font-light tracking-tight"
+          className="text-fg flex items-center gap-2.5 text-xl font-medium tracking-tight"
         >
           <MessageSquare className="text-accent size-4" aria-hidden="true" />
           Ask about this document

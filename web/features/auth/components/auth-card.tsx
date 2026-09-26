@@ -21,7 +21,7 @@ export function AuthCard({
 }) {
   return (
     <div className="w-full">
-      <h1 className="text-fg font-serif text-4xl font-light tracking-[-0.035em]">
+      <h1 className="text-fg text-4xl font-semibold tracking-[-0.035em]">
         <KineticText text={title} />
       </h1>
       {description ? (

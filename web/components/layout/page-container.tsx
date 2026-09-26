@@ -30,7 +30,7 @@ export function PageContainer({
       data-width={width}
       className={cn(
         "page-frame @container relative w-full",
-        width === "full" ? "" : "px-4 pt-10 pb-20 sm:px-6 lg:px-10 xl:pt-16",
+        width === "full" ? "" : "px-4 pt-6 pb-20 sm:px-6 lg:px-10 xl:pt-10",
         className,
       )}
     >

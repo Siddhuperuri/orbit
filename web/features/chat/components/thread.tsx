@@ -72,7 +72,7 @@ export function Thread({
     <div className="flex h-full min-h-0 flex-1 flex-col">
       <header className="border-line bg-canvas flex h-14 shrink-0 items-center gap-2 border-b px-4 sm:px-6">
         <ConversationsButton />
-        <h1 className="text-fg min-w-0 flex-1 truncate font-serif text-xl font-light tracking-tight md:mx-auto md:max-w-3xl">
+        <h1 className="text-fg min-w-0 flex-1 truncate text-xl font-medium tracking-tight md:mx-auto md:max-w-3xl">
           {title}
         </h1>
       </header>

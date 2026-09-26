@@ -35,12 +35,12 @@ export function UploadDropzone({
     <div
       {...dropProps}
       className={cn(
-        "viewfinder flex flex-col items-center border border-dashed px-6 py-20 text-center transition-colors duration-500",
+        "viewfinder flex flex-col items-center rounded-2xl border border-dashed px-6 py-20 text-center transition-colors duration-500",
         dragging ? "border-accent bg-accent-soft" : "border-line-strong bg-canvas",
       )}
     >
       <OrbitIcon icon={CloudUpload} className="mb-7" />
-      <h2 className="text-fg font-serif text-3xl font-light tracking-tight">
+      <h2 className="text-fg text-3xl font-semibold tracking-tight">
         {dragging ? "Drop to upload" : (title ?? "Add your first documents")}
       </h2>
       <p className="text-fg-muted mt-2 max-w-md text-base">

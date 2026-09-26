@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils/cn";
 export function QuestionBubble({ text }: { text: string }) {
   return (
     <article aria-label="Your question" className="scroll-reveal flex justify-end">
-      <p className="border-line-strong text-fg max-w-[85%] border-r-2 py-1 pr-5 text-right font-serif text-2xl leading-snug font-light tracking-tight [overflow-wrap:anywhere] whitespace-pre-wrap">
+      <p className="border-line-strong text-fg max-w-[85%] border-r-2 py-1 pr-5 text-right text-2xl leading-snug font-medium tracking-tight [overflow-wrap:anywhere] whitespace-pre-wrap">
         {text}
       </p>
     </article>

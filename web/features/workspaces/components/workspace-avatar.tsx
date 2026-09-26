@@ -32,7 +32,7 @@ export function WorkspaceAvatar({
     <span
       aria-hidden="true"
       className={cn(
-        "text-md inline-flex size-6 shrink-0 items-center justify-center font-serif font-medium",
+        "text-md inline-flex size-6 shrink-0 items-center justify-center font-medium",
         name ? tintFor(name) : "bg-fill text-fg-subtle",
         className,
       )}

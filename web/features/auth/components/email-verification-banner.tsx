@@ -25,7 +25,7 @@ export function EmailVerificationBanner() {
     <div
       role="region"
       aria-label="Email verification"
-      className="border-line bg-canvas text-fg-muted relative flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b px-4 py-1.5 text-sm sm:px-6 lg:px-10"
+      className="border-line bg-surface/90 text-fg-muted shadow-card relative mx-4 mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-xl border px-4 py-2 text-sm backdrop-blur-md sm:mx-6 lg:mx-10"
     >
       <MailWarning className="text-warning size-4 shrink-0" strokeWidth={1.75} aria-hidden="true" />
       <p className="min-w-0 flex-1 [overflow-wrap:anywhere]">

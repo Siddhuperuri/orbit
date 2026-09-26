@@ -3,11 +3,12 @@
 /*
  * ORBIT design system -- the whole of it.
  *
- * Direction: an observatory at night. A pitch-black field ruled by a visible
- * hairline column grid; oversized serif titles set like film chapter cards; tiny
- * uppercase mono labels sitting on the column starts; one cold point of light
- * (cobalt); and a highlighter for evidence. The light theme is the same drawing
- * printed on paper: white field, black ink, grey rules.
+ * Direction: a field notebook for machines. Warm paper and charcoal ink; a
+ * monospaced voice for labels and status; a bold grotesque for statements; dark
+ * "keycap" controls with one orange signal; and ASCII -- text drawn as image -- for
+ * the few places the product shows off (a spiral of its own words, a drifting field
+ * of characters). The hairline column grid runs behind every page. The dark theme
+ * is the same notebook under a desk lamp.
  *
  * Tailwind v4 is configured in CSS, so this file is the foundation: raw tokens
  * per theme, and a `@theme` block that maps them to utilities. Feature code uses
@@ -15,26 +16,24 @@
  * never a raw colour, an arbitrary value, or a Tailwind palette colour -- the
  * default palette is switched off below, so `bg-red-500` simply does not exist.
  *
- * Three typographic voices, each with one job:
- *   serif  (Newsreader)  -- reading and display: page titles, document titles,
- *                           answers, source excerpts. At display sizes it is set
- *                           light, tight, and very large.
- *   sans   (IBM Plex Sans) -- the interface: buttons, navigation, body copy.
- *   mono   (IBM Plex Mono) -- identifiers and labels: the uppercase micro-labels
- *                           that name columns, sections, and places.
+ * Two typographic voices, each with one job (both Geist, self-hosted):
+ *   sans  -- statements and the interface: page titles, answers, buttons, body.
+ *            Titles are bold, tight, and large.
+ *   mono  -- labels and identifiers: the small uppercase tags that name a place,
+ *            a status, a number ("001 /"), a shortcut.
  *
  * Colour has three jobs:
- *   ink        -- the interface is monochrome. The primary action and the current
- *                 place are an *inverted block*: white on black, black on white.
- *   cobalt     -- light: focus, links, the satellite in the mark, citations, the
- *                 glow where the pointer passes over the grid.
+ *   ink        -- the interface is paper and charcoal. The primary action is a dark
+ *                 key; the current place is an inverted block.
+ *   signal     -- one orange: the dot on a key, focus, links, citations, and the
+ *                 glow where the pointer crosses the grid.
  *   highlighter -- evidence: a matched term, a cited passage.
  *   Semantic colours exist for state and are always paired with an icon and a
  *   label -- never colour alone.
  *
- * Geometry: everything is square except what orbits (the mark, avatars, radios,
- * the send button). Depth comes from rules, layering, blur, and light -- not from
- * drop shadows on everyday surfaces.
+ * Geometry: softly rounded (keys, pills, cards) -- 4 to 20 px -- with hairlines
+ * doing most of the separating. Depth comes from rules, a little shadow on things
+ * that float or press, and backdrop blur.
  *
  * Values are OKLCH so lightness steps are perceptually even. Contrast of every
  * text/background pair is asserted by `app/tokens.test.ts`, which parses this
@@ -47,99 +46,105 @@
   color-scheme: light;
 
   /* Paper. The field, a brighter sheet for controls, faint wells, hover fills. */
-  --canvas: oklch(98% 0.003 95);
-  --surface: oklch(99.7% 0.001 95);
-  --sunken: oklch(96.6% 0.003 95);
-  --fill: oklch(94.4% 0.004 95);
-  --overlay: oklch(98% 0.003 95 / 0.72);
+  --canvas: oklch(94.8% 0.011 88);
+  --surface: oklch(97.6% 0.007 88);
+  --sunken: oklch(92.6% 0.012 88);
+  --fill: oklch(90.6% 0.013 88);
+  --overlay: oklch(94.8% 0.011 88 / 0.72);
 
-  --line: oklch(88.5% 0.004 95);
-  --line-strong: oklch(78% 0.006 95);
+  --line: oklch(86.5% 0.012 88);
+  --line-strong: oklch(76% 0.014 88);
   /* The column rules drawn across every page. */
-  --grid-line: oklch(92.5% 0.004 95);
+  --grid-line: oklch(89.5% 0.01 88);
   /* Borders that identify a control (inputs, checkboxes): 3:1 per WCAG 1.4.11. */
-  --control: oklch(62% 0.008 265);
+  --control: oklch(59% 0.012 88);
 
   /* Ink. Three steps, all AA on every surface. */
-  --fg: oklch(14% 0.006 265);
-  --fg-muted: oklch(40% 0.008 265);
-  --fg-subtle: oklch(49% 0.008 265);
+  --fg: oklch(21% 0.006 90);
+  --fg-muted: oklch(41% 0.008 90);
+  --fg-subtle: oklch(46% 0.009 90);
 
-  /* Cobalt is light and links; the solid action is ink. */
-  --accent: oklch(48% 0.23 264);
-  --accent-solid: oklch(15% 0.006 265);
-  --accent-solid-hover: oklch(30% 0.01 265);
-  --on-accent: oklch(99% 0.002 95);
-  --accent-soft: oklch(94.5% 0.035 264);
-  --accent-soft-fg: oklch(40% 0.2 264);
-  --focus: oklch(52% 0.23 264);
+  /* Signal orange is text and focus; the solid action is a dark key. */
+  --accent: oklch(50% 0.17 45);
+  --accent-solid: oklch(21% 0.006 90);
+  --accent-solid-hover: oklch(33% 0.008 90);
+  --on-accent: oklch(96% 0.01 88);
+  --accent-soft: oklch(91.5% 0.05 62);
+  --accent-soft-fg: oklch(40% 0.14 45);
+  --focus: oklch(60% 0.19 48);
+  /* The dot on a key, the live marker: a fill, never text. */
+  --signal: oklch(68% 0.2 46);
 
   /* The highlighter. */
-  --highlight: oklch(92.5% 0.16 104);
+  --highlight: oklch(92.5% 0.16 102);
   --on-highlight: oklch(17% 0.02 100);
 
-  --success: oklch(43% 0.12 155);
-  --success-soft: oklch(95.4% 0.045 155);
-  --warning: oklch(46% 0.11 62);
-  --warning-soft: oklch(96% 0.05 85);
-  --danger: oklch(49% 0.2 27);
-  --danger-soft: oklch(96% 0.025 27);
+  --success: oklch(42% 0.11 155);
+  --success-soft: oklch(92.5% 0.045 155);
+  --warning: oklch(44% 0.11 62);
+  --warning-soft: oklch(93.5% 0.055 85);
+  --danger: oklch(48% 0.2 27);
+  --danger-soft: oklch(93.5% 0.035 27);
   --danger-solid: oklch(51% 0.21 27);
   --on-danger: oklch(99% 0.004 27);
 
-  --elevation-xs: 0 1px 0 oklch(20% 0.01 265 / 0.04);
-  --elevation-card: 0 0 0 0 transparent;
-  --elevation: 0 0 0 1px oklch(20% 0.01 265 / 0.1), 0 24px 60px -18px oklch(20% 0.02 265 / 0.28);
-  --button-sheen: inset 0 0 0 0 transparent;
+  --elevation-xs: 0 1px 0 oklch(20% 0.01 90 / 0.05);
+  --elevation-card: 0 1px 2px oklch(20% 0.01 90 / 0.06);
+  --elevation:
+    0 0 0 1px oklch(20% 0.01 90 / 0.08), 0 4px 10px oklch(20% 0.01 90 / 0.06),
+    0 24px 60px -18px oklch(20% 0.02 90 / 0.3);
+  /* The key: a faint top highlight and a hard little drop, so it reads as pressable. */
+  --button-sheen: inset 0 1px 0 oklch(100% 0 0 / 0.14), 0 1px 0 oklch(0% 0 0 / 0.3);
   --grain-opacity: 0;
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
 
-  /* Night. The field is true black; everything else is barely lifted from it. */
-  --canvas: oklch(0% 0 0);
-  --surface: oklch(8.5% 0.003 270);
-  --sunken: oklch(5% 0.002 270);
-  --fill: oklch(15% 0.004 270);
-  --overlay: oklch(0% 0 0 / 0.72);
+  /* Ink under a lamp: warm charcoal, never pure black. */
+  --canvas: oklch(18% 0.004 90);
+  --surface: oklch(21.5% 0.005 90);
+  --sunken: oklch(15.5% 0.004 90);
+  --fill: oklch(26% 0.006 90);
+  --overlay: oklch(12% 0.004 90 / 0.72);
 
-  --line: oklch(24% 0.004 270);
-  --line-strong: oklch(34% 0.006 270);
-  --grid-line: oklch(16% 0.004 270);
-  --control: oklch(52% 0.008 270);
+  --line: oklch(30% 0.006 90);
+  --line-strong: oklch(41% 0.007 90);
+  --grid-line: oklch(24% 0.005 90);
+  --control: oklch(54% 0.008 90);
 
-  --fg: oklch(97% 0.002 95);
-  --fg-muted: oklch(73% 0.006 270);
-  --fg-subtle: oklch(60% 0.008 270);
+  --fg: oklch(95% 0.01 88);
+  --fg-muted: oklch(75% 0.008 88);
+  --fg-subtle: oklch(64% 0.009 88);
 
-  --accent: oklch(73% 0.15 262);
-  --accent-solid: oklch(97% 0.002 95);
-  --accent-solid-hover: oklch(84% 0.004 95);
-  --on-accent: oklch(6% 0.002 270);
-  --accent-soft: oklch(22% 0.08 264);
-  --accent-soft-fg: oklch(88% 0.07 264);
-  --focus: oklch(70% 0.17 262);
+  --accent: oklch(75% 0.16 56);
+  --accent-solid: oklch(94.5% 0.01 88);
+  --accent-solid-hover: oklch(84% 0.012 88);
+  --on-accent: oklch(19% 0.005 90);
+  --accent-soft: oklch(29% 0.06 55);
+  --accent-soft-fg: oklch(87% 0.08 66);
+  --focus: oklch(72% 0.17 55);
+  --signal: oklch(72% 0.19 50);
 
-  --highlight: oklch(89% 0.18 106);
+  --highlight: oklch(89% 0.18 102);
   --on-highlight: oklch(14% 0.02 100);
 
   --success: oklch(80% 0.15 155);
-  --success-soft: oklch(19% 0.05 155);
+  --success-soft: oklch(25% 0.05 155);
   --warning: oklch(85% 0.13 85);
-  --warning-soft: oklch(20% 0.05 80);
-  --danger: oklch(73% 0.16 25);
-  --danger-soft: oklch(19% 0.06 25);
+  --warning-soft: oklch(26% 0.05 80);
+  --danger: oklch(74% 0.16 25);
+  --danger-soft: oklch(25% 0.06 25);
   --danger-solid: oklch(56% 0.21 27);
   --on-danger: oklch(99% 0.004 27);
 
   --elevation-xs: 0 0 0 0 transparent;
-  --elevation-card: 0 0 0 0 transparent;
+  --elevation-card: 0 1px 2px oklch(0% 0 0 / 0.3);
   --elevation:
-    0 0 0 1px oklch(100% 0 0 / 0.1), 0 32px 90px -20px oklch(0% 0 0 / 0.9),
-    0 0 120px -40px oklch(73% 0.15 262 / 0.25);
-  --button-sheen: inset 0 0 0 0 transparent;
-  --grain-opacity: 0.028;
+    0 0 0 1px oklch(100% 0 0 / 0.08), 0 4px 12px oklch(0% 0 0 / 0.35),
+    0 28px 70px -16px oklch(0% 0 0 / 0.65);
+  --button-sheen: inset 0 1px 0 oklch(100% 0 0 / 0.5), 0 1px 0 oklch(0% 0 0 / 0.4);
+  --grain-opacity: 0.02;
 }
 
 @theme {
@@ -148,11 +153,11 @@
   --color-transparent: transparent;
   --color-current: currentColor;
 
-  --font-sans:
-    "IBM Plex Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-serif: "Newsreader Variable", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* No serif voice any more; the name stays so existing `font-serif` sites still resolve. */
+  --font-serif: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono:
-    "IBM Plex Mono", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    "Geist Mono Variable", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
 
   /* Type. Dense for the interface; the display sizes are for serif titles only. */
   --text-*: initial;
@@ -181,14 +186,14 @@
   --tracking-display: -0.035em;
   --tracking-label: 0.09em;
 
-  /* Everything is square except what orbits. */
+  /* Softly rounded: chips, keys, cards, and the pill navbar. */
   --radius-*: initial;
-  --radius-xs: 0px;
-  --radius-sm: 1px;
-  --radius-md: 2px;
-  --radius-lg: 2px;
-  --radius-xl: 3px;
-  --radius-2xl: 4px;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
   --radius-full: 9999px;
 
   --shadow-*: initial;
@@ -210,9 +215,6 @@
   --animate-slide-out-left: slide-out-left 200ms ease-in;
   --animate-spin: spin 0.9s linear infinite;
   --animate-skeleton: skeleton-sweep 1.8s var(--ease-in-out) infinite;
-  --animate-orbit-trail-fast: orbit-trail 9s linear infinite;
-  --animate-orbit-trail: orbit-trail 16s linear infinite;
-  --animate-orbit-trail-slow: orbit-trail 26s linear infinite;
   --animate-orbit-spin: orbit-spin 120s linear infinite;
   --animate-caret: caret-blink 1s steps(2, start) infinite;
 
@@ -290,11 +292,6 @@
       background-position: -20% 0;
     }
   }
-  @keyframes orbit-trail {
-    to {
-      stroke-dashoffset: -100;
-    }
-  }
   @keyframes orbit-spin {
     to {
       transform: rotate(360deg);
@@ -333,6 +330,7 @@
   --color-accent-soft: var(--accent-soft);
   --color-accent-soft-fg: var(--accent-soft-fg);
   --color-focus: var(--focus);
+  --color-signal: var(--signal);
   --color-highlight: var(--highlight);
   --color-on-highlight: var(--on-highlight);
   --color-success: var(--success);
@@ -437,40 +435,39 @@
   font-size: var(--text-2xs);
   line-height: var(--text-2xs--line-height);
   font-weight: 500;
-  letter-spacing: var(--tracking-label);
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
-/* Interface labels set like the reference's navigation: uppercase, tight, crisp. */
+/* Interface labels set like the reference's navigation: mono, uppercase, crisp. */
 @utility label-caps {
-  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
   line-height: 1.125rem;
   font-weight: 500;
-  letter-spacing: 0.035em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 /*
- * The oversized serif title. Sized from its container (`cqi`), not the viewport, so
- * it fills the column it is set in whatever the sidebar and window are doing.
+ * The page statement: bold, tight, large. Sized from its container (`cqi`), not the
+ * viewport, so it fills the column it is set in whatever the window is doing.
  */
 @utility display-title {
-  font-family: var(--font-serif);
-  font-optical-sizing: auto;
-  font-weight: 360;
-  font-size: clamp(3rem, 1rem + 7.6cqi, 8.75rem);
-  line-height: 0.9;
-  letter-spacing: var(--tracking-display);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 0.9rem + 4.6cqi, 5.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
 }
 
-/* A smaller display step, for titles that are the user's own (long) words. */
+/* One step down, for titles that are the user's own (long) words. */
 @utility display-title-sm {
-  font-family: var(--font-serif);
-  font-optical-sizing: auto;
-  font-weight: 380;
-  font-size: clamp(2.25rem, 1rem + 4.4cqi, 5.5rem);
-  line-height: 1;
-  letter-spacing: -0.03em;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(2rem, 0.8rem + 3.2cqi, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
 }
 
 @utility tracking-display {
@@ -489,13 +486,14 @@
    * `react-markdown` can emit -- and no raw HTML ever reaches the page.
    */
   .reading {
-    font-family: var(--font-serif);
-    font-size: 1.125rem;
-    line-height: 1.68;
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
     color: var(--fg);
     overflow-wrap: anywhere;
     font-optical-sizing: auto;
     font-weight: 400;
+    letter-spacing: -0.005em;
   }
   .reading > * + * {
     margin-top: 0.9em;
@@ -524,7 +522,7 @@
     padding-inline-start: 1.4em;
   }
   .reading ul {
-    list-style: square;
+    list-style: disc;
   }
   .reading ol {
     list-style: decimal;
@@ -568,7 +566,6 @@
     border-inline-start: 2px solid var(--highlight);
     padding-inline-start: 1rem;
     color: var(--fg-muted);
-    font-style: italic;
   }
   .reading hr {
     border: 0;
@@ -682,22 +679,6 @@
     background-size: 220px 220px;
     opacity: var(--grain-opacity);
     mix-blend-mode: screen;
-  }
-
-  /* Depth layers of the orbit artwork: nearer layers travel further with the pointer. */
-  .orbit-depth-1,
-  .orbit-depth-2,
-  .orbit-depth-3 {
-    transition: transform 1600ms var(--ease-out);
-  }
-  .orbit-depth-1 {
-    transform: translate(calc(var(--px, 0) * 8px), calc(var(--py, 0) * 8px));
-  }
-  .orbit-depth-2 {
-    transform: translate(calc(var(--px, 0) * 18px), calc(var(--py, 0) * 18px));
-  }
-  .orbit-depth-3 {
-    transform: translate(calc(var(--px, 0) * 30px), calc(var(--py, 0) * 30px));
   }
 
   /* A slow hover in place, for a card floating in front of the artwork. */
@@ -895,12 +876,6 @@
   }
 }
 
-@keyframes depth-drift {
-  to {
-    transform: translate3d(0, -12%, 0);
-  }
-}
-
 /*
  * Motion: scroll choreography. Scroll-driven animations run on the compositor and
  * need no JavaScript; browsers without them, and anyone who asked for less motion,
@@ -922,12 +897,60 @@
       animation-timeline: scroll(nearest block);
       animation-range: 0 55vh;
     }
+  }
+}
 
-    /* A slower layer, for artwork behind the content: parallax. */
-    .scroll-depth {
-      animation: depth-drift linear both;
-      animation-timeline: scroll(nearest block);
-      animation-range: 0 100vh;
-    }
+@layer components {
+  /* A dotted grid, like graph paper -- the paper's own texture. */
+  .dot-grid {
+    background-image: radial-gradient(
+      circle at center,
+      var(--line-strong) 0.9px,
+      transparent 1.1px
+    );
+    background-size: 22px 22px;
+  }
+
+  /*
+   * A halftone (dithered) edge: a ring of dots around a pill, drawn as a background so
+   * the pill's own content stays crisp. Wrap the content in a solid inner element.
+   */
+  .dither {
+    background-image: radial-gradient(circle at 1px 1px, var(--fg) 0.9px, transparent 1.2px);
+    background-size: 4px 4px;
+  }
+
+  /* A slow ticker: the track holds its content twice and slides by half of itself. */
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 38s linear infinite;
+  }
+  .marquee:hover {
+    animation-play-state: paused;
+  }
+
+  /* A block caret, for a line of status text that is "being typed". */
+  .caret-block {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.05em;
+    margin-left: 0.15em;
+    background: currentColor;
+    vertical-align: text-bottom;
+    animation: caret-blink 1.05s steps(2, start) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
   }
 }

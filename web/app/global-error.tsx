@@ -1,6 +1,6 @@
 "use client";
 
-import "@fontsource-variable/ibm-plex-sans";
+import "@fontsource-variable/geist";
 import "@/app/globals.css";
 
 /**

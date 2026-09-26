@@ -49,9 +49,7 @@ export function EmptyState({
       )}
     >
       {icon ? <OrbitIcon icon={icon} className="enter mb-7" /> : null}
-      <h2 className="enter enter-1 text-fg font-serif text-3xl font-light tracking-tight">
-        {title}
-      </h2>
+      <h2 className="enter enter-1 text-fg text-3xl font-semibold tracking-tight">{title}</h2>
       {description ? (
         <p className="enter enter-2 text-fg-muted mt-3 text-base">{description}</p>
       ) : null}

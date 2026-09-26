@@ -27,15 +27,15 @@ export function AppearanceSection() {
       value={preference}
       onValueChange={(value) => setPreference(value as ThemePreference)}
       aria-label="Theme"
-      className="border-line gap-0 border-t border-l sm:grid-cols-3"
+      className="border-line gap-0 overflow-hidden rounded-xl border sm:grid-cols-3"
     >
       {OPTIONS.map((option) => (
         <div
           key={option.value}
-          className="border-line hover:bg-fill has-[[data-state=checked]]:bg-fg has-[[data-state=checked]]:text-canvas group/theme relative flex flex-col gap-8 border-r border-b p-5 transition-colors duration-500"
+          className="border-line hover:bg-fill has-[[data-state=checked]]:bg-fg has-[[data-state=checked]]:text-canvas group/theme relative flex flex-col gap-8 p-5 transition-colors duration-500 sm:not-last:border-r"
         >
           <div className="flex items-center justify-between">
-            <span className="border-line-strong inline-flex size-9 items-center justify-center border group-has-[[data-state=checked]]/theme:border-current">
+            <span className="border-line-strong inline-flex size-9 items-center justify-center rounded-lg border group-has-[[data-state=checked]]/theme:border-current">
               <option.icon className="size-4" strokeWidth={1.5} aria-hidden="true" />
             </span>
             <RadioGroupItem value={option.value} id={`theme-${option.value}`} />
@@ -45,9 +45,7 @@ export function AppearanceSection() {
             htmlFor={`theme-${option.value}`}
             className="cursor-pointer space-y-0.5 text-current after:absolute after:inset-0 after:content-['']"
           >
-            <span className="block font-serif text-xl font-light tracking-tight">
-              {option.label}
-            </span>
+            <span className="block text-xl font-medium tracking-tight">{option.label}</span>
             <span className="block text-sm font-normal opacity-75">{option.hint}</span>
           </Label>
         </div>

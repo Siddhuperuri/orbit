@@ -78,7 +78,7 @@ export function SearchResultItem({
           <h2 className="min-w-0">
             <Link
               href={href}
-              className="link-draw text-fg hover:text-accent font-serif text-2xl font-light tracking-tight [overflow-wrap:anywhere] transition-colors duration-300"
+              className="link-draw text-fg hover:text-accent text-2xl font-medium tracking-tight [overflow-wrap:anywhere] transition-colors duration-300"
             >
               {result.document.title}
             </Link>

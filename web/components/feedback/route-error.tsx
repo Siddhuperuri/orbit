@@ -34,9 +34,7 @@ export function RouteError({
       <span className="border-danger/60 text-danger inline-flex size-12 items-center justify-center border">
         <AlertTriangle className="size-5" strokeWidth={1.5} aria-hidden="true" />
       </span>
-      <h1 className="text-fg mt-6 font-serif text-4xl font-light tracking-tight">
-        Something went wrong
-      </h1>
+      <h1 className="text-fg mt-6 text-4xl font-semibold tracking-tight">Something went wrong</h1>
       <p className="text-fg-muted mt-1.5 text-base">
         This page hit an unexpected problem. Trying again often clears it; if it doesn&apos;t, quote
         the reference below to support.

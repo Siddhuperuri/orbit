@@ -74,7 +74,7 @@ export function UserMenu({ variant = "compact" }: { variant?: "sidebar" | "compa
           <button
             type="button"
             aria-label={`Account menu for ${user.full_name}`}
-            className="inline-flex rounded-full hover:opacity-90 pointer-coarse:size-11 pointer-coarse:items-center pointer-coarse:justify-center"
+            className="border-line bg-surface/85 shadow-card inline-flex size-11 items-center justify-center rounded-2xl border backdrop-blur-md transition-opacity hover:opacity-90"
           >
             <Avatar name={user.full_name} />
           </button>
