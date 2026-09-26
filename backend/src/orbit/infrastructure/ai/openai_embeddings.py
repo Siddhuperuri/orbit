@@ -172,7 +172,10 @@ class OpenAIEmbeddingProvider:
         # zip over a reordered response would attach vectors to the wrong text.
         ordered: list[list[float] | None] = [None] * expected
         for item in data:
-            index = item.get("index") if isinstance(item, dict) else None
+            # Google's OpenAI-compatible endpoint serialises from protobuf, which
+            # omits zero values -- so the first item arrives with no `index`.
+            # Absent means 0; a second item without one is still a duplicate.
+            index = item.get("index", 0) if isinstance(item, dict) else None
             embedding = item.get("embedding") if isinstance(item, dict) else None
             if (
                 not isinstance(index, int)

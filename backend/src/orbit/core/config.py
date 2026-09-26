@@ -309,6 +309,13 @@ class Settings(BaseSettings):
     llm_model: str = "gpt-4o-mini"
     # Declared, not discovered: the context budget is computed from it.
     llm_context_window: Annotated[int, Field(ge=2048, le=2_000_000)] = 128_000
+    # How much a reasoning ("thinking") model may think before answering, sent
+    # as the API's `reasoning_effort`. Unset sends nothing, which is what a
+    # non-reasoning model such as gpt-4o-mini requires. Reasoning models count
+    # their thinking against `answer_max_tokens`, so an unbounded default can
+    # spend the whole budget thinking and cut the answer short -- Gemini does
+    # exactly that at its default level, hence `low` for it.
+    llm_reasoning_effort: Literal["none", "minimal", "low", "medium", "high"] | None = None
     # Per request, and between streamed chunks. The answer's overall deadline
     # is `answer_generation_timeout_seconds`.
     llm_request_timeout_seconds: Annotated[int, Field(ge=1, le=600)] = 30

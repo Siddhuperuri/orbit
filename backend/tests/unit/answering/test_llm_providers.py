@@ -134,6 +134,37 @@ class TestOpenAIComplete:
         with pytest.raises(ConfigurationError):
             await provider.complete(MESSAGES, max_tokens=50, temperature=0)
 
+    async def test_an_error_body_wrapped_in_a_list_is_read_like_a_bare_one(self) -> None:
+        # Google's OpenAI-compatible endpoint wraps the error object in a list.
+        provider = _provider(
+            lambda _: httpx.Response(429, json=[{"error": {"code": "insufficient_quota"}}])
+        )
+        with pytest.raises(ConfigurationError):
+            await provider.complete(MESSAGES, max_tokens=50, temperature=0)
+
+    async def test_reasoning_effort_is_sent_only_when_configured(self) -> None:
+        bodies: list[dict[str, object]] = []
+
+        def handle(request: httpx.Request) -> httpx.Response:
+            bodies.append(json.loads(request.content))
+            return httpx.Response(
+                200,
+                json={"choices": [{"message": {"content": "A."}, "finish_reason": "stop"}]},
+            )
+
+        await _provider(handle).complete(MESSAGES, max_tokens=50, temperature=0)
+        await OpenAILLMProvider(
+            httpx.AsyncClient(transport=httpx.MockTransport(handle)),
+            base_url=BASE_URL,
+            api_key="sk-test",
+            model="gemini-3.8-flash",
+            context_window=128_000,
+            reasoning_effort="low",
+        ).complete(MESSAGES, max_tokens=50, temperature=0)
+
+        assert "reasoning_effort" not in bodies[0]
+        assert bodies[1]["reasoning_effort"] == "low"
+
     @pytest.mark.parametrize("status", [408, 409, 500, 502, 503])
     async def test_server_errors_are_transient(self, status: int) -> None:
         provider = _provider(lambda _: httpx.Response(status, json={}))

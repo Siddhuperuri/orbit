@@ -75,7 +75,7 @@ _DONE = "[DONE]"
 
 
 class OpenAILLMProvider:
-    def __init__(
+    def __init__(  # noqa: PLR0913 -- keyword-only endpoint settings
         self,
         client: httpx.AsyncClient,
         *,
@@ -83,12 +83,14 @@ class OpenAILLMProvider:
         api_key: str,
         model: str,
         context_window: int,
+        reasoning_effort: str | None = None,
     ) -> None:
         self._client = client
         self._endpoint = f"{base_url.rstrip('/')}/chat/completions"
         self._api_key = api_key
         self._model = model
         self._context_window = context_window
+        self._reasoning_effort = reasoning_effort
 
     @property
     def model_id(self) -> str:
@@ -107,6 +109,8 @@ class OpenAILLMProvider:
             "max_tokens": max_tokens,
             "temperature": temperature,
         }
+        if self._reasoning_effort is not None:
+            body["reasoning_effort"] = self._reasoning_effort
         if stream:
             body["stream"] = True
             # The final chunk then carries token usage, which is otherwise
