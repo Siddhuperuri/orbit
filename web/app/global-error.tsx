@@ -29,7 +29,7 @@ export default function GlobalError({
           <button
             type="button"
             onClick={reset}
-            className="bg-accent-solid text-on-accent mt-6 h-10 rounded-md px-4 text-base font-medium"
+            className="bg-accent-solid text-on-accent shadow-button mt-6 h-10 rounded-md px-4 text-base font-medium"
           >
             Reload
           </button>

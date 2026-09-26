@@ -14,7 +14,7 @@ export function HighlightedText({ text, query }: { text: string; query: string }
     <>
       {segments.map((segment, index) =>
         segment.match ? (
-          <mark key={index} className="bg-accent-soft text-accent-soft-fg rounded-xs px-0.5">
+          <mark key={index} className="bg-highlight text-on-highlight rounded-xs px-0.5">
             {segment.text}
           </mark>
         ) : (

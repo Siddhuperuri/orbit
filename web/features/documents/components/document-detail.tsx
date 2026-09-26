@@ -14,16 +14,20 @@ import { DocumentActions } from "@/features/documents/components/document-action
 import { DocumentAskPanel } from "@/features/documents/components/document-ask-panel";
 import { DocumentMetadata } from "@/features/documents/components/document-metadata";
 import { DocumentViewer } from "@/features/documents/components/document-viewer";
+import { FileKindIcon } from "@/features/documents/components/file-kind-icon";
 import { ProcessingPanel } from "@/features/documents/components/processing-panel";
 import { RenameTitle } from "@/features/documents/components/rename-title";
 import { VersionsPanel } from "@/features/documents/components/versions-panel";
 import { DocumentAvailability } from "@/features/documents/hooks/use-document-access";
 import { useProcessingWatcher } from "@/features/documents/hooks/use-processing-watcher";
+import { fileKindLabel, fileKindOf } from "@/features/documents/lib/file-kind";
 import type { Document } from "@/features/documents/types";
 import { useWorkspace } from "@/features/workspaces/hooks/use-workspace-context";
 import { ErrorCode, isApiError } from "@/lib/api/errors";
 import { useDocumentTitle } from "@/lib/hooks/use-document-title";
 import { routes } from "@/lib/navigation";
+import { cn } from "@/lib/utils/cn";
+import { pluralize } from "@/lib/utils/format";
 
 function DetailSkeleton() {
   return (
@@ -54,7 +58,7 @@ function ArchivedBanner({ document }: { document: Document }) {
   return (
     <div
       role="status"
-      className="border-line bg-sunken mb-5 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-md border px-3.5 py-3"
+      className="border-line-strong bg-canvas mb-8 flex flex-wrap items-center gap-x-4 gap-y-2 border px-5 py-4"
     >
       <Archive className="text-fg-muted size-4 shrink-0" aria-hidden="true" />
       <p className="text-fg min-w-0 flex-1 text-base">
@@ -90,7 +94,7 @@ function GoneBanner({ workspaceId }: { workspaceId: string }) {
   return (
     <div
       role="alert"
-      className="border-danger/30 bg-danger-soft mb-5 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-md border px-3.5 py-3"
+      className="border-danger/50 bg-canvas mb-8 flex flex-wrap items-center gap-x-4 gap-y-2 border px-5 py-4"
     >
       <Trash2 className="text-danger size-4 shrink-0" aria-hidden="true" />
       <p className="text-fg min-w-0 flex-1 text-base">
@@ -104,8 +108,13 @@ function GoneBanner({ workspaceId }: { workspaceId: string }) {
   );
 }
 
+/** A ruled panel: hairline frame, no fill -- the grid shows the structure. */
+const CARD = "scroll-reveal border-line bg-canvas border p-6";
+
 function DocumentView({ document, gone }: { document: Document; gone: boolean }) {
   const { workspace } = useWorkspace();
+  const version = document.current_version;
+  const kind = fileKindOf(version);
   useDocumentTitle(document.title);
   // Follows the document while it is still being processed, and stops when it is done.
   // Not while it is gone: every poll would be a 404.
@@ -117,21 +126,36 @@ function DocumentView({ document, gone }: { document: Document; gone: boolean })
       {!gone && document.archived_at !== null ? <ArchivedBanner document={document} /> : null}
 
       <PageHeader
-        serif
+        eyebrow={
+          <>
+            <FileKindIcon kind={kind} className="size-6 [&_svg]:size-3.5" />
+            {fileKindLabel(kind)}
+            {version?.page_count ? ` · ${pluralize(version.page_count, "page")}` : null}
+          </>
+        }
         title={document.title}
         titleAction={gone ? null : <RenameTitle document={document} />}
         actions={gone ? null : <DocumentActions document={document} />}
       />
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
-        <div className="min-w-0 space-y-8">
-          <ProcessingPanel document={document} />
+      {/* Reading on the first four columns, the record of the file on the last two. */}
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] xl:grid-cols-6 xl:gap-0">
+        <div className="min-w-0 space-y-6 xl:col-span-4 xl:pr-8">
+          <div className={CARD}>
+            <ProcessingPanel document={document} />
+          </div>
           {gone ? null : <DocumentAskPanel document={document} />}
-          <DocumentViewer document={document} />
+          <div className={cn(CARD, "sm:px-10 sm:py-9")}>
+            <DocumentViewer document={document} />
+          </div>
         </div>
-        <aside aria-label="Document information" className="min-w-0 space-y-8">
-          <DocumentMetadata document={document} />
-          <VersionsPanel document={document} />
+        <aside aria-label="Document information" className="min-w-0 space-y-6 xl:col-span-2">
+          <div className={CARD}>
+            <DocumentMetadata document={document} />
+          </div>
+          <div className={CARD}>
+            <VersionsPanel document={document} />
+          </div>
         </aside>
       </div>
     </DocumentAvailability>
@@ -148,15 +172,20 @@ export function DocumentDetail({ documentId }: { documentId: string }) {
     <PageContainer width="wide">
       <Link
         href={routes.documents(workspace.id)}
-        className="text-fg-muted hover:text-fg mb-4 inline-flex items-center gap-1.5 rounded-xs text-sm"
+        className="label-micro text-fg-subtle hover:text-fg group mb-8 inline-flex items-center gap-2 rounded-xs transition-colors"
       >
-        <ArrowLeft className="size-3.5" aria-hidden="true" />
+        <ArrowLeft
+          className="size-3.5 transition-transform duration-500 ease-out group-hover:-translate-x-1"
+          aria-hidden="true"
+        />
         All documents
       </Link>
 
       {notFound && !query.data ? (
         <div className="py-16 text-center">
-          <h1 className="text-fg text-lg font-semibold">Document not found</h1>
+          <h1 className="text-fg font-serif text-4xl font-light tracking-tight">
+            Document not found
+          </h1>
           <p className="text-fg-muted mt-1.5 text-base">
             It may have been deleted, or it may belong to a different workspace.
           </p>

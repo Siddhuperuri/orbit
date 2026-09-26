@@ -138,7 +138,7 @@ function FolderForm({
   const description = failure ? describeError(failure) : null;
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-4">
+    <form method="post" onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-4">
       <Field label="Name" error={form.formState.errors.name?.message}>
         {(control) => (
           <Input {...control} {...form.register("name")} autoFocus autoComplete="off" />

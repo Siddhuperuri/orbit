@@ -35,8 +35,8 @@ export function SourcesList({
     // A plain `div`, not a `<section aria-label>`: a named section is a landmark, and a
     // long thread has one per answer -- dozens of identically named regions in a screen
     // reader's landmark list. The heading is what identifies it.
-    <div className="mt-5">
-      <h2 className="text-fg-muted mb-1.5 text-xs font-medium tracking-wide uppercase">Sources</h2>
+    <div className="mt-8">
+      <h2 className="label-micro text-fg-subtle mb-3">Sources</h2>
       <ul className="divide-line border-line divide-y border-y">
         {citations.map((citation) => {
           const handle = citation.handle.toUpperCase();
@@ -51,17 +51,19 @@ export function SourcesList({
                 aria-expanded={open}
                 aria-controls={`${panelId}-passage`}
                 onClick={() => onToggle(handle)}
-                className="hover:bg-sunken/60 flex w-full items-start gap-3 py-2.5 text-left pointer-coarse:min-h-11"
+                className="hover:bg-fill group flex w-full items-start gap-4 px-2 py-4 text-left transition-colors duration-300 pointer-coarse:min-h-11"
               >
-                <span className="bg-accent-soft text-accent-soft-fg mt-0.5 inline-flex h-5 min-w-6 shrink-0 items-center justify-center rounded-sm px-1 font-mono text-xs font-medium">
+                <span className="border-accent/60 text-accent text-2xs mt-0.5 inline-flex h-5.5 min-w-8 shrink-0 items-center justify-center border px-1 font-mono font-medium">
                   {handle}
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="text-fg block truncate font-serif text-base font-medium">
+                  <span className="text-fg block truncate font-serif text-lg font-light tracking-tight">
                     {citation.document.title}
                   </span>
                   {location ? (
-                    <span className="text-fg-muted block truncate text-sm">{location}</span>
+                    <span className="label-micro text-fg-subtle mt-0.5 block truncate">
+                      {location}
+                    </span>
                   ) : null}
                 </span>
                 <ChevronDown
@@ -74,8 +76,8 @@ export function SourcesList({
               </button>
 
               {open ? (
-                <div id={`${panelId}-passage`} className="pr-1 pb-3 pl-9">
-                  <blockquote className="reading border-line-strong text-fg-muted border-l-2 pl-3 text-sm">
+                <div id={`${panelId}-passage`} className="px-2 pb-5 sm:pl-14">
+                  <blockquote className="reading border-highlight text-fg-muted border-l-2 pl-5 text-base">
                     {citation.snippet}
                   </blockquote>
                   <Link
@@ -83,7 +85,7 @@ export function SourcesList({
                       passage: citation.chunk.ordinal ?? undefined,
                       version: citation.version.version_number ?? undefined,
                     })}
-                    className="text-accent mt-2 inline-block rounded-xs text-sm font-medium hover:underline"
+                    className="link-draw text-accent mt-3 inline-block rounded-xs text-sm font-medium"
                   >
                     {citation.chunk.ordinal !== null ? "Open at this passage" : "Open document"}
                   </Link>

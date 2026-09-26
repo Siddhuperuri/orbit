@@ -8,7 +8,6 @@ import { LoadingRegion, Skeleton } from "@/components/ui/skeleton";
 import { useMembers } from "@/features/workspaces/api/use-workspaces";
 import { InviteMemberForm } from "@/features/workspaces/components/invite-member-form";
 import { MembersTable } from "@/features/workspaces/components/members-table";
-import { WorkspaceSettingsNav } from "@/features/workspaces/components/workspace-settings-nav";
 import { useWorkspace } from "@/features/workspaces/hooks/use-workspace-context";
 import { pluralize } from "@/lib/utils/format";
 
@@ -17,12 +16,15 @@ export function MembersPage() {
   const members = useMembers(workspace.id);
 
   return (
-    <PageContainer width="narrow">
-      <PageHeader title="Workspace settings" description={workspace.name} />
-      <WorkspaceSettingsNav />
+    <PageContainer>
+      <PageHeader
+        eyebrow={workspace.name}
+        title="Members"
+        description="Everyone who can open this workspace, and what each of them may do."
+      />
 
       <SettingsSection
-        title="Members"
+        title="People"
         description={
           members.data
             ? `${pluralize(members.data.length, "person", "people")} can access this workspace.`

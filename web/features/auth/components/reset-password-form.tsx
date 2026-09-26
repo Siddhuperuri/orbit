@@ -74,7 +74,7 @@ export function ResetPasswordForm() {
 
   return (
     <AuthCard title="Choose a new password" description="This signs you out everywhere else.">
-      <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-4">
+      <form method="post" onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-4">
         <FormError message={formError?.message} requestId={formError?.requestId} />
 
         <Field

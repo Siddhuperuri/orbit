@@ -33,7 +33,7 @@ export function Tip({
           side={side}
           sideOffset={6}
           className={cn(
-            "bg-fg text-canvas shadow-float z-50 max-w-64 rounded-sm px-2 py-1 text-xs",
+            "bg-fg text-canvas label-micro z-50 max-w-64 px-2 py-1",
             "data-[state=delayed-open]:animate-fade-in",
             className,
           )}

@@ -48,7 +48,7 @@ export function Transcript({
   const pending = pendingQuestionOf(messages, state);
 
   return (
-    <ol aria-label="Conversation" className="space-y-8">
+    <ol aria-label="Conversation" className="space-y-12">
       {messages.map((message) => (
         <li key={message.id}>
           <MessageItem message={message} workspaceId={workspaceId} />

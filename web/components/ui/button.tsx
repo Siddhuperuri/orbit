@@ -9,40 +9,54 @@ import { cn } from "@/lib/utils/cn";
  * The pattern every primitive follows: variants declared with `cva`, `asChild`
  * for composition, and no styling decisions made at the call site.
  *
- * Sizes are compact because ORBIT is a tool people keep open all day: the default
- * control is 32px. On a coarse pointer (a finger) every size grows to the 44px
- * minimum touch target via `pointer-coarse:`, so tablets and phones get
- * comfortable targets without a separate "mobile button".
+ * Square slabs with uppercase labels. The default control is 36px: compact enough
+ * for a tool people keep open all day, large enough to hit without aiming. On a coarse pointer (a finger) every size
+ * grows to the 44px minimum touch target via `pointer-coarse:`, so tablets and
+ * phones get comfortable targets without a separate "mobile button".
  */
 const buttonVariants = cva(
   cn(
-    "inline-flex shrink-0 items-center justify-center gap-1.5 rounded-md",
-    "text-base font-medium whitespace-nowrap select-none",
-    // 100-200ms, and only on properties that signal state.
-    "transition-colors duration-150",
-    "disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50",
-    "[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+    "relative isolate inline-flex shrink-0 items-center justify-center gap-2 overflow-hidden rounded-md",
+    // Labels are set like the navigation: uppercase, tight, crisp.
+    "text-xs font-medium tracking-[0.05em] whitespace-nowrap uppercase select-none",
+    "transition-[color,background-color,border-color,opacity,transform] duration-300 ease-out",
+    "active:translate-y-px",
+    "disabled:pointer-events-none disabled:opacity-40 aria-disabled:pointer-events-none aria-disabled:opacity-40",
+    "[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:transition-transform [&_svg]:duration-500",
     "pointer-coarse:min-h-11",
   ),
   {
     variants: {
       variant: {
+        // Solid ink: white on the night theme, black on paper.
         primary: "bg-accent-solid text-on-accent hover:bg-accent-solid-hover",
-        secondary: "border border-control bg-surface text-fg hover:bg-sunken",
-        ghost: "text-fg-muted hover:bg-sunken hover:text-fg",
+        // An outline that fills with ink from below under the pointer -- the
+        // inverted-block language of the navigation, as a gesture.
+        secondary: cn(
+          "border-line-strong text-fg bg-canvas border",
+          "before:bg-fg before:absolute before:inset-0 before:-z-10 before:origin-bottom before:scale-y-0 before:transition-transform before:duration-500 before:ease-out",
+          "hover:border-fg hover:text-canvas hover:before:scale-y-100",
+          "data-[state=open]:border-fg data-[state=open]:text-canvas data-[state=open]:before:scale-y-100",
+        ),
+        subtle: "bg-fill text-fg hover:bg-line",
+        ghost: "text-fg-muted hover:bg-fill hover:text-fg",
         // Destructive actions are visually distinct AND confirmed at the call
         // site; the colour alone is never the safeguard.
         danger: "bg-danger-solid text-on-danger hover:opacity-90",
-        link: "rounded-xs text-accent underline-offset-4 hover:underline",
+        link: "link-draw text-accent rounded-xs normal-case tracking-normal",
       },
       size: {
-        sm: "h-7 px-2.5 text-sm",
-        md: "h-8 px-3",
-        lg: "h-10 px-4",
-        icon: "size-8 p-0 pointer-coarse:min-w-11",
+        xs: "h-7 gap-1.5 px-2.5 text-2xs",
+        sm: "h-8 gap-1.5 px-3 text-2xs",
+        md: "h-9 px-4",
+        lg: "h-11 px-6 text-sm",
+        icon: "size-9 p-0 pointer-coarse:min-w-11",
+        "icon-sm": "size-8 p-0 pointer-coarse:min-w-11",
       },
     },
-    compoundVariants: [{ variant: "link", className: "h-auto px-0 pointer-coarse:min-h-0" }],
+    compoundVariants: [
+      { variant: "link", className: "h-auto px-0 text-sm pointer-coarse:min-h-0" },
+    ],
     defaultVariants: { variant: "secondary", size: "md" },
   },
 );

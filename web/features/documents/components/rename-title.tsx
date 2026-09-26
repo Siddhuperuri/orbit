@@ -79,7 +79,12 @@ export function RenameTitle({ document }: { document: Document }) {
   const description = failure ? describeError(failure) : null;
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="max-w-xl font-sans">
+    <form
+      method="post"
+      onSubmit={form.handleSubmit(onSubmit)}
+      noValidate
+      className="max-w-xl font-sans"
+    >
       <Field label="Document title" hideLabel error={form.formState.errors.title?.message}>
         {(control) => (
           <Input

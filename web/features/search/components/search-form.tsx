@@ -4,8 +4,9 @@ import { Search, X } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Input, NativeSelect } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils/cn";
+import { Segmented, SegmentedItem } from "@/components/ui/segmented";
 import { useDocument } from "@/features/documents/api/use-documents";
 import { refine, type SearchState } from "@/features/search/lib/search-params";
 import {
@@ -30,13 +31,13 @@ function ScopeChip({
   return (
     <p className="text-fg-muted flex flex-wrap items-center gap-2 text-sm">
       <span>Searching within</span>
-      <span className="border-line bg-sunken inline-flex max-w-full items-center gap-1 rounded-sm border py-0.5 pr-0.5 pl-2">
+      <span className="border-line-strong inline-flex max-w-full items-center gap-1 border py-0.5 pr-0.5 pl-2.5">
         <span className="text-fg truncate font-serif">{document?.title ?? "one document"}</span>
         <button
           type="button"
           onClick={onClear}
           aria-label="Search all documents instead"
-          className="hover:bg-line inline-flex size-5 items-center justify-center rounded-xs"
+          className="hover:bg-fill inline-flex size-5 items-center justify-center rounded-xs"
         >
           <X className="size-3" aria-hidden="true" />
         </button>
@@ -76,47 +77,49 @@ export function SearchForm({
   }
 
   return (
-    <form onSubmit={submit} role="search" className="space-y-3">
-      <div className="flex flex-col gap-2 sm:flex-row">
-        <div className="flex-1">
-          <Label htmlFor="search-query" className="sr-only">
-            Search this workspace
-          </Label>
-          <div className="relative">
-            <Search
-              className="text-fg-muted pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2"
-              aria-hidden="true"
-            />
-            <Input
-              id="search-query"
-              type="search"
-              value={text}
-              onChange={(event) => setText(event.target.value)}
-              maxLength={MAX_QUERY_CHARACTERS}
-              placeholder="Search your documents"
-              autoComplete="off"
-              autoFocus={!state.query}
-              enterKeyHint="search"
-              className="text-md h-10 pl-8 pointer-coarse:h-11"
-            />
-          </div>
-        </div>
+    <form onSubmit={submit} role="search" className="space-y-6">
+      {/* An editorial field: the query set large on a rule. The field itself is
+          borderless, so the rule carries the text-field focus indicator -- it turns
+          accent and a second, heavier accent line draws across it from the left. */}
+      <div
+        className={cn(
+          "border-control hover:border-fg-subtle relative flex items-center gap-4 border-b pb-3 transition-colors duration-500",
+          "has-[input:focus-visible]:border-accent",
+          "after:bg-accent after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:origin-left after:scale-x-0 after:transition-transform after:duration-700 after:ease-out has-[input:focus-visible]:after:scale-x-100",
+        )}
+      >
+        <Label htmlFor="search-query" className="sr-only">
+          Search this workspace
+        </Label>
+        <Search className="text-fg-subtle size-6 shrink-0" strokeWidth={1.5} aria-hidden="true" />
+        {/* The box around the field is the visible control; the field itself is borderless. */}
+        <input
+          id="search-query"
+          type="search"
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+          maxLength={MAX_QUERY_CHARACTERS}
+          placeholder="Search your documents — a phrase, a name, or a question"
+          autoComplete="off"
+          autoFocus={!state.query}
+          enterKeyHint="search"
+          className="text-fg placeholder:text-fg-subtle h-14 min-w-0 flex-1 bg-transparent font-serif text-xl font-light tracking-tight focus-visible:outline-none sm:text-2xl"
+        />
         <Button type="submit" variant="primary" size="lg" disabled={text.trim() === ""}>
           Search
         </Button>
       </div>
 
       <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-        <Label htmlFor="search-mode" className="text-fg-muted">
+        <span id="search-mode-label" className="label-micro text-fg-subtle">
           Match by
-        </Label>
-        <NativeSelect
-          id="search-mode"
-          className="w-40"
-          value={mode}
+        </span>
+        <Segmented
+          aria-labelledby="search-mode-label"
           aria-describedby="search-mode-hint"
-          onChange={(event) => {
-            const next = event.target.value as SearchMode;
+          value={mode}
+          onValueChange={(value) => {
+            const next = value as SearchMode;
             setMode(next);
             // Changing how matching works re-runs the current query at once --
             // it is a refinement of a search already on screen, not a new one.
@@ -124,12 +127,12 @@ export function SearchForm({
           }}
         >
           {SEARCH_MODES.map((value) => (
-            <option key={value} value={value}>
+            <SegmentedItem key={value} value={value}>
               {MODE_LABELS[value]}
-            </option>
+            </SegmentedItem>
           ))}
-        </NativeSelect>
-        <span id="search-mode-hint" className="text-fg-muted text-sm">
+        </Segmented>
+        <span id="search-mode-hint" className="text-fg-subtle text-sm">
           {MODE_DESCRIPTIONS[mode]}
         </span>
       </div>

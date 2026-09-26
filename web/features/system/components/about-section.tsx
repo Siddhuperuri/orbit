@@ -18,7 +18,7 @@ export function AboutSection() {
       errorTitle="Couldn't reach the API"
     >
       {(meta) => (
-        <dl className="grid max-w-sm grid-cols-[auto_1fr] gap-x-6 gap-y-1.5 text-base">
+        <dl className="grid grid-cols-[auto_1fr] gap-x-8 gap-y-2 text-base">
           <dt className="text-fg-muted">Service</dt>
           <dd className="font-mono text-sm">{meta.service}</dd>
           <dt className="text-fg-muted">Version</dt>

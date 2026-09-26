@@ -2,12 +2,12 @@
 
 import { Menu } from "lucide-react";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { SearchTrigger } from "@/components/layout/search-trigger";
 import { UserMenu } from "@/components/layout/user-menu";
 import { Button } from "@/components/ui/button";
-import { useWorkspaces } from "@/features/workspaces/api/use-workspaces";
+import { useActiveWorkspace } from "@/features/workspaces/hooks/use-active-workspace";
 import { routes } from "@/lib/navigation";
 
 /** The section a path belongs to, for the breadcrumb. */
@@ -19,14 +19,15 @@ function sectionOf(pathname: string, workspaceId: string | undefined): string | 
   if (pathname.startsWith(`${base}/documents`)) return "Documents";
   if (pathname.startsWith(`${base}/search`)) return "Search";
   if (pathname.startsWith(`${base}/chat`)) return "Chat";
+  if (pathname.startsWith(`${base}/settings/members`)) return "Members";
   if (pathname.startsWith(`${base}/settings`)) return "Settings";
   return null;
 }
 
 /**
- * The bar above the content: navigation toggle (below `lg`, where the sidebar is
- * a drawer), where-you-are breadcrumb, the command palette entry point, and the
- * account menu.
+ * The bar across the top of the content panel: navigation toggle (below `lg`,
+ * where the sidebar is a drawer), where-you-are breadcrumb, the command palette
+ * entry point, and -- where the sidebar is hidden -- the account menu.
  */
 export function Topbar({
   onOpenNavigation,
@@ -36,18 +37,17 @@ export function Topbar({
   onOpenPalette: () => void;
 }) {
   const pathname = usePathname();
-  const { workspaceId } = useParams<{ workspaceId?: string }>();
-  const { data: workspaces } = useWorkspaces();
-
-  const workspace = workspaces?.find((candidate) => candidate.id === workspaceId);
-  const section = sectionOf(pathname, workspaceId);
+  const { workspace, routeWorkspaceId } = useActiveWorkspace();
+  // Only a page inside the workspace belongs under it in the breadcrumb.
+  const crumbWorkspace = routeWorkspaceId ? workspace : undefined;
+  const section = sectionOf(pathname, routeWorkspaceId);
 
   return (
-    <header className="border-line bg-canvas flex h-12 shrink-0 items-center gap-2 border-b px-3 sm:px-4 pointer-coarse:h-14">
+    <header className="border-line relative flex h-14 shrink-0 items-center gap-2 border-b px-3 sm:px-6 lg:px-10 pointer-coarse:h-16">
       <Button
         variant="ghost"
         size="icon"
-        className="lg:hidden"
+        className="-ml-1 lg:hidden"
         onClick={onOpenNavigation}
         aria-label="Open navigation"
       >
@@ -55,24 +55,24 @@ export function Topbar({
       </Button>
 
       <nav aria-label="Breadcrumb" className="min-w-0 flex-1">
-        <ol className="flex items-center gap-1.5 text-base">
-          {workspace ? (
-            <li className="hidden min-w-0 items-center gap-1.5 sm:flex">
+        <ol className="label-micro flex items-center gap-2.5">
+          {crumbWorkspace ? (
+            <li className="hidden min-w-0 items-center gap-2 sm:flex">
               <Link
-                href={routes.documents(workspace.id)}
-                className="text-fg-muted hover:text-fg max-w-48 truncate rounded-xs"
+                href={routes.documents(crumbWorkspace.id)}
+                className="text-fg-subtle hover:text-fg max-w-56 truncate rounded-xs transition-colors"
               >
-                {workspace.name}
+                {crumbWorkspace.name}
               </Link>
               {section ? (
-                <span className="text-fg-subtle" aria-hidden="true">
-                  /
+                <span className="text-line-strong" aria-hidden="true">
+                  —
                 </span>
               ) : null}
             </li>
           ) : null}
           {section ? (
-            <li className="text-fg truncate font-medium" aria-current="page">
+            <li className="text-fg truncate" aria-current="page">
               {section}
             </li>
           ) : null}
@@ -80,7 +80,9 @@ export function Topbar({
       </nav>
 
       <SearchTrigger onOpen={onOpenPalette} />
-      <UserMenu />
+      <div className="lg:hidden">
+        <UserMenu />
+      </div>
     </header>
   );
 }
