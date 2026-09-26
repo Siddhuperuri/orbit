@@ -86,7 +86,11 @@ from orbit.infrastructure.cache.redis import RedisClient
 from orbit.infrastructure.chunking.tokens import ApproximateTokenCounter
 from orbit.infrastructure.db.session import Database
 from orbit.infrastructure.db.unit_of_work import make_unit_of_work_factory
-from orbit.infrastructure.email.senders import ConsoleEmailSender, UnconfiguredEmailSender
+from orbit.infrastructure.email.senders import (
+    ConsoleEmailSender,
+    SmtpEmailSender,
+    UnconfiguredEmailSender,
+)
 from orbit.infrastructure.health import (
     DatabaseProbe,
     EmbeddingSchemaProbe,
@@ -391,6 +395,21 @@ def _build_email_sender(settings: Settings) -> EmailSender:
             return ConsoleEmailSender()
         case EmailProvider.UNCONFIGURED:
             return UnconfiguredEmailSender()
+        case EmailProvider.SMTP:
+            # Host presence is guaranteed by Settings validation.
+            assert settings.smtp_host is not None  # noqa: S101
+            return SmtpEmailSender(
+                host=settings.smtp_host,
+                port=settings.smtp_port,
+                from_address=settings.email_from_address,
+                username=settings.smtp_username,
+                password=(
+                    settings.smtp_password.get_secret_value() if settings.smtp_password else None
+                ),
+                starttls=settings.smtp_starttls,
+                use_ssl=settings.smtp_use_ssl,
+                timeout_seconds=settings.smtp_timeout_seconds,
+            )
 
 
 async def _safely(resource: str, close: Callable[[], Awaitable[None]]) -> None:
