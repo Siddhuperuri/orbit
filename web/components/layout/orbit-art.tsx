@@ -91,7 +91,10 @@ export function OrbitArt({
           </radialGradient>
         </defs>
         {body ? <circle r="230" fill="url(#orbit-art-glow)" className="orbit-depth-1" /> : null}
-        <g className="animate-orbit-spin origin-center [transform-box:view-box]">
+        {/* `view-box` puts the reference box's origin at the user-space origin (0,0), not at
+            the viewBox's corner -- and the drawing is centred on (0,0) -- so the pivot is
+            `0 0`. `origin-center` here would pivot on (360,360) and swing everything away. */}
+        <g className="animate-orbit-spin [transform-origin:0_0] [transform-box:view-box]">
           {RINGS.map((ring) => (
             <g key={ring.rx} className={ring.depth}>
               <g transform="rotate(-24)">
