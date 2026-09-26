@@ -62,19 +62,19 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <aside
         data-theme="dark"
         aria-label="About ORBIT"
-        className="bg-canvas text-fg @container relative hidden min-h-dvh w-[56%] max-w-[64rem] shrink-0 flex-col overflow-hidden lg:flex"
+        className="bg-canvas text-fg @container relative hidden min-h-dvh w-[54%] max-w-[62rem] shrink-0 flex-col overflow-hidden lg:flex"
       >
         <GridLines />
 
+        {/* Band 1 -- the name, set across the panel's width. */}
         <Link
           href={routes.home}
           aria-label="ORBIT home"
-          className="group relative block px-4 sm:px-6 lg:px-10"
+          className="group relative block px-4 pt-6 sm:px-6 lg:px-10"
         >
-          {/* The name, set to the panel's width and cut by its top edge. */}
           <span
             aria-hidden="true"
-            className="-mt-[0.16em] flex justify-between font-serif text-[24cqi] leading-[0.8] font-extralight tracking-[-0.02em]"
+            className="flex justify-between font-serif text-[12cqi] leading-[0.9] font-extralight tracking-[-0.02em]"
           >
             {LETTERS.map((letter) => (
               <span key={letter} className="kinetic-word">
@@ -84,13 +84,17 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           </span>
         </Link>
 
-        <OrbitArt className="scroll-depth absolute top-[8%] -right-[12%] size-[56cqi] opacity-95" />
+        {/* Band 2 -- breathing room; the artwork fills the empty right half behind it, whole
+            and clear of the text, sized from the panel so no ring is ever sliced. */}
+        <div className="min-h-32 flex-1" />
+        <OrbitArt className="scroll-depth absolute top-[15%] -right-[2%] size-[46cqi]" />
 
-        <div className="relative mt-auto grid grid-cols-6 px-4 pb-10 sm:px-6 lg:px-10 xl:pb-14">
-          <div className="col-span-6 space-y-10 xl:col-span-5">
-            <div className="space-y-6">
+        {/* Band 3 -- the message. */}
+        <div className="relative px-4 pb-8 sm:px-6 lg:px-10">
+          <div className="max-w-xl space-y-6">
+            <div className="space-y-5">
               <LogoMark className="enter text-fg size-7" />
-              <h2 className="font-serif text-[6.2cqi] leading-[0.95] font-light tracking-[-0.035em] text-balance">
+              <h2 className="font-serif text-[clamp(2.25rem,5.4cqi,3.75rem)] leading-[0.95] font-light tracking-[-0.035em] text-balance">
                 <span className="kinetic-word">
                   <span>Ask your documents.</span>
                 </span>
@@ -99,9 +103,9 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                   <span className="text-fg-muted italic">Check every answer.</span>
                 </span>
               </h2>
-              <ul className="enter enter-2 border-line grid gap-px border-t pt-5 sm:grid-cols-3 sm:gap-6">
+              <ul className="enter enter-2 border-line grid gap-3 border-t pt-4">
                 {POINTS.map(({ icon: Icon, text }) => (
-                  <li key={text} className="text-fg-muted flex items-start gap-3 text-sm">
+                  <li key={text} className="text-fg-muted flex items-center gap-3 text-sm">
                     <span className="border-line-strong text-accent inline-flex size-7 shrink-0 items-center justify-center border">
                       <Icon className="size-3.5" strokeWidth={1.75} aria-hidden="true" />
                     </span>
