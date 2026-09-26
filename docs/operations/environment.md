@@ -280,8 +280,14 @@ against it (2026-09):
   answers are cut short. `gemini-2.5-flash` is closed to new keys.
 - Errors arrive as a one-element JSON list, and the retry delay is in the body
   (`google.rpc.RetryInfo`), not a `Retry-After` header; both are read.
-- The free tier allows 100 embedded texts per minute, each text counting as a
-  request. Batch below that and let retries wait out the window (65 s).
+- The free tier allows **1,000 embedded texts per day per model**
+  (`EmbedContentRequestsPerDayPerUserPerProjectPerModel-FreeTier`), and every
+  text counts, including those in requests Google rejects. A 1,209-chunk corpus
+  therefore cannot be embedded in one day if retries are wasted: keep batches
+  small (40), retry little (2), and expect a re-index that hits the limit to stop
+  with `stale_chunks` remaining. It resumes where it stopped (`npm run
+  worker:reindex`) after the daily reset (midnight Pacific), or finish at once by
+  enabling billing on the Google project, which has no daily cap.
 
 ## Observability
 
