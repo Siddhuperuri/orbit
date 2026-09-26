@@ -163,16 +163,29 @@ where someone finally does is production, during a lockout.
 
 | Variable | Default | Notes |
 |---|---|---|
-| `ORBIT_EMAIL_PROVIDER` | `unconfigured` | `unconfigured` \| `console`. |
+| `ORBIT_EMAIL_PROVIDER` | `unconfigured` | `unconfigured` \| `console` \| `smtp`. |
 | `ORBIT_EMAIL_FROM_ADDRESS` | `no-reply@orbit.local` | Sender address. |
 | `ORBIT_PASSWORD_RESET_URL_TEMPLATE` | localhost | Must contain `{token}`; https required in production. |
 | `ORBIT_EMAIL_VERIFICATION_URL_TEMPLATE` | localhost | Same. |
 
 - `unconfigured` — every send raises `EmailDeliveryError`. Any flow depending
   on real delivery fails visibly the first time it is exercised.
+- `smtp` — delivers through any SMTP relay (SES, Postmark, Mailgun, Gmail, a company server).
+  Requires `ORBIT_SMTP_HOST`; the rest are below. Gmail needs an **app password**
+  (Google account → Security → 2-Step Verification → App passwords), not the account password:
+  `ORBIT_SMTP_HOST=smtp.gmail.com`, `ORBIT_SMTP_PORT=587`, `ORBIT_SMTP_USERNAME=<address>`,
+  `ORBIT_SMTP_PASSWORD=<app password>`, and set `ORBIT_EMAIL_FROM_ADDRESS` to the same address.
 - `console` — writes the message to the log so a developer can copy the link.
   **Rejected at startup in production**: a one-time account link in a log
   stream is a credential in a log stream, readable by anyone with log access.
+
+| Variable | Default | Notes |
+|---|---|---|
+| `ORBIT_SMTP_HOST` | — | Required for `smtp`. |
+| `ORBIT_SMTP_PORT` | `587` | 587 = STARTTLS; 465 = implicit TLS (`ORBIT_SMTP_USE_SSL`). |
+| `ORBIT_SMTP_USERNAME` / `ORBIT_SMTP_PASSWORD` | — | Set together, or both omitted for an open relay. |
+| `ORBIT_SMTP_STARTTLS` / `ORBIT_SMTP_USE_SSL` | `true` / `false` | Mutually exclusive; production requires one. |
+| `ORBIT_SMTP_TIMEOUT_SECONDS` | `15` | 1–120. |
 
 Link templates point at the **frontend**, which posts the token back to the
 API. The token therefore never appears in an API URL that a reverse proxy,
