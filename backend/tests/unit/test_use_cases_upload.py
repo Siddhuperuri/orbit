@@ -139,7 +139,9 @@ class TestValidUploads:
         assert result.document.current_version is not None
         assert result.document.current_version.content_type == "application/pdf"
         assert result.document.current_version.byte_size == len(_PDF_BYTES)
-        assert result.document.title == "report.pdf"
+        # No title given: a readable one from the filename, which the version keeps as-is.
+        assert result.document.title == "report"
+        assert result.document.current_version.original_filename == "report.pdf"
 
         stored = harness.storage.objects[result.document.current_version.storage_key]
         assert stored.data == _PDF_BYTES

@@ -124,7 +124,7 @@ class TestStructuredResults:
         version = pipeline.version(documents["leave"])
         (stored,) = [c for c in pipeline.chunks(documents["leave"]) if c.chunk_id == top.chunk.id]
         assert top.rank == 1
-        assert (top.document.id, top.document.title) == (documents["leave"].id, "leave.txt")
+        assert (top.document.id, top.document.title) == (documents["leave"].id, "leave")
         assert (top.version.id, top.version.version_number) == (version.id, 1)
         assert (top.chunk.ordinal, top.chunk.text) == (stored.ordinal, stored.text)
         assert (top.location.char_start, top.location.char_end) == (
