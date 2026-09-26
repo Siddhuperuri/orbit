@@ -92,9 +92,11 @@ export function AsciiField({
         for (let col = 0; col < cols; col += 1) {
           const x = col * step;
           const y = row * cell;
+          // Time slides the sample point across the noise instead of feeding the hash: a
+          // hashed z jumps at random between frames and reads as flicker, not drift.
           let value =
-            noise(col * 0.09, row * 0.11, time) * 0.75 +
-            noise(col * 0.23, row * 0.27, time * 1.7) * 0.25;
+            noise(col * 0.09 + time * 0.22, row * 0.11 - time * 0.12, 0) * 0.75 +
+            noise(col * 0.23 - time * 0.3, row * 0.27 + time * 0.18, 7.3) * 0.25;
           let hot = 0;
           if (pointer.active) {
             const d = Math.hypot(pointer.x - x, pointer.y - y);
@@ -110,7 +112,8 @@ export function AsciiField({
           const glyph =
             GLYPHS[
               Math.floor(
-                Math.max(level, 0) * 2.2 * (GLYPHS.length - 1) + hot * 3 * hash(col, row, time * 9),
+                Math.max(level, 0) * 2.2 * (GLYPHS.length - 1) +
+                  hot * 3 * hash(col, row, Math.floor(time * 2)),
               ) % GLYPHS.length
             ];
           if (!glyph || glyph === " ") continue;
@@ -127,7 +130,7 @@ export function AsciiField({
       if (!visible) return;
       // ~24 fps is plenty for a texture, and a third of the work of 60.
       if (now - last < 41) return;
-      time += ((now - last) / 1000) * 0.18;
+      time += Math.min(0.1, (now - last) / 1000);
       last = now;
       draw();
     }

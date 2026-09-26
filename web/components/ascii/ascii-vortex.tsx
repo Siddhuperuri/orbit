@@ -124,7 +124,7 @@ export function AsciiVortex({
       if (!visible) return;
       const dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
       last = now;
-      time += dt * 0.07;
+      time += dt * 0.03;
       draw();
     }
 
