@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { GridLines } from "@/components/layout/grid-lines";
 import { OrbitArt } from "@/components/layout/orbit-art";
-import { LogoMark, Wordmark } from "@/components/layout/wordmark";
+import { Wordmark } from "@/components/layout/wordmark";
 import { routes } from "@/lib/navigation";
 
 const POINTS = [
@@ -45,16 +45,16 @@ function CitationPreview() {
   );
 }
 
-/** The five letters of the name, each rising out of its own mask in turn. */
-const LETTERS = ["O", "R", "B", "I", "T"];
-
 /**
  * Shared frame for the sign-in family of pages. On a wide screen the form sits
- * beside a panel that shows what ORBIT is for, composed like a title sequence: the
- * name set across the full width and cut off by the top edge, the column grid, the
- * orbit artwork turning slowly behind, and the product's promise in front. The
- * panel is always the night palette (its own `data-theme`), so it reads the same in
- * either theme; on a phone it is dropped, and the form is the whole page.
+ * beside a brand panel that says what ORBIT is for -- laid out the way a product's
+ * front door usually is: the name at the top, one large statement, the three
+ * things it promises, and proof of the promise (an answer beside the passage it came
+ * from) at the foot. A soft cobalt glow and the slowly turning orbit artwork give
+ * it depth without competing with the text.
+ *
+ * The panel is always the night palette (its own `data-theme`), so it reads the same
+ * in either theme; on a phone it is dropped, and the form is the whole page.
  */
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -62,65 +62,55 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <aside
         data-theme="dark"
         aria-label="About ORBIT"
-        className="bg-canvas text-fg @container relative hidden min-h-dvh w-[54%] max-w-[62rem] shrink-0 flex-col overflow-hidden lg:flex"
+        className="bg-canvas text-fg @container relative hidden min-h-dvh w-1/2 max-w-[60rem] shrink-0 flex-col justify-between gap-12 overflow-hidden p-10 lg:flex xl:p-14"
       >
+        {/* Backdrop: a cobalt glow from the upper right, the column grid, a floor of black. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_82%_30%,color-mix(in_oklch,var(--accent)_20%,transparent),transparent_70%)]"
+        />
         <GridLines />
+        <OrbitArt className="scroll-depth absolute top-1/2 right-[2%] size-[54cqi] -translate-y-[58%] opacity-80" />
+        <div
+          aria-hidden="true"
+          className="from-canvas pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t to-transparent"
+        />
 
-        {/* Band 1 -- the name, set across the panel's width. */}
         <Link
           href={routes.home}
           aria-label="ORBIT home"
-          className="group relative block px-4 pt-6 sm:px-6 lg:px-10"
+          className="group enter relative inline-flex self-start"
         >
-          <span
-            aria-hidden="true"
-            className="flex justify-between font-serif text-[12cqi] leading-[0.9] font-extralight tracking-[-0.02em]"
-          >
-            {LETTERS.map((letter) => (
-              <span key={letter} className="kinetic-word">
-                <span>{letter}</span>
-              </span>
-            ))}
-          </span>
+          <Wordmark />
         </Link>
 
-        {/* Band 2 -- breathing room; the artwork fills the empty right half behind it, whole
-            and clear of the text, sized from the panel so no ring is ever sliced. */}
-        <div className="min-h-32 flex-1" />
-        <OrbitArt className="scroll-depth absolute top-[15%] -right-[2%] size-[46cqi]" />
+        <div className="relative max-w-xl space-y-10">
+          <h2 className="font-serif text-[clamp(2.75rem,6.4cqi,4.75rem)] leading-[0.98] font-light tracking-[-0.035em] text-balance">
+            <span className="kinetic-word">
+              <span>Ask your documents.</span>
+            </span>
+            <br />
+            <span className="kinetic-word">
+              <span className="text-fg-muted italic">Check every answer.</span>
+            </span>
+          </h2>
+          <ul className="enter enter-2 border-line divide-line max-w-md divide-y border-y">
+            {POINTS.map(({ icon: Icon, text }) => (
+              <li key={text} className="text-fg-muted flex items-center gap-4 py-3.5 text-sm">
+                <span className="border-line-strong text-accent inline-flex size-8 shrink-0 items-center justify-center border">
+                  <Icon className="size-4" strokeWidth={1.5} aria-hidden="true" />
+                </span>
+                {text}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-        {/* Band 3 -- the message. */}
-        <div className="relative px-4 pb-8 sm:px-6 lg:px-10">
-          <div className="max-w-xl space-y-6">
-            <div className="space-y-5">
-              <LogoMark className="enter text-fg size-7" />
-              <h2 className="font-serif text-[clamp(2.25rem,5.4cqi,3.75rem)] leading-[0.95] font-light tracking-[-0.035em] text-balance">
-                <span className="kinetic-word">
-                  <span>Ask your documents.</span>
-                </span>
-                <br />
-                <span className="kinetic-word">
-                  <span className="text-fg-muted italic">Check every answer.</span>
-                </span>
-              </h2>
-              <ul className="enter enter-2 border-line grid gap-3 border-t pt-4">
-                {POINTS.map(({ icon: Icon, text }) => (
-                  <li key={text} className="text-fg-muted flex items-center gap-3 text-sm">
-                    <span className="border-line-strong text-accent inline-flex size-7 shrink-0 items-center justify-center border">
-                      <Icon className="size-3.5" strokeWidth={1.75} aria-hidden="true" />
-                    </span>
-                    {text}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="enter enter-3">
-              <CitationPreview />
-            </div>
-            <p className="label-micro text-fg-subtle">
-              Upload PDFs, Markdown and text · Search · Ask with citations
-            </p>
-          </div>
+        <div className="enter enter-3 relative space-y-5">
+          <CitationPreview />
+          <p className="label-micro text-fg-subtle">
+            Upload PDFs, Markdown and text · Search · Ask with citations
+          </p>
         </div>
       </aside>
 
