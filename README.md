@@ -209,7 +209,10 @@ all work with no API key and no network. Answer *quality* requires a real
 provider; correctness does not
 ([ADR-0007](docs/decisions/0007-ai-provider-ports.md)).
 
-To use OpenAI, set `ORBIT_AI_PROVIDER=openai` and `ORBIT_OPENAI_API_KEY`.
+To use a real model, set `ORBIT_AI_PROVIDER=openai`, `ORBIT_OPENAI_API_KEY`, and
+`ORBIT_OPENAI_BASE_URL`. Any OpenAI-compatible endpoint works: OpenAI itself, or
+Google Gemini with a Google AI Studio key (the settings are in `.env.example`
+and [environment.md](docs/operations/environment.md#using-google-gemini)).
 
 ---
 

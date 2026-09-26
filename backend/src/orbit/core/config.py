@@ -75,6 +75,9 @@ class EmailProvider(StrEnum):
     UNCONFIGURED = "unconfigured"
     #: Development only: logs that a message *would* have been sent.
     CONSOLE = "console"
+    #: Delivery through any SMTP relay (SES, Postmark, Mailgun, Gmail, a company
+    #: server). Needs `ORBIT_SMTP_HOST`; credentials as the relay requires.
+    SMTP = "smtp"
 
 
 class Settings(BaseSettings):
@@ -222,6 +225,16 @@ class Settings(BaseSettings):
     # -- Email ---------------------------------------------------------------
     email_provider: EmailProvider = EmailProvider.UNCONFIGURED
     email_from_address: str = "no-reply@orbit.local"
+    # SMTP delivery (`ORBIT_EMAIL_PROVIDER=smtp`). Nothing here is read otherwise.
+    smtp_host: str | None = None
+    # 587 is submission with STARTTLS; 465 is implicit TLS (`smtp_use_ssl`).
+    smtp_port: Annotated[int, Field(ge=1, le=65535)] = 587
+    smtp_username: str | None = None
+    # A secret: `SecretStr` keeps it out of reprs, tracebacks, and settings dumps.
+    smtp_password: SecretStr | None = None
+    smtp_starttls: bool = True
+    smtp_use_ssl: bool = False
+    smtp_timeout_seconds: Annotated[int, Field(ge=1, le=120)] = 15
     # `{token}` is substituted with the one-time token. These point at the
     # frontend, which posts the token back to the API -- the token never
     # appears in an API URL a proxy or access log would record.
@@ -309,6 +322,13 @@ class Settings(BaseSettings):
     llm_model: str = "gpt-4o-mini"
     # Declared, not discovered: the context budget is computed from it.
     llm_context_window: Annotated[int, Field(ge=2048, le=2_000_000)] = 128_000
+    # How much a reasoning ("thinking") model may think before answering, sent
+    # as the API's `reasoning_effort`. Unset sends nothing, which is what a
+    # non-reasoning model such as gpt-4o-mini requires. Reasoning models count
+    # their thinking against `answer_max_tokens`, so an unbounded default can
+    # spend the whole budget thinking and cut the answer short -- Gemini does
+    # exactly that at its default level, hence `low` for it.
+    llm_reasoning_effort: Literal["none", "minimal", "low", "medium", "high"] | None = None
     # Per request, and between streamed chunks. The answer's overall deadline
     # is `answer_generation_timeout_seconds`.
     llm_request_timeout_seconds: Annotated[int, Field(ge=1, le=600)] = 30
@@ -457,6 +477,25 @@ class Settings(BaseSettings):
                 "ORBIT_ANSWER_MAX_TOKENS plus ORBIT_ANSWER_MAX_CONTEXT_TOKENS must be below "
                 "ORBIT_LLM_CONTEXT_WINDOW."
             )
+            raise ValueError(msg)
+        return self
+
+    @model_validator(mode="after")
+    def _validate_email(self) -> Self:
+        if self.email_provider is not EmailProvider.SMTP:
+            return self
+        if not (self.smtp_host and self.smtp_host.strip()):
+            msg = "ORBIT_EMAIL_PROVIDER=smtp requires ORBIT_SMTP_HOST to be set."
+            raise ValueError(msg)
+        if self.smtp_starttls and self.smtp_use_ssl:
+            msg = "ORBIT_SMTP_STARTTLS and ORBIT_SMTP_USE_SSL are mutually exclusive."
+            raise ValueError(msg)
+        if (self.smtp_username is None) != (self.smtp_password is None):
+            msg = "ORBIT_SMTP_USERNAME and ORBIT_SMTP_PASSWORD must be set together."
+            raise ValueError(msg)
+        if self.is_production and not (self.smtp_starttls or self.smtp_use_ssl):
+            # Credentials and one-time account links would cross the network in clear.
+            msg = "SMTP in production requires ORBIT_SMTP_STARTTLS or ORBIT_SMTP_USE_SSL."
             raise ValueError(msg)
         return self
 

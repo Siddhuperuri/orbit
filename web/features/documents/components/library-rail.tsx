@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils/cn";
 import { pluralize } from "@/lib/utils/format";
 
 const linkClasses =
-  "flex min-h-8 items-center gap-2.5 rounded-md px-2.5 text-base font-medium pointer-coarse:min-h-11";
+  "label-caps group relative flex min-h-9 items-center gap-3 px-3 transition-colors duration-300 pointer-coarse:min-h-11";
 
 function ScopeLink({
   href,
@@ -42,12 +42,20 @@ function ScopeLink({
       aria-current={active ? "page" : undefined}
       className={cn(
         linkClasses,
+        // The current scope: a filled row with a cobalt rule at its edge.
         active
-          ? "bg-accent-soft text-accent-soft-fg"
-          : "text-fg-muted hover:bg-line/60 hover:text-fg",
+          ? "bg-fill text-fg before:bg-accent before:absolute before:inset-y-0 before:left-0 before:w-0.5"
+          : "text-fg-muted hover:bg-fill hover:text-fg",
       )}
     >
-      <Icon className="size-4 shrink-0" aria-hidden="true" />
+      <Icon
+        className={cn(
+          "size-4 shrink-0",
+          active ? "text-accent" : "text-fg-subtle group-hover:text-fg-muted",
+        )}
+        strokeWidth={1.75}
+        aria-hidden="true"
+      />
       {children}
     </Link>
   );
@@ -63,8 +71,8 @@ function SectionHeading({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="mb-1 flex items-center justify-between px-2.5">
-      <h2 id={id} className="text-fg-muted text-xs font-medium tracking-wide uppercase">
+    <div className="border-line mb-2 flex items-center justify-between border-t px-3 pt-3">
+      <h2 id={id} className="label-micro text-fg-subtle">
         {children}
       </h2>
       {action}

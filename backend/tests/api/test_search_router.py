@@ -91,7 +91,7 @@ class TestSearchEndpoint:
             "relevance",
         }
         assert top["rank"] == 1 and top["matched_by"] == "both"
-        assert top["document"]["title"] == "leave.txt"
+        assert top["document"]["title"] == "leave"
         assert top["version"]["version_number"] == 1
         assert "Parental leave" in top["chunk"]["text"]
         assert set(top["location"]) == {

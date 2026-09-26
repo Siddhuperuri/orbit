@@ -122,7 +122,7 @@ export function SearchFilters({
                   <li key={type}>
                     <label
                       htmlFor={id}
-                      className="hover:bg-sunken flex min-h-8 cursor-pointer items-center gap-2.5 rounded-sm px-1.5 py-1 pointer-coarse:min-h-11"
+                      className="hover:bg-fill flex min-h-8 cursor-pointer items-center gap-2.5 rounded-sm px-1.5 py-1 pointer-coarse:min-h-11"
                     >
                       <Checkbox
                         id={id}
@@ -152,7 +152,7 @@ export function SearchFilters({
                     <li key={tag.id}>
                       <label
                         htmlFor={id}
-                        className="hover:bg-sunken flex min-h-8 cursor-pointer items-center gap-2.5 rounded-sm px-1.5 py-1 pointer-coarse:min-h-11"
+                        className="hover:bg-fill flex min-h-8 cursor-pointer items-center gap-2.5 rounded-sm px-1.5 py-1 pointer-coarse:min-h-11"
                       >
                         <Checkbox
                           id={id}

@@ -68,94 +68,103 @@ export function SearchResultItem({
   });
 
   return (
-    <li className="border-line border-b py-5 first:pt-0 last:border-0">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h2 className="min-w-0">
+    <li className="scroll-reveal viewfinder border-line bg-canvas grid gap-x-6 gap-y-3 border-t px-1 py-8 sm:grid-cols-[3.5rem_minmax(0,1fr)] sm:px-4">
+      {/* Its place in the ranking, set like a catalogue number. */}
+      <span className="label-micro text-fg-subtle pt-2 tabular-nums" aria-hidden="true">
+        {String(result.rank).padStart(2, "0")}
+      </span>
+      <div className="min-w-0">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
+          <h2 className="min-w-0">
+            <Link
+              href={href}
+              className="link-draw text-fg hover:text-accent text-2xl font-medium tracking-tight [overflow-wrap:anywhere] transition-colors duration-300"
+            >
+              {result.document.title}
+            </Link>
+          </h2>
+          {explainMatch ? (
+            <Badge tone={result.matched_by === "both" ? "accent" : "neutral"}>
+              {relevance.label}
+            </Badge>
+          ) : null}
+        </div>
+
+        {/* Type, recency, and position -- the three things that decide whether a
+          reader opens this result, in one quiet line. */}
+        <p className="label-micro text-fg-subtle mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span>{contentTypeLabel(result.document.content_type)}</span>
+          <span aria-hidden="true">·</span>
+          <span>
+            Updated{" "}
+            <time dateTime={result.document.updated_at}>
+              {formatRelativeTime(result.document.updated_at)}
+            </time>
+          </span>
+          {location ? (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>{location}</span>
+            </>
+          ) : null}
+        </p>
+
+        <p
+          className={cn(
+            "reading text-fg-muted border-line-strong mt-5 border-l pl-5",
+            // Clamped rather than truncated in the data: the whole passage is in the
+            // DOM (searchable, selectable) and only its height is limited.
+            !expanded && long && "line-clamp-5",
+          )}
+        >
+          <HighlightedText text={result.chunk.text} query={query} />
+        </p>
+
+        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+          {long ? (
+            <button
+              type="button"
+              aria-expanded={expanded}
+              onClick={() => setExpanded((value) => !value)}
+              className="link-draw text-accent rounded-xs text-sm font-medium"
+            >
+              {expanded ? "Show less" : "Show full passage"}
+            </button>
+          ) : null}
+
           <Link
             href={href}
-            className="text-md text-fg hover:text-accent rounded-xs font-serif font-semibold [overflow-wrap:anywhere] hover:underline"
+            className="link-draw text-accent group/open inline-flex items-center gap-1 rounded-xs text-sm font-medium"
           >
-            {result.document.title}
+            Open at this passage
+            <ArrowUpRight
+              className="size-3.5 transition-transform duration-500 ease-out group-hover/open:translate-x-0.5 group-hover/open:-translate-y-0.5"
+              aria-hidden="true"
+            />
           </Link>
-        </h2>
-        {explainMatch ? (
-          <Badge tone={result.matched_by === "both" ? "accent" : "neutral"}>
-            {relevance.label}
-          </Badge>
-        ) : null}
-      </div>
 
-      {/* Type, recency, and position -- the three things that decide whether a
-          reader opens this result, in one quiet line. */}
-      <p className="text-fg-muted mt-0.5 flex flex-wrap items-center gap-x-2 text-sm">
-        <span>{contentTypeLabel(result.document.content_type)}</span>
-        <span aria-hidden="true">·</span>
-        <span>
-          Updated{" "}
-          <time dateTime={result.document.updated_at}>
-            {formatRelativeTime(result.document.updated_at)}
-          </time>
-        </span>
-        {location ? (
-          <>
-            <span aria-hidden="true">·</span>
-            <span>{location}</span>
-          </>
-        ) : null}
-      </p>
+          {onAsk ? (
+            <button
+              type="button"
+              onClick={() => onAsk(result)}
+              className="link-draw text-accent inline-flex items-center gap-1 rounded-xs text-sm font-medium"
+            >
+              <MessageSquare className="size-3.5" aria-hidden="true" />
+              Ask about this document
+            </button>
+          ) : null}
 
-      <p
-        className={cn(
-          "reading text-fg-muted mt-2",
-          // Clamped rather than truncated in the data: the whole passage is in the
-          // DOM (searchable, selectable) and only its height is limited.
-          !expanded && long && "line-clamp-5",
-        )}
-      >
-        <HighlightedText text={result.chunk.text} query={query} />
-      </p>
-
-      <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
-        {long ? (
-          <button
-            type="button"
-            aria-expanded={expanded}
-            onClick={() => setExpanded((value) => !value)}
-            className="text-accent rounded-xs text-sm font-medium hover:underline"
-          >
-            {expanded ? "Show less" : "Show full passage"}
-          </button>
-        ) : null}
-
-        <Link
-          href={href}
-          className="text-accent inline-flex items-center gap-1 rounded-xs text-sm font-medium hover:underline"
-        >
-          Open at this passage
-          <ArrowUpRight className="size-3.5" aria-hidden="true" />
-        </Link>
-
-        {onAsk ? (
-          <button
-            type="button"
-            onClick={() => onAsk(result)}
-            className="text-accent inline-flex items-center gap-1 rounded-xs text-sm font-medium hover:underline"
-          >
-            <MessageSquare className="size-3.5" aria-hidden="true" />
-            Ask about this document
-          </button>
-        ) : null}
-
-        {explainMatch ? (
-          <details className="text-sm">
-            <summary className="text-fg-muted hover:text-fg cursor-pointer rounded-xs">
-              Why this result
-            </summary>
-            <p className="border-line bg-sunken text-fg-muted mt-2 max-w-prose rounded-md border p-3">
-              {relevance.detail}
-            </p>
-          </details>
-        ) : null}
+          {explainMatch ? (
+            <details className="text-sm">
+              <summary className="text-fg-muted hover:text-fg cursor-pointer rounded-xs">
+                Why this result
+              </summary>
+              <p className="border-line text-fg-muted mt-2 max-w-prose border p-3">
+                {relevance.detail}
+              </p>
+            </details>
+          ) : null}
+        </div>
       </div>
     </li>
   );

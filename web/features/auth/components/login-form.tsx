@@ -73,7 +73,9 @@ export function LoginForm() {
     >
       <SessionNotice reason={searchParams.get("reason")} />
 
-      <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-4">
+      {/* `method="post"`: a submit before React hydrates must not put the password
+          in the address bar, history, and server logs, as a default GET would. */}
+      <form method="post" onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-4">
         <FormError message={formError?.message} requestId={formError?.requestId} />
 
         <Field label="Email" error={errors.email?.message}>

@@ -45,7 +45,7 @@ export function ChatLayout({ children }: { children: ReactNode }) {
     <DrawerContext.Provider value={() => setDrawerOpen(true)}>
       <div className="flex h-full min-h-0">
         <aside
-          className="border-line hidden w-72 shrink-0 border-r md:block"
+          className="border-line bg-canvas hidden w-72 shrink-0 border-r md:block"
           aria-label="Conversations"
         >
           <ConversationList workspaceId={workspace.id} activeId={conversationId} />

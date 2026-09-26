@@ -9,10 +9,13 @@ import { cn } from "@/lib/utils/cn";
  * WCAG 1.4.4 forbids).
  */
 export const controlClasses = cn(
-  "w-full rounded-md border border-control bg-surface px-2.5 text-md text-fg sm:text-base",
+  "w-full rounded-md border border-control bg-surface px-3 text-md text-fg sm:text-base",
   "placeholder:text-fg-subtle",
-  "transition-colors duration-150",
+  "transition-[border-color,box-shadow] duration-300 ease-out",
   "hover:border-fg-subtle",
+  // A text field's focus: accent border and a halo in place of the global outline
+  // (the one sanctioned exception -- see globals.css).
+  "focus-visible:border-accent focus-visible:ring-focus/30 focus-visible:ring-3 focus-visible:outline-none",
   "aria-invalid:border-danger aria-invalid:hover:border-danger",
   "disabled:cursor-not-allowed disabled:bg-sunken disabled:text-fg-subtle disabled:hover:border-control",
   "read-only:bg-sunken",
@@ -22,7 +25,7 @@ export function Input({ className, type = "text", ...props }: React.ComponentPro
   return (
     <input
       type={type}
-      className={cn(controlClasses, "h-8 pointer-coarse:h-11", className)}
+      className={cn(controlClasses, "h-9 pointer-coarse:h-11", className)}
       {...props}
     />
   );
@@ -34,11 +37,19 @@ export function Textarea({ className, ...props }: React.ComponentProps<"textarea
 
 /**
  * A native `<select>`: the browser's own picker is the most accessible option and
- * the best on touch, and a custom listbox would have to re-earn both.
+ * the best on touch, and a custom listbox would have to re-earn both. Only the
+ * closed control is restyled (`.select-chevron`), so it matches the other fields.
  */
 export function NativeSelect({ className, children, ...props }: React.ComponentProps<"select">) {
   return (
-    <select className={cn(controlClasses, "h-8 pr-8 pointer-coarse:h-11", className)} {...props}>
+    <select
+      className={cn(
+        controlClasses,
+        "select-chevron h-9 cursor-pointer appearance-none pr-9 pointer-coarse:h-11",
+        className,
+      )}
+      {...props}
+    >
       {children}
     </select>
   );

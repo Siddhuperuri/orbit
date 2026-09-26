@@ -32,14 +32,14 @@ export function Toaster() {
         unstyled: true,
         classNames: {
           toast:
-            "group flex w-full items-start gap-3 rounded-md border border-line bg-surface p-3.5 text-base text-fg shadow-float",
+            "group flex w-full items-start gap-3 border border-line bg-surface/90 p-4 text-base text-fg shadow-float backdrop-blur-md",
           title: "font-medium",
           description: "mt-0.5 text-sm text-fg-muted",
           icon: "mt-0.5 shrink-0",
           actionButton:
-            "ml-auto shrink-0 rounded-md border border-control bg-surface px-2.5 py-1 text-sm font-medium text-fg hover:bg-sunken pointer-coarse:min-h-11",
+            "ml-auto shrink-0 border border-line-strong px-2.5 py-1 font-mono text-2xs uppercase tracking-[0.06em] text-fg hover:bg-fg hover:text-canvas transition-colors pointer-coarse:min-h-11",
           closeButton:
-            "absolute -top-2 -left-2 flex size-5 items-center justify-center rounded-full border border-line-strong bg-surface text-fg-muted hover:text-fg",
+            "absolute -top-2 -left-2 flex size-5 items-center justify-center border border-line-strong bg-surface text-fg-muted hover:text-fg",
         },
       }}
     />

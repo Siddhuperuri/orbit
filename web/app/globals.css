@@ -3,25 +3,37 @@
 /*
  * ORBIT design system -- the whole of it.
  *
+ * Direction: a field notebook for machines. Warm paper and charcoal ink; a
+ * monospaced voice for labels and status; a bold grotesque for statements; dark
+ * "keycap" controls with one orange signal; and ASCII -- text drawn as image -- for
+ * the few places the product shows off (a spiral of its own words, a drifting field
+ * of characters). The hairline column grid runs behind every page. The dark theme
+ * is the same notebook under a desk lamp.
+ *
  * Tailwind v4 is configured in CSS, so this file is the foundation: raw tokens
  * per theme, and a `@theme` block that maps them to utilities. Feature code uses
  * the semantic utilities (`bg-surface`, `text-fg-muted`, `border-line`) and
  * never a raw colour, an arbitrary value, or a Tailwind palette colour -- the
  * default palette is switched off below, so `bg-red-500` simply does not exist.
  *
- * Three typographic voices, each with one job:
- *   serif  (Newsreader)  -- content: document titles, answers, source excerpts.
- *                           If it is set in serif, it is the user's material or
- *                           something derived from it.
- *   sans   (IBM Plex Sans) -- the interface: labels, buttons, navigation.
- *   mono   (IBM Plex Mono) -- identifiers: request ids, citation handles, sizes.
- * The split is functional. It lets a reader tell "their material" from "the
- * application" at a glance, which is the distinction a grounded-answer product
- * most needs to keep visible.
+ * Two typographic voices, each with one job (both Geist, self-hosted):
+ *   sans  -- statements and the interface: page titles, answers, buttons, body.
+ *            Titles are bold, tight, and large.
+ *   mono  -- labels and identifiers: the small uppercase tags that name a place,
+ *            a status, a number ("001 /"), a shortcut.
  *
- * One accent (ink blue) carries interaction: primary actions, focus, links,
- * selection. Semantic colours exist for state that means something and are
- * always paired with an icon and a label -- never colour alone.
+ * Colour has three jobs:
+ *   ink        -- the interface is paper and charcoal. The primary action is a dark
+ *                 key; the current place is an inverted block.
+ *   signal     -- one orange: the dot on a key, focus, links, citations, and the
+ *                 glow where the pointer crosses the grid.
+ *   highlighter -- evidence: a matched term, a cited passage.
+ *   Semantic colours exist for state and are always paired with an icon and a
+ *   label -- never colour alone.
+ *
+ * Geometry: softly rounded (keys, pills, cards) -- 4 to 20 px -- with hairlines
+ * doing most of the separating. Depth comes from rules, a little shadow on things
+ * that float or press, and backdrop blur.
  *
  * Values are OKLCH so lightness steps are perceptually even. Contrast of every
  * text/background pair is asserted by `app/tokens.test.ts`, which parses this
@@ -33,77 +45,106 @@
 :root {
   color-scheme: light;
 
-  /* Surfaces: a warm paper canvas, slightly brighter panels, slightly sunken chrome. */
-  --canvas: oklch(97.4% 0.007 85);
-  --surface: oklch(99.3% 0.003 85);
-  --sunken: oklch(95.2% 0.009 85);
-  --overlay: oklch(20% 0.02 265 / 0.42);
+  /* Paper. The field, a brighter sheet for controls, faint wells, hover fills. */
+  --canvas: oklch(94.8% 0.011 88);
+  --surface: oklch(97.6% 0.007 88);
+  --sunken: oklch(92.6% 0.012 88);
+  --fill: oklch(90.6% 0.013 88);
+  --overlay: oklch(94.8% 0.011 88 / 0.72);
 
-  --line: oklch(90% 0.01 85);
-  --line-strong: oklch(78% 0.013 85);
+  --line: oklch(86.5% 0.012 88);
+  --line-strong: oklch(76% 0.014 88);
+  /* The column rules drawn across every page. */
+  --grid-line: oklch(89.5% 0.01 88);
   /* Borders that identify a control (inputs, checkboxes): 3:1 per WCAG 1.4.11. */
-  --control: oklch(63% 0.016 265);
+  --control: oklch(59% 0.012 88);
 
-  /* Ink. Three steps, all AA on canvas, surface and sunken. */
-  --fg: oklch(22% 0.022 265);
-  --fg-muted: oklch(41% 0.02 265);
-  --fg-subtle: oklch(48% 0.018 265);
+  /* Ink. Three steps, all AA on every surface. */
+  --fg: oklch(21% 0.006 90);
+  --fg-muted: oklch(41% 0.008 90);
+  --fg-subtle: oklch(46% 0.009 90);
 
-  /* The accent. `accent` is for text and icons; `accent-solid` fills controls. */
-  --accent: oklch(45% 0.125 255);
-  --accent-solid: oklch(45% 0.125 255);
-  --accent-solid-hover: oklch(39% 0.115 255);
-  --on-accent: oklch(99% 0.004 255);
-  --accent-soft: oklch(93.5% 0.03 255);
-  --accent-soft-fg: oklch(34% 0.105 255);
-  --focus: oklch(52% 0.16 255);
+  /* Signal orange is text and focus; the solid action is a dark key. */
+  --accent: oklch(50% 0.17 45);
+  --accent-solid: oklch(21% 0.006 90);
+  --accent-solid-hover: oklch(33% 0.008 90);
+  --on-accent: oklch(96% 0.01 88);
+  --accent-soft: oklch(91.5% 0.05 62);
+  --accent-soft-fg: oklch(40% 0.14 45);
+  --focus: oklch(60% 0.19 48);
+  /* The dot on a key, the live marker: a fill, never text. */
+  --signal: oklch(68% 0.2 46);
 
-  --success: oklch(41% 0.105 155);
-  --success-soft: oklch(94% 0.035 155);
-  --warning: oklch(43% 0.095 65);
-  --warning-soft: oklch(95% 0.05 85);
-  --danger: oklch(45% 0.17 27);
-  --danger-soft: oklch(95% 0.03 27);
-  --danger-solid: oklch(48% 0.18 27);
+  /* The highlighter. */
+  --highlight: oklch(92.5% 0.16 102);
+  --on-highlight: oklch(17% 0.02 100);
+
+  --success: oklch(42% 0.11 155);
+  --success-soft: oklch(92.5% 0.045 155);
+  --warning: oklch(44% 0.11 62);
+  --warning-soft: oklch(93.5% 0.055 85);
+  --danger: oklch(48% 0.2 27);
+  --danger-soft: oklch(93.5% 0.035 27);
+  --danger-solid: oklch(51% 0.21 27);
   --on-danger: oklch(99% 0.004 27);
 
-  --elevation: 0 1px 2px oklch(20% 0.02 265 / 0.06), 0 8px 24px oklch(20% 0.02 265 / 0.12);
+  --elevation-xs: 0 1px 0 oklch(20% 0.01 90 / 0.05);
+  --elevation-card: 0 1px 2px oklch(20% 0.01 90 / 0.06);
+  --elevation:
+    0 0 0 1px oklch(20% 0.01 90 / 0.08), 0 4px 10px oklch(20% 0.01 90 / 0.06),
+    0 24px 60px -18px oklch(20% 0.02 90 / 0.3);
+  /* The key: a faint top highlight and a hard little drop, so it reads as pressable. */
+  --button-sheen: inset 0 1px 0 oklch(100% 0 0 / 0.14), 0 1px 0 oklch(0% 0 0 / 0.3);
+  --grain-opacity: 0;
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --canvas: oklch(18.5% 0.012 265);
-  --surface: oklch(22% 0.014 265);
-  --sunken: oklch(15.5% 0.012 265);
-  --overlay: oklch(8% 0.01 265 / 0.62);
+  /* Ink under a lamp: warm charcoal, never pure black. */
+  --canvas: oklch(18% 0.004 90);
+  --surface: oklch(21.5% 0.005 90);
+  --sunken: oklch(15.5% 0.004 90);
+  --fill: oklch(26% 0.006 90);
+  --overlay: oklch(12% 0.004 90 / 0.72);
 
-  --line: oklch(29% 0.016 265);
-  --line-strong: oklch(41% 0.018 265);
-  --control: oklch(52% 0.018 265);
+  --line: oklch(30% 0.006 90);
+  --line-strong: oklch(41% 0.007 90);
+  --grid-line: oklch(24% 0.005 90);
+  --control: oklch(54% 0.008 90);
 
-  --fg: oklch(93% 0.008 85);
-  --fg-muted: oklch(75% 0.012 265);
-  --fg-subtle: oklch(68% 0.014 265);
+  --fg: oklch(95% 0.01 88);
+  --fg-muted: oklch(75% 0.008 88);
+  --fg-subtle: oklch(64% 0.009 88);
 
-  --accent: oklch(78% 0.11 255);
-  --accent-solid: oklch(78% 0.1 255);
-  --accent-solid-hover: oklch(84% 0.09 255);
-  --on-accent: oklch(20% 0.03 255);
-  --accent-soft: oklch(30% 0.05 255);
-  --accent-soft-fg: oklch(87% 0.07 255);
-  --focus: oklch(76% 0.13 255);
+  --accent: oklch(75% 0.16 56);
+  --accent-solid: oklch(94.5% 0.01 88);
+  --accent-solid-hover: oklch(84% 0.012 88);
+  --on-accent: oklch(19% 0.005 90);
+  --accent-soft: oklch(29% 0.06 55);
+  --accent-soft-fg: oklch(87% 0.08 66);
+  --focus: oklch(72% 0.17 55);
+  --signal: oklch(72% 0.19 50);
 
-  --success: oklch(78% 0.13 155);
-  --success-soft: oklch(28% 0.05 155);
-  --warning: oklch(80% 0.12 80);
-  --warning-soft: oklch(29% 0.05 80);
-  --danger: oklch(76% 0.13 27);
-  --danger-soft: oklch(28% 0.055 27);
-  --danger-solid: oklch(72% 0.15 27);
-  --on-danger: oklch(18% 0.03 27);
+  --highlight: oklch(89% 0.18 102);
+  --on-highlight: oklch(14% 0.02 100);
 
-  --elevation: 0 1px 2px oklch(0% 0 0 / 0.3), 0 10px 28px oklch(0% 0 0 / 0.45);
+  --success: oklch(80% 0.15 155);
+  --success-soft: oklch(25% 0.05 155);
+  --warning: oklch(85% 0.13 85);
+  --warning-soft: oklch(26% 0.05 80);
+  --danger: oklch(74% 0.16 25);
+  --danger-soft: oklch(25% 0.06 25);
+  --danger-solid: oklch(56% 0.21 27);
+  --on-danger: oklch(99% 0.004 27);
+
+  --elevation-xs: 0 0 0 0 transparent;
+  --elevation-card: 0 1px 2px oklch(0% 0 0 / 0.3);
+  --elevation:
+    0 0 0 1px oklch(100% 0 0 / 0.08), 0 4px 12px oklch(0% 0 0 / 0.35),
+    0 28px 70px -16px oklch(0% 0 0 / 0.65);
+  --button-sheen: inset 0 1px 0 oklch(100% 0 0 / 0.5), 0 1px 0 oklch(0% 0 0 / 0.4);
+  --grain-opacity: 0.02;
 }
 
 @theme {
@@ -112,14 +153,16 @@
   --color-transparent: transparent;
   --color-current: currentColor;
 
-  /* Type. A tool kept open all day needs density, not display sizes. */
-  --font-sans:
-    "IBM Plex Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-serif: "Newsreader Variable", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* No serif voice any more; the name stays so existing `font-serif` sites still resolve. */
+  --font-serif: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono:
-    "IBM Plex Mono", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    "Geist Mono Variable", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
 
+  /* Type. Dense for the interface; the display sizes are for serif titles only. */
   --text-*: initial;
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.125rem;
   --text-sm: 0.8125rem;
@@ -130,33 +173,50 @@
   --text-md--line-height: 1.625rem;
   --text-lg: 1.125rem;
   --text-lg--line-height: 1.75rem;
-  --text-xl: 1.375rem;
-  --text-xl--line-height: 1.75rem;
-  --text-2xl: 1.75rem;
-  --text-2xl--line-height: 2.125rem;
+  --text-xl: 1.5rem;
+  --text-xl--line-height: 1.875rem;
+  --text-2xl: 2rem;
+  --text-2xl--line-height: 2.25rem;
+  --text-3xl: 2.75rem;
+  --text-3xl--line-height: 2.875rem;
+  --text-4xl: 3.75rem;
+  --text-4xl--line-height: 3.75rem;
 
-  /* Restrained radii. Nothing in ORBIT is a pill except a status chip. */
+  --tracking-tight: -0.015em;
+  --tracking-display: -0.035em;
+  --tracking-label: 0.09em;
+
+  /* Softly rounded: chips, keys, cards, and the pill navbar. */
   --radius-*: initial;
-  --radius-xs: 0.125rem;
-  --radius-sm: 0.1875rem;
-  --radius-md: 0.3125rem;
-  --radius-lg: 0.5rem;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-full: 9999px;
 
-  /* Shadows exist only for layers that float above the page. */
   --shadow-*: initial;
+  --shadow-xs: var(--elevation-xs);
+  --shadow-card: var(--elevation-card);
   --shadow-float: var(--elevation);
+  --shadow-button: var(--button-sheen);
 
-  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  /* Cinematic easing: a long, soft landing. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
-  /* Functional motion: 100-200ms, state and direction only. */
-  --animate-fade-in: fade-in 140ms var(--ease-out);
-  --animate-fade-out: fade-out 100ms ease-in;
-  --animate-pop-in: pop-in 140ms var(--ease-out);
-  --animate-pop-out: pop-out 100ms ease-in;
-  --animate-slide-in-left: slide-in-left 180ms var(--ease-out);
-  --animate-slide-out-left: slide-out-left 140ms ease-in;
-  --animate-spin: spin 0.8s linear infinite;
-  --animate-skeleton: skeleton-pulse 1.6s ease-in-out infinite;
+  --animate-fade-in: fade-in 200ms var(--ease-out);
+  --animate-fade-out: fade-out 120ms ease-in;
+  --animate-pop-in: pop-in 320ms var(--ease-out);
+  --animate-pop-out: pop-out 140ms ease-in;
+  --animate-rise-in: rise-in 900ms var(--ease-out) both;
+  --animate-slide-in-left: slide-in-left 420ms var(--ease-out);
+  --animate-slide-out-left: slide-out-left 200ms ease-in;
+  --animate-spin: spin 0.9s linear infinite;
+  --animate-skeleton: skeleton-sweep 1.8s var(--ease-in-out) infinite;
+  --animate-orbit-spin: orbit-spin 120s linear infinite;
+  --animate-caret: caret-blink 1s steps(2, start) infinite;
 
   @keyframes fade-in {
     from {
@@ -177,11 +237,13 @@
   @keyframes pop-in {
     from {
       opacity: 0;
-      transform: translateY(4px) scale(0.985);
+      transform: translateY(10px) scale(0.985);
+      filter: blur(4px);
     }
     to {
       opacity: 1;
       transform: none;
+      filter: none;
     }
   }
   @keyframes pop-out {
@@ -191,7 +253,19 @@
     }
     to {
       opacity: 0;
-      transform: translateY(2px) scale(0.99);
+      transform: translateY(4px) scale(0.99);
+    }
+  }
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+      filter: blur(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+      filter: none;
     }
   }
   @keyframes slide-in-left {
@@ -210,9 +284,22 @@
       transform: translateX(-100%);
     }
   }
-  @keyframes skeleton-pulse {
-    50% {
-      opacity: 0.55;
+  @keyframes skeleton-sweep {
+    from {
+      background-position: 120% 0;
+    }
+    to {
+      background-position: -20% 0;
+    }
+  }
+  @keyframes orbit-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes caret-blink {
+    to {
+      visibility: hidden;
     }
   }
 }
@@ -227,9 +314,11 @@
   --color-canvas: var(--canvas);
   --color-surface: var(--surface);
   --color-sunken: var(--sunken);
+  --color-fill: var(--fill);
   --color-overlay: var(--overlay);
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
+  --color-grid-line: var(--grid-line);
   --color-control: var(--control);
   --color-fg: var(--fg);
   --color-fg-muted: var(--fg-muted);
@@ -241,6 +330,9 @@
   --color-accent-soft: var(--accent-soft);
   --color-accent-soft-fg: var(--accent-soft-fg);
   --color-focus: var(--focus);
+  --color-signal: var(--signal);
+  --color-highlight: var(--highlight);
+  --color-on-highlight: var(--on-highlight);
   --color-success: var(--success);
   --color-success-soft: var(--success-soft);
   --color-warning: var(--warning);
@@ -257,8 +349,8 @@
   }
 
   html {
-    /* Prevents layout shift when a page grows past one viewport. */
-    scrollbar-gutter: stable;
+    /* No reserved scrollbar gutter: the app shell never scrolls the document (its main
+       column scrolls), and a gutter there reads as a stray strip at the right edge. */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
@@ -270,19 +362,38 @@
     font-size: var(--text-base);
     line-height: var(--text-base--line-height);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
 
+  .font-serif {
+    font-optical-sizing: auto;
+  }
+
+  /* Thin, token-coloured scrollbars, so a black page is not split by a grey gutter. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
   ::selection {
-    background-color: var(--accent-soft);
-    color: var(--accent-soft-fg);
+    background-color: var(--highlight);
+    color: var(--on-highlight);
+  }
+
+  mark {
+    background-color: var(--highlight);
+    color: var(--on-highlight);
   }
 
   /*
    * One focus indicator for the whole application. `:focus-visible` rather than
    * `:focus`, so keyboard users get a ring without every mouse click adding one.
    * Removing this without a replacement makes the app unusable by keyboard, so
-   * it is defined once, here, and components never override it with `outline-none`.
+   * it is defined once, here. The single sanctioned exception is a text field
+   * (`controlClasses`, the search box, the composer): it swaps the outline for an
+   * accent border plus a focus-coloured halo, which reads as "typing here" rather
+   * than "selected".
    */
   :focus-visible {
     outline: 2px solid var(--focus);
@@ -300,6 +411,7 @@
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
@@ -313,6 +425,59 @@
   }
 }
 
+/* ------------------------------------------------------------------------------
+ * Typographic utilities
+ * ------------------------------------------------------------------------------ */
+
+/* The uppercase mono label that names a column, a section, a place. */
+@utility label-micro {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  line-height: var(--text-2xs--line-height);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+/* Interface labels set like the reference's navigation: mono, uppercase, crisp. */
+@utility label-caps {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/*
+ * The page statement: bold, tight, large. Sized from its container (`cqi`), not the
+ * viewport, so it fills the column it is set in whatever the window is doing.
+ */
+@utility display-title {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 0.9rem + 4.6cqi, 5.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+/* One step down, for titles that are the user's own (long) words. */
+@utility display-title-sm {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: clamp(2rem, 0.8rem + 3.2cqi, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+@utility tracking-display {
+  letter-spacing: var(--tracking-display);
+}
+
+@utility text-balance-safe {
+  text-wrap: balance;
+}
+
 @layer components {
   /*
    * Long-form content typography, for text the user reads rather than scans:
@@ -321,31 +486,36 @@
    * `react-markdown` can emit -- and no raw HTML ever reaches the page.
    */
   .reading {
-    font-family: var(--font-serif);
-    font-size: var(--text-md);
-    line-height: var(--text-md--line-height);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
     color: var(--fg);
     overflow-wrap: anywhere;
     font-optical-sizing: auto;
+    font-weight: 400;
+    letter-spacing: -0.005em;
   }
   .reading > * + * {
-    margin-top: 0.85em;
+    margin-top: 0.9em;
   }
   .reading h1,
   .reading h2,
   .reading h3,
   .reading h4 {
-    font-weight: 600;
-    line-height: 1.3;
-    margin-top: 1.3em;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-top: 1.4em;
   }
   .reading h1 {
-    font-size: var(--text-lg);
+    font-size: var(--text-xl);
   }
-  .reading h2,
+  .reading h2 {
+    font-size: 1.3rem;
+  }
   .reading h3,
   .reading h4 {
-    font-size: var(--text-md);
+    font-size: 1.15rem;
   }
   .reading ul,
   .reading ol {
@@ -358,7 +528,7 @@
     list-style: decimal;
   }
   .reading li + li {
-    margin-top: 0.3em;
+    margin-top: 0.35em;
   }
   .reading li::marker {
     color: var(--fg-subtle);
@@ -372,46 +542,415 @@
   .reading a {
     color: var(--accent);
     text-decoration: underline;
+    text-decoration-thickness: 1px;
     text-underline-offset: 3px;
   }
   .reading code {
     font-family: var(--font-mono);
-    font-size: 0.875em;
-    background: var(--sunken);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-xs);
-    padding: 0.05em 0.3em;
+    font-size: 0.8em;
+    background: var(--fill);
+    padding: 0.1em 0.35em;
   }
   .reading pre {
     background: var(--sunken);
     border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: 0.75rem 1rem;
+    padding: 0.85rem 1rem;
     overflow-x: auto;
+    line-height: 1.55;
   }
   .reading pre code {
-    border: 0;
     padding: 0;
     background: none;
   }
   .reading blockquote {
-    border-inline-start: 2px solid var(--line-strong);
+    border-inline-start: 2px solid var(--highlight);
     padding-inline-start: 1rem;
     color: var(--fg-muted);
+  }
+  .reading hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin-block: 1.6em;
   }
   .reading table {
     border-collapse: collapse;
     font-family: var(--font-sans);
     font-size: var(--text-sm);
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
   }
   .reading th,
   .reading td {
     border: 1px solid var(--line);
-    padding: 0.35rem 0.6rem;
+    padding: 0.4rem 0.65rem;
     text-align: start;
   }
   .reading th {
-    background: var(--sunken);
-    font-weight: 600;
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* The closed state of a native <select>: a drawn chevron, since `appearance: none`
+     removes the browser's. Gradients rather than an SVG so it can use a token. */
+  .select-chevron {
+    background-image:
+      linear-gradient(
+        135deg,
+        transparent 40%,
+        var(--fg-subtle) 40%,
+        var(--fg-subtle) 60%,
+        transparent 60%
+      ),
+      linear-gradient(
+        45deg,
+        transparent 40%,
+        var(--fg-subtle) 40%,
+        var(--fg-subtle) 60%,
+        transparent 60%
+      );
+    /* The 135deg stroke is the right half of the V ("/"), the 45deg stroke the left ("\"). */
+    background-position:
+      calc(100% - 14px) 52%,
+      calc(100% - 19px) 52%;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+  }
+  .select-chevron option {
+    background-color: var(--surface);
+    color: var(--fg);
+  }
+
+  /* --------------------------------------------------------------------------
+   * The grid: the column rules drawn behind every page, and the light that
+   * follows the pointer across them (see `components/layout/grid-lines.tsx`).
+   * -------------------------------------------------------------------------- */
+  /* Each rule is a column's left edge; the container draws the last right edge, so it
+     is right whichever columns the breakpoint hides. */
+  .grid-rules {
+    border-right: 1px solid var(--grid-line);
+  }
+  .grid-rules > span {
+    border-left: 1px solid var(--grid-line);
+    transform-origin: top;
+  }
+  .grid-glow {
+    --mx: -999px;
+    --my: -999px;
+    -webkit-mask-image: radial-gradient(
+      220px circle at var(--mx) var(--my),
+      black 0%,
+      transparent 72%
+    );
+    mask-image: radial-gradient(220px circle at var(--mx) var(--my), black 0%, transparent 72%);
+    transition: opacity 400ms var(--ease-out);
+  }
+  .grid-glow > div {
+    border-right: 1px solid color-mix(in oklch, var(--accent) 80%, transparent);
+  }
+  .grid-glow > div > span {
+    border-left: 1px solid color-mix(in oklch, var(--accent) 80%, transparent);
+  }
+
+  /* Page bodies sit on chosen columns of the desktop grid (see `PageContainer`); the
+     header always runs the full width. `100%` is the frame's content box, which is
+     exactly the span between the outermost column rules. */
+  @media (width >= 80rem) {
+    .page-frame[data-width="default"] > :not(.page-header) {
+      margin-inline-end: calc(100% / 6);
+    }
+    .page-frame[data-width="narrow"] > :not(.page-header) {
+      margin-inline: calc(100% / 6);
+    }
+  }
+
+  /* Film grain over the night theme: a same-origin SVG, so no inline data or CSP
+     exception. Decorative, and gone in the light theme (`--grain-opacity: 0`). */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: 60;
+    pointer-events: none;
+    background-image: url("/grain.svg");
+    background-size: 220px 220px;
+    opacity: var(--grain-opacity);
+    mix-blend-mode: screen;
+  }
+
+  /* A slow hover in place, for a card floating in front of the artwork. */
+  .float-slow {
+    animation: float-slow 7s var(--ease-in-out) infinite alternate;
+  }
+
+  /* --------------------------------------------------------------------------
+   * Hover language
+   * -------------------------------------------------------------------------- */
+
+  /* Viewfinder: four corner marks close in on a card when it is pointed at or
+     focused -- the observatory lining something up. */
+  .viewfinder {
+    --vf: var(--fg);
+    --vf-size: 0px;
+    background-image:
+      linear-gradient(var(--vf), var(--vf)), linear-gradient(var(--vf), var(--vf)),
+      linear-gradient(var(--vf), var(--vf)), linear-gradient(var(--vf), var(--vf)),
+      linear-gradient(var(--vf), var(--vf)), linear-gradient(var(--vf), var(--vf)),
+      linear-gradient(var(--vf), var(--vf)), linear-gradient(var(--vf), var(--vf));
+    background-repeat: no-repeat;
+    background-position:
+      0 0,
+      0 0,
+      100% 0,
+      100% 0,
+      0 100%,
+      0 100%,
+      100% 100%,
+      100% 100%;
+    background-size:
+      var(--vf-size) 1px,
+      1px var(--vf-size),
+      var(--vf-size) 1px,
+      1px var(--vf-size),
+      var(--vf-size) 1px,
+      1px var(--vf-size),
+      var(--vf-size) 1px,
+      1px var(--vf-size);
+    transition:
+      background-size 380ms var(--ease-out),
+      border-color 300ms var(--ease-out),
+      background-color 300ms var(--ease-out);
+  }
+  .viewfinder:hover,
+  .viewfinder:focus-within {
+    --vf-size: 14px;
+  }
+
+  /* An underline that draws in from the left. */
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition: background-size 420ms var(--ease-out);
+  }
+  .link-draw:hover,
+  .link-draw:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  /* --------------------------------------------------------------------------
+   * Motion: entrances
+   * -------------------------------------------------------------------------- */
+
+  /* Kinetic titles: each word rises out of its own mask, one after another. */
+  .kinetic-word {
+    display: inline-block;
+    overflow: clip;
+    /* Room for descenders and for the italic overhang inside the mask. */
+    padding: 0.04em 0.06em 0.14em;
+    margin: -0.04em -0.06em -0.14em;
+    vertical-align: top;
+  }
+  .kinetic-word > span {
+    display: inline-block;
+    animation: word-rise 1100ms var(--ease-out) both;
+  }
+  .kinetic-word:nth-child(2) > span {
+    animation-delay: 70ms;
+  }
+  .kinetic-word:nth-child(3) > span {
+    animation-delay: 140ms;
+  }
+  .kinetic-word:nth-child(4) > span {
+    animation-delay: 210ms;
+  }
+  .kinetic-word:nth-child(5) > span {
+    animation-delay: 280ms;
+  }
+  .kinetic-word:nth-child(6) > span {
+    animation-delay: 350ms;
+  }
+  .kinetic-word:nth-child(n + 7) > span {
+    animation-delay: 420ms;
+  }
+
+  /* Staggered entrance for the parts of a page after its title. */
+  .enter {
+    animation: rise-in 900ms var(--ease-out) both;
+  }
+  .enter-1 {
+    animation-delay: 120ms;
+  }
+  .enter-2 {
+    animation-delay: 240ms;
+  }
+  .enter-3 {
+    animation-delay: 360ms;
+  }
+  .enter-4 {
+    animation-delay: 480ms;
+  }
+
+  /* The column rules draw down the page, left to right, when the shell first appears. */
+  .grid-rules > span {
+    animation: rule-draw 1400ms var(--ease-out) both;
+  }
+  .grid-rules > span:nth-child(2) {
+    animation-delay: 60ms;
+  }
+  .grid-rules > span:nth-child(3) {
+    animation-delay: 120ms;
+  }
+  .grid-rules > span:nth-child(4) {
+    animation-delay: 180ms;
+  }
+  .grid-rules > span:nth-child(5) {
+    animation-delay: 240ms;
+  }
+  .grid-rules > span:nth-child(6) {
+    animation-delay: 300ms;
+  }
+
+  /* The loading placeholder: a slow sweep of light, like a scanner passing over. */
+  .skeleton-sweep {
+    background-color: var(--fill);
+    background-image: linear-gradient(
+      100deg,
+      transparent 20%,
+      color-mix(in oklch, var(--fg) 7%, transparent) 50%,
+      transparent 80%
+    );
+    background-size: 200% 100%;
+  }
+}
+
+@keyframes word-rise {
+  from {
+    transform: translateY(105%) rotate(2deg);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes float-slow {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes rule-draw {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes scroll-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+    clip-path: inset(0 0 30% 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes title-drift {
+  to {
+    transform: translate3d(0, -22%, 0);
+    opacity: 0.18;
+    filter: blur(3px);
+  }
+}
+
+/*
+ * Motion: scroll choreography. Scroll-driven animations run on the compositor and
+ * need no JavaScript; browsers without them, and anyone who asked for less motion,
+ * simply get the finished state.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Rows, results, and sections rise into place as they scroll into view. */
+    .scroll-reveal {
+      animation: scroll-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+
+    /* The page title drifts up and dims as the page scrolls under it -- the title
+       card leaving the screen. */
+    .scroll-drift {
+      animation: title-drift linear both;
+      animation-timeline: scroll(nearest block);
+      animation-range: 0 55vh;
+    }
+  }
+}
+
+@layer components {
+  /* A dotted grid, like graph paper -- the paper's own texture. */
+  .dot-grid {
+    background-image: radial-gradient(
+      circle at center,
+      var(--line-strong) 0.9px,
+      transparent 1.1px
+    );
+    background-size: 22px 22px;
+  }
+
+  /*
+   * A halftone (dithered) edge: a ring of dots around a pill, drawn as a background so
+   * the pill's own content stays crisp. Wrap the content in a solid inner element.
+   */
+  .dither {
+    background-image: radial-gradient(circle at 1px 1px, var(--fg) 0.9px, transparent 1.2px);
+    background-size: 4px 4px;
+  }
+
+  /* A slow ticker: the track holds its content twice and slides by half of itself. */
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 38s linear infinite;
+  }
+  .marquee:hover {
+    animation-play-state: paused;
+  }
+
+  /* A block caret, for a line of status text that is "being typed". */
+  .caret-block {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.05em;
+    margin-left: 0.15em;
+    background: currentColor;
+    vertical-align: text-bottom;
+    animation: caret-blink 1.05s steps(2, start) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
   }
 }

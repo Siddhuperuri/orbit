@@ -170,15 +170,18 @@ export const handbookPages: string[][] = [
 
 export const handbookTitle = "Northwind Field Operations Handbook";
 
-/**
- * The file name it is uploaded under.
- *
- * ORBIT titles a document from its **sanitized filename**, not from the PDF's
- * internal `/Title` -- metadata inside an untrusted file is not a name to show
- * people. So an upload that passes no `title` is listed under this, and only a
- * caller that sends one explicitly gets {@link handbookTitle}.
- */
+/** The file name it is uploaded under. */
 export const handbookFilename = "northwind-handbook.pdf";
+
+/**
+ * The title an upload of {@link handbookFilename} gets when it passes none.
+ *
+ * ORBIT titles a document from its **sanitized filename** -- extension dropped,
+ * underscores as spaces -- not from the PDF's internal `/Title`: metadata inside an
+ * untrusted file is not a name to show people. Only a caller that sends a title
+ * explicitly gets {@link handbookTitle}.
+ */
+export const handbookUploadTitle = "northwind-handbook";
 
 /** A term that appears on page 1 only, and nowhere else in the corpus. */
 export const page1Term = "flowmeter";

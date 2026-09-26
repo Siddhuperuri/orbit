@@ -217,6 +217,36 @@ class TestOpenAIEmbeddings:
         with pytest.raises(AIProviderResponseInvalidError):
             await provider.embed_documents(["a", "b"])
 
+    async def test_an_omitted_index_is_index_zero(self) -> None:
+        # How Google's OpenAI-compatible endpoint sends the first item.
+        payload = {"data": [{"embedding": [1, 0, 0]}, {"index": 1, "embedding": [0, 1, 0]}]}
+        provider = _provider(httpx.MockTransport(lambda _: httpx.Response(200, json=payload)))
+        assert await provider.embed_documents(["a", "b"]) == [[1, 0, 0], [0, 1, 0]]
+
+    async def test_two_items_without_an_index_are_a_duplicate(self) -> None:
+        payload = {"data": [{"embedding": [1, 0, 0]}, {"embedding": [0, 1, 0]}]}
+        provider = _provider(httpx.MockTransport(lambda _: httpx.Response(200, json=payload)))
+        with pytest.raises(AIProviderResponseInvalidError):
+            await provider.embed_documents(["a", "b"])
+
+    async def test_googles_retry_delay_in_the_body_is_carried_for_the_retry_layer(self) -> None:
+        body = [
+            {
+                "error": {
+                    "code": 429,
+                    "status": "RESOURCE_EXHAUSTED",
+                    "details": [
+                        {"@type": "type.googleapis.com/google.rpc.QuotaFailure"},
+                        {"@type": "type.googleapis.com/google.rpc.RetryInfo", "retryDelay": "41s"},
+                    ],
+                }
+            }
+        ]
+        provider = _provider(httpx.MockTransport(lambda _: httpx.Response(429, json=body)))
+        with pytest.raises(AIProviderUnavailableError) as caught:
+            await provider.embed_documents(["a"])
+        assert caught.value.context["retry_after_seconds"] == 41.0
+
     async def test_a_non_json_success_is_invalid(self) -> None:
         provider = _provider(httpx.MockTransport(lambda _: httpx.Response(200, text="<html>")))
         with pytest.raises(AIProviderResponseInvalidError):

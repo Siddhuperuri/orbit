@@ -15,6 +15,7 @@ from orbit.domain.documents import (
     DocumentListQuery,
     DocumentSort,
     Passage,
+    title_from_filename,
     without_overlap,
 )
 from orbit.domain.errors import BadRequestError, ValidationError
@@ -226,3 +227,30 @@ class TestSortCursor:
         sort_cursor = SortCursor(sort="created_desc", value="x", row_id=uuid.uuid4()).encode(SECRET)
         with pytest.raises(BadRequestError):
             Cursor.decode(sort_cursor, SECRET)
+
+
+class TestTitleFromFilename:
+    @pytest.mark.parametrize(
+        ("filename", "title"),
+        [
+            ("Deep_Learning_Unit1_Guide.pdf", "Deep Learning Unit1 Guide"),
+            ("Helios_Readiness (1).pdf", "Helios Readiness (1)"),
+            ("Unit 1 DL.pdf", "Unit 1 DL"),
+            ("notes.md", "notes"),
+            ("northwind-handbook.pdf", "northwind-handbook"),
+            ("COVID-19__report_2026-09-25.txt", "COVID-19 report 2026-09-25"),
+            ("archive.tar.gz", "archive.tar"),
+            ("README", "README"),
+        ],
+    )
+    def test_drops_the_extension_and_turns_underscores_into_spaces(
+        self, filename: str, title: str
+    ) -> None:
+        assert title_from_filename(filename) == title
+
+    @pytest.mark.parametrize("filename", [".pdf", "___.txt", "  .md"])
+    def test_keeps_the_filename_when_nothing_readable_is_left(self, filename: str) -> None:
+        assert title_from_filename(filename) == filename
+
+    def test_never_exceeds_the_title_column(self) -> None:
+        assert len(title_from_filename("a" * 600 + ".pdf")) == 512

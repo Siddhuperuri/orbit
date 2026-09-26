@@ -89,7 +89,7 @@ function CreateTagForm() {
   const description = failure ? describeError(failure) : null;
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-3">
+    <form method="post" onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-3">
       <div className="flex flex-wrap items-start gap-2">
         <Field
           label="New tag"
@@ -151,7 +151,7 @@ function TagRow({ tag, canWrite }: { tag: Tag; canWrite: boolean }) {
     const description = failure ? describeError(failure) : null;
     return (
       <li className="py-3">
-        <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-2">
+        <form method="post" onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-2">
           <div className="flex flex-wrap items-start gap-2">
             <Field
               label={`Name of ${tag.name}`}

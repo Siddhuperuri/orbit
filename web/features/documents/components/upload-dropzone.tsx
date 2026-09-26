@@ -1,5 +1,8 @@
 "use client";
 
+import { CloudUpload } from "lucide-react";
+
+import { OrbitIcon } from "@/components/feedback/empty-state";
 import { UploadButton } from "@/features/documents/components/upload-button";
 import { useFileDrop } from "@/features/documents/hooks/use-file-drop";
 import { useUploadPolicy } from "@/features/documents/upload/use-upload-policy";
@@ -32,14 +35,15 @@ export function UploadDropzone({
     <div
       {...dropProps}
       className={cn(
-        "mx-auto flex max-w-xl flex-col items-center rounded-lg border border-dashed px-6 py-14 text-center transition-colors",
-        dragging ? "border-accent bg-accent-soft" : "border-line-strong bg-surface",
+        "viewfinder flex flex-col items-center rounded-2xl border border-dashed px-6 py-20 text-center transition-colors duration-500",
+        dragging ? "border-accent bg-accent-soft" : "border-line-strong bg-canvas",
       )}
     >
-      <h2 className="text-fg text-lg font-semibold">
+      <OrbitIcon icon={CloudUpload} className="mb-7" />
+      <h2 className="text-fg text-3xl font-semibold tracking-tight">
         {dragging ? "Drop to upload" : (title ?? "Add your first documents")}
       </h2>
-      <p className="text-fg-muted mt-1.5 max-w-sm text-base">
+      <p className="text-fg-muted mt-2 max-w-md text-base">
         Upload {describeFormats(policy)} files
         {policy.maxBytes !== null ? `, up to ${formatBytes(policy.maxBytes)} each` : ""}. Once
         they&apos;re processed you can search them and ask questions answered from their contents.
@@ -49,10 +53,10 @@ export function UploadDropzone({
           They&apos;ll be added to <span className="text-fg font-medium">{destination}</span>.
         </p>
       ) : null}
-      <div className="mt-5">
+      <div className="mt-6">
         <UploadButton folderId={folderId} />
       </div>
-      <p className="text-fg-subtle mt-3 text-sm">or drag files anywhere onto this page</p>
+      <p className="label-micro text-fg-subtle mt-4">or drag files anywhere onto this page</p>
     </div>
   );
 }

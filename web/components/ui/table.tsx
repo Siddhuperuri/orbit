@@ -30,7 +30,7 @@ export function TableBody({ className, ...props }: React.ComponentProps<"tbody">
 export function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
   return (
     <tr
-      className={cn("border-line hover:bg-sunken/60 border-b transition-colors", className)}
+      className={cn("border-line hover:bg-sunken border-b transition-colors", className)}
       {...props}
     />
   );
@@ -40,15 +40,12 @@ export function TableHead({ className, ...props }: React.ComponentProps<"th">) {
   return (
     <th
       scope="col"
-      className={cn(
-        "text-fg-muted h-9 px-3 text-left text-xs font-medium tracking-wide uppercase",
-        className,
-      )}
+      className={cn("label-micro text-fg-subtle h-10 px-4 text-left align-middle", className)}
       {...props}
     />
   );
 }
 
 export function TableCell({ className, ...props }: React.ComponentProps<"td">) {
-  return <td className={cn("px-3 py-2.5 align-middle", className)} {...props} />;
+  return <td className={cn("px-4 py-4 align-middle", className)} {...props} />;
 }

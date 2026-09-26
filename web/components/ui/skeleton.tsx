@@ -11,7 +11,7 @@ export function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       aria-hidden="true"
-      className={cn("animate-skeleton bg-line rounded-sm", className)}
+      className={cn("skeleton-sweep animate-skeleton", className)}
       {...props}
     />
   );

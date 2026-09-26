@@ -59,7 +59,12 @@ export function RenameWorkspaceForm() {
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="max-w-md space-y-4">
+    <form
+      method="post"
+      onSubmit={form.handleSubmit(onSubmit)}
+      noValidate
+      className="max-w-md space-y-4"
+    >
       <FormError message={formError?.message} requestId={formError?.requestId} />
 
       {conflict ? (

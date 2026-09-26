@@ -70,9 +70,9 @@ export function Thread({
 
   return (
     <div className="flex h-full min-h-0 flex-1 flex-col">
-      <header className="border-line flex shrink-0 items-center gap-2 border-b px-4 py-2 sm:px-6">
+      <header className="border-line bg-canvas flex h-14 shrink-0 items-center gap-2 border-b px-4 sm:px-6">
         <ConversationsButton />
-        <h1 className="text-fg min-w-0 flex-1 truncate text-base font-semibold md:mx-auto md:max-w-3xl">
+        <h1 className="text-fg min-w-0 flex-1 truncate text-xl font-medium tracking-tight md:mx-auto md:max-w-3xl">
           {title}
         </h1>
       </header>
@@ -83,10 +83,10 @@ export function Thread({
           following.current =
             element.scrollHeight - element.scrollTop - element.clientHeight < STICK_THRESHOLD_PX;
         }}
-        className="min-h-0 flex-1 overflow-y-auto"
+        className="bg-canvas min-h-0 flex-1 overflow-y-auto"
         aria-busy={isBusy(state) || undefined}
       >
-        <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6">
+        <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
           {messages.isPending ? (
             <ThreadSkeleton />
           ) : messages.isError && !messages.data ? (

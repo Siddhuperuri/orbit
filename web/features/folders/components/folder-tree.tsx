@@ -130,7 +130,7 @@ export function FolderTree({
               <div
                 className={cn(
                   "group flex items-center rounded-md",
-                  active ? "bg-accent-soft text-accent-soft-fg" : "hover:bg-line/60",
+                  active ? "bg-accent-soft text-accent-soft-fg" : "hover:bg-fill",
                 )}
               >
                 {children.length > 0 ? (

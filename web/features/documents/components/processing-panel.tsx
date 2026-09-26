@@ -72,7 +72,7 @@ export function ProcessingPanel({ document }: { document: Document }) {
 
   return (
     <section aria-labelledby="processing-heading">
-      <h2 id="processing-heading" className="text-md text-fg mb-3 font-semibold">
+      <h2 id="processing-heading" className="label-micro text-fg mb-5">
         Processing
       </h2>
 
@@ -81,7 +81,7 @@ export function ProcessingPanel({ document }: { document: Document }) {
       {status === "failed" ? (
         <div
           role="alert"
-          className="border-danger/30 bg-danger-soft mt-3 flex gap-2.5 rounded-md border px-3 py-2.5 text-base"
+          className="border-danger/25 bg-danger-soft mt-3 flex gap-2.5 rounded-lg border px-3.5 py-3 text-base"
         >
           <AlertTriangle className="text-danger mt-0.5 size-4 shrink-0" aria-hidden="true" />
           <div className="min-w-0 flex-1 space-y-2">

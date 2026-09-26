@@ -27,7 +27,7 @@ export function DialogOverlay({
   return (
     <DialogPrimitive.Overlay
       className={cn(
-        "bg-overlay fixed inset-0 z-50",
+        "bg-overlay fixed inset-0 z-50 backdrop-blur-sm",
         "data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out",
         className,
       )}
@@ -72,7 +72,7 @@ export function DialogContent({
       <DialogPrimitive.Content
         className={cn(
           "fixed top-1/2 left-1/2 z-50 w-[calc(100vw-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2",
-          "border-line bg-surface shadow-float max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-lg border p-5",
+          "bg-surface border-line shadow-float max-h-[calc(100dvh-2rem)] overflow-y-auto border p-7",
           "data-[state=open]:animate-pop-in data-[state=closed]:animate-pop-out",
           className,
         )}
@@ -85,7 +85,7 @@ export function DialogContent({
         {children}
         {showClose ? (
           <DialogPrimitive.Close
-            className="text-fg-muted hover:bg-sunken hover:text-fg absolute top-3 right-3 inline-flex size-7 items-center justify-center rounded-md pointer-coarse:size-11"
+            className="text-fg-subtle hover:bg-fill hover:text-fg absolute top-4 right-4 inline-flex size-8 items-center justify-center rounded-md transition-colors pointer-coarse:size-11"
             aria-label="Close"
           >
             <X className="size-4" aria-hidden="true" />
@@ -97,7 +97,7 @@ export function DialogContent({
 }
 
 export function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return <div className={cn("mb-4 space-y-1.5 pr-8", className)} {...props} />;
+  return <div className={cn("mb-6 space-y-2 pr-8", className)} {...props} />;
 }
 
 export function DialogTitle({
@@ -106,7 +106,7 @@ export function DialogTitle({
 }: React.ComponentProps<typeof DialogPrimitive.Title>) {
   return (
     <DialogPrimitive.Title
-      className={cn("text-fg text-lg leading-snug font-semibold", className)}
+      className={cn("text-fg text-2xl leading-tight font-normal tracking-tight", className)}
       {...props}
     />
   );
@@ -124,7 +124,10 @@ export function DialogDescription({
 export function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      className={cn("mt-5 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className)}
+      className={cn(
+        "border-line mt-7 flex flex-col-reverse gap-2 border-t pt-5 sm:flex-row sm:justify-end",
+        className,
+      )}
       {...props}
     />
   );

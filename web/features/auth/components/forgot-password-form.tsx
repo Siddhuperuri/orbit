@@ -90,7 +90,7 @@ export function ForgotPasswordForm() {
         </Link>
       }
     >
-      <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-4">
+      <form method="post" onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-4">
         <FormError message={formError?.message} requestId={formError?.requestId} />
 
         <Field label="Email" error={form.formState.errors.email?.message}>

@@ -60,6 +60,7 @@ def build_llm_provider(settings: Settings) -> LLMBinding:
                 api_key=settings.openai_api_key.get_secret_value(),
                 model=settings.llm_model,
                 context_window=settings.llm_context_window,
+                reasoning_effort=settings.llm_reasoning_effort,
             )
             circuit = CircuitBreaker(
                 failure_threshold=settings.llm_circuit_failure_threshold,

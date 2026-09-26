@@ -18,8 +18,8 @@ export function Spinner({ className, label }: { className?: string; label?: stri
         className={cn("size-4 animate-spin", className)}
         aria-hidden="true"
       >
-        <circle cx="8" cy="8" r="6" stroke="currentColor" strokeOpacity="0.25" strokeWidth="2" />
-        <path d="M14 8a6 6 0 0 0-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="8" cy="8" r="6" stroke="currentColor" strokeOpacity="0.22" strokeWidth="1.25" />
+        <circle cx="14" cy="8" r="1.9" fill="currentColor" />
       </svg>
       {label ? <span className="sr-only">{label}</span> : null}
     </span>

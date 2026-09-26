@@ -347,7 +347,7 @@ export interface paths {
         readonly put?: never;
         /**
          * Upload a document
-         * @description The request body is the raw file content -- not `multipart/form-data`. `filename` is required; `title` defaults to the filename; `folder_id` is optional. Supported formats: PDF, Markdown, plain text. Re-uploading content that already exists in this workspace returns the existing document with `deduplicated: true`, rather than creating a second copy.
+         * @description The request body is the raw file content -- not `multipart/form-data`. `filename` is required; `title` defaults to one made from the filename (extension dropped, underscores as spaces); `folder_id` is optional. Supported formats: PDF, Markdown, plain text. Re-uploading content that already exists in this workspace returns the existing document with `deduplicated: true`, rather than creating a second copy.
          */
         readonly post: operations["upload_document_api_v1_workspaces__workspace_id__documents_post"];
         readonly delete?: never;

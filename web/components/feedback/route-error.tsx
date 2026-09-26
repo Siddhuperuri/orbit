@@ -31,8 +31,10 @@ export function RouteError({
       role="alert"
       className="mx-auto flex max-w-md flex-col items-center px-4 py-24 text-center"
     >
-      <AlertTriangle className="text-danger size-6" aria-hidden="true" />
-      <h1 className="text-fg mt-3 text-lg font-semibold">Something went wrong</h1>
+      <span className="border-danger/60 text-danger inline-flex size-12 items-center justify-center border">
+        <AlertTriangle className="size-5" strokeWidth={1.5} aria-hidden="true" />
+      </span>
+      <h1 className="text-fg mt-6 text-4xl font-semibold tracking-tight">Something went wrong</h1>
       <p className="text-fg-muted mt-1.5 text-base">
         This page hit an unexpected problem. Trying again often clears it; if it doesn&apos;t, quote
         the reference below to support.

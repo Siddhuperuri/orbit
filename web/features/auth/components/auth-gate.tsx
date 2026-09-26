@@ -3,7 +3,9 @@
 import type { ReactNode } from "react";
 
 import { ErrorState } from "@/components/feedback/error-state";
+import { GridLines } from "@/components/layout/grid-lines";
 import { Wordmark } from "@/components/layout/wordmark";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Spinner } from "@/components/ui/spinner";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
 import { UserProvider } from "@/features/auth/hooks/use-user";
@@ -40,16 +42,34 @@ export function AuthGate({ children }: { children: ReactNode }) {
     );
   }
 
+  // Shaped like the shell it becomes -- sidebar, ruled column -- so the page does not
+  // jump from a centred logo to a full layout the moment the account resolves.
   return (
-    <div
-      role="status"
-      className="text-fg-muted flex min-h-dvh flex-col items-center justify-center gap-4"
-    >
-      <Wordmark />
-      <span className="flex items-center gap-2 text-sm">
-        <Spinner />
-        Loading…
-      </span>
+    <div role="status" className="grain bg-canvas flex h-dvh overflow-hidden">
+      <span className="sr-only">Loading…</span>
+      <div
+        aria-hidden="true"
+        className="border-line hidden w-64 shrink-0 flex-col border-r lg:flex"
+      >
+        <div className="border-line flex h-14 items-center border-b px-5">
+          <Wordmark />
+        </div>
+        <div className="space-y-3 p-5">
+          <Skeleton className="h-8 w-full" />
+          <Skeleton className="mt-4 h-6 w-4/5" />
+          <Skeleton className="h-6 w-3/5" />
+          <Skeleton className="h-6 w-2/3" />
+        </div>
+      </div>
+      <div className="relative flex min-w-0 flex-1">
+        <GridLines />
+        <div className="relative flex flex-1 items-center justify-center">
+          <span className="label-micro text-fg-subtle flex items-center gap-3" aria-hidden="true">
+            <Spinner />
+            Loading your workspace…
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
