@@ -65,11 +65,11 @@ function PassageView({
       aria-current={highlighted ? "location" : undefined}
       className={cn(
         "scroll-mt-20 rounded-md py-1",
-        highlighted && "bg-accent-soft/60 ring-accent -mx-3 px-3 ring-2",
+        highlighted && "bg-highlight/35 ring-highlight -mx-3 px-3 ring-2",
       )}
     >
       {heading || showPage ? (
-        <p className="text-fg-muted mb-1 text-xs font-medium tracking-wide uppercase">
+        <p className="text-fg-subtle mb-1.5 text-xs font-medium tracking-wider uppercase">
           {[heading ? passage.heading_path : null, showPage ? page : null]
             .filter(Boolean)
             .join(" · ")}
@@ -152,7 +152,7 @@ export function DocumentViewer({ document }: { document: Document }) {
   return (
     <section aria-labelledby="text-heading">
       <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h2 id="text-heading" className="text-md text-fg font-semibold">
+        <h2 id="text-heading" className="label-micro text-fg">
           Text
         </h2>
         {version && canDownload ? (
@@ -179,7 +179,7 @@ export function DocumentViewer({ document }: { document: Document }) {
       {stale ? (
         <p
           role="note"
-          className="border-warning/30 bg-warning-soft text-warning mb-4 rounded-md border px-3 py-2 text-sm"
+          className="border-warning/25 bg-warning-soft text-warning mb-4 rounded-lg border px-3.5 py-2.5 text-sm"
         >
           That link cites version {target.citedVersion} of this document, which has since been
           replaced. You&apos;re reading version {version?.version_number}, so passage{" "}

@@ -189,10 +189,7 @@ export function UploadPanel({ workspaceId }: { workspaceId: string }) {
   const hasFinished = items.some((item) => item.status !== "queued" && item.status !== "uploading");
 
   return (
-    <section
-      aria-label="Uploads"
-      className="border-line bg-surface mb-6 rounded-lg border px-4 py-2"
-    >
+    <section aria-label="Uploads" className="border-line bg-canvas mb-8 border px-4 py-2">
       <div className="flex items-center justify-between py-1.5">
         <h2 className="text-fg text-sm font-semibold">Uploads</h2>
         {hasFinished ? (

@@ -25,7 +25,7 @@ export function CitationMarker({
       onClick={() => onCite(citation.handle.toUpperCase())}
       aria-label={label}
       title={label}
-      className="bg-accent-soft text-accent-soft-fg mx-0.5 inline-flex h-5 min-w-6 -translate-y-px items-center justify-center rounded-sm px-1 align-baseline font-mono text-xs font-medium no-underline hover:opacity-80 pointer-coarse:h-7 pointer-coarse:min-w-8"
+      className="border-accent/60 text-accent hover:bg-accent hover:text-canvas text-2xs mx-0.5 inline-flex h-5 min-w-7 -translate-y-0.5 items-center justify-center border px-1 align-baseline font-mono font-medium no-underline transition-colors duration-300 pointer-coarse:h-7 pointer-coarse:min-w-8"
     >
       {citation.handle.toUpperCase()}
     </button>

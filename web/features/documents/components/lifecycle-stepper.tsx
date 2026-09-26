@@ -114,7 +114,7 @@ export function LifecycleStepper({
                 </span>
               </span>
               {index < steps.length - 1 ? (
-                <span aria-hidden="true" className="bg-line-strong hidden h-px w-5 sm:block" />
+                <span aria-hidden="true" className="bg-line-strong hidden h-px w-10 sm:block" />
               ) : null}
             </li>
           );

@@ -71,7 +71,7 @@ function TagPicker({ document }: { document: Document }) {
                 <li key={tag.id}>
                   <label
                     htmlFor={id}
-                    className="hover:bg-sunken flex min-h-8 cursor-pointer items-center gap-2.5 rounded-sm px-1.5 py-1 pointer-coarse:min-h-11"
+                    className="hover:bg-fill flex min-h-8 cursor-pointer items-center gap-2.5 rounded-sm px-1.5 py-1 pointer-coarse:min-h-11"
                   >
                     <Checkbox
                       id={id}
@@ -100,6 +100,7 @@ function TagPicker({ document }: { document: Document }) {
       </fieldset>
 
       <form
+        method="post"
         className="border-line space-y-2 border-t pt-3"
         onSubmit={(event) => {
           event.preventDefault();

@@ -5,6 +5,7 @@ import { Fragment } from "react";
 import { ErrorState } from "@/components/feedback/error-state";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { AnswerByline, QuestionBubble } from "@/features/chat/components/message-item";
 import type { StreamState } from "@/features/chat/state/stream-state";
 import { describeError } from "@/lib/api/describe-error";
 import { ApiError } from "@/lib/api/errors";
@@ -12,14 +13,7 @@ import { pluralize } from "@/lib/utils/format";
 
 /** The question being answered, shown the moment it is sent. */
 export function PendingQuestion({ question }: { question: string }) {
-  return (
-    <article aria-label="Your question" className="pb-2">
-      <p className="text-fg-muted mb-1 text-xs font-medium tracking-wide uppercase">You</p>
-      <p className="text-md text-fg font-medium [overflow-wrap:anywhere] whitespace-pre-wrap">
-        {question}
-      </p>
-    </article>
-  );
+  return <QuestionBubble text={question} />;
 }
 
 /** Provisional `[S1]` markers are dimmed: they only become citations when the answer completes. */
@@ -58,38 +52,43 @@ export function StreamView({
 }) {
   if (state.phase === "retrieving") {
     return (
-      <p
-        role="status"
-        className="border-line-strong text-fg-muted flex items-center gap-2 border-l-2 pl-4 text-base"
-      >
-        <Spinner />
-        Searching your documents…
-      </p>
+      <div role="status">
+        <AnswerByline>
+          <span className="text-fg-subtle inline-flex items-center gap-2">
+            <Spinner className="size-3.5" />
+            Searching your documents…
+          </span>
+        </AnswerByline>
+        <div className="space-y-2 pt-1" aria-hidden="true">
+          <div className="skeleton-sweep animate-skeleton h-4 w-11/12" />
+          <div className="skeleton-sweep animate-skeleton h-4 w-9/12" />
+        </div>
+      </div>
     );
   }
 
   if (state.phase === "streaming") {
     return (
-      <article
-        aria-label="Answer being written"
-        aria-busy="true"
-        className="border-line-strong border-l-2 pl-4"
-      >
-        <p className="text-fg-muted mb-1 text-xs font-medium tracking-wide uppercase">ORBIT</p>
-        <p className="text-fg-muted text-sm">
-          {state.sources > 0
-            ? `Answering from ${pluralize(state.retrieved, "passage")} across ${pluralize(state.sources, "source")}`
-            : "Writing an answer"}
-          {state.degraded ? " · keyword matching only" : ""}
-        </p>
-        <p className="reading mt-2 whitespace-pre-wrap">
+      <article aria-label="Answer being written" aria-busy="true">
+        <AnswerByline>
+          <span className="text-fg-subtle">
+            ·{" "}
+            {state.sources > 0
+              ? `Answering from ${pluralize(state.retrieved, "passage")} across ${pluralize(state.sources, "source")}`
+              : "Writing an answer"}
+            {state.degraded ? " · keyword matching only" : ""}
+          </span>
+        </AnswerByline>
+        <p className="reading whitespace-pre-wrap">
           <ProvisionalText text={state.text} />
           <span
-            className="bg-fg ml-0.5 inline-block h-4 w-px animate-pulse align-text-bottom"
+            className="bg-accent animate-caret ml-0.5 inline-block h-4 w-0.5 rounded-full align-text-bottom"
             aria-hidden="true"
           />
         </p>
-        <p className="text-fg-subtle mt-3 text-xs">Sources appear when the answer is complete.</p>
+        <p className="label-micro text-fg-subtle mt-4">
+          Sources appear when the answer is complete.
+        </p>
       </article>
     );
   }
@@ -105,9 +104,9 @@ export function StreamView({
     });
 
     return (
-      <div className="border-danger border-l-2 pl-4">
+      <div className="border-danger/50 border px-4 py-1">
         <ErrorState compact error={asApiError} title={describeError(asApiError).title} />
-        <div className="flex gap-2">
+        <div className="flex gap-2 pb-3">
           {error.retryable ? (
             <Button size="sm" variant="primary" onClick={onRetry}>
               Try again

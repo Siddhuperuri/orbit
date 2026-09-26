@@ -1,6 +1,6 @@
 "use client";
 
-import { FolderPlus } from "lucide-react";
+import { Archive, FileText, FolderOpen, FolderPlus, Inbox, SearchX } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
@@ -106,7 +106,10 @@ export function DocumentsPageContent() {
   return (
     <div
       {...dropProps}
-      className={cn("min-h-full", dragging && canUploadHere && "bg-accent-soft/40")}
+      className={cn(
+        "min-h-full transition-colors",
+        dragging && canUploadHere && "bg-accent-soft/40",
+      )}
     >
       <PageContainer width="wide">
         <PageHeader
@@ -131,15 +134,17 @@ export function DocumentsPageContent() {
 
         {canUploadHere ? <UploadPanel workspaceId={workspace.id} /> : null}
 
-        <div className="lg:flex lg:items-start lg:gap-8">
+        {/* On a desktop the rail is the first column of the grid and the list the other
+            five, so both sit exactly between column rules. */}
+        <div className="lg:flex lg:items-start lg:gap-8 xl:grid xl:grid-cols-6 xl:gap-0">
           {/* Not an <aside>: the rail is already a labelled <nav>, and a second unlabelled
               complementary landmark beside the shell's sidebar is one the reader can't tell apart. */}
-          <div className="mb-5 lg:mb-0 lg:w-60 lg:shrink-0">
+          <div className="mb-5 lg:mb-0 lg:w-52 lg:shrink-0 xl:col-span-1 xl:w-auto xl:pr-4">
             {wide ? (
               <div className="sticky top-4">{rail}</div>
             ) : (
-              <details className="border-line bg-surface rounded-lg border">
-                <summary className="text-fg cursor-pointer px-3 py-2.5 text-base font-medium">
+              <details className="border-line border">
+                <summary className="label-caps text-fg cursor-pointer px-4 py-3">
                   Folders and tags
                 </summary>
                 <div className="border-line border-t p-2">{rail}</div>
@@ -147,7 +152,7 @@ export function DocumentsPageContent() {
             )}
           </div>
 
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0 flex-1 xl:col-span-5">
             <DocumentsToolbar
               state={state}
               onChange={navigate}
@@ -163,6 +168,7 @@ export function DocumentsPageContent() {
               empty={
                 filtered ? (
                   <EmptyState
+                    icon={SearchX}
                     title="No documents match"
                     description="Nothing here fits those filters. Try fewer or different ones."
                     action={
@@ -171,16 +177,19 @@ export function DocumentsPageContent() {
                   />
                 ) : inArchive ? (
                   <EmptyState
+                    icon={Archive}
                     title="Nothing is archived"
                     description="Archive a document to put it out of the way without deleting it."
                   />
                 ) : state.folder.kind === "unfiled" ? (
                   <EmptyState
+                    icon={Inbox}
                     title="Every document is in a folder"
                     description="Documents that aren't in any folder appear here."
                   />
                 ) : folderId ? (
                   <EmptyState
+                    icon={FolderOpen}
                     title="This folder is empty"
                     description={
                       can("document:create")
@@ -193,6 +202,7 @@ export function DocumentsPageContent() {
                   <UploadDropzone />
                 ) : (
                   <EmptyState
+                    icon={FileText}
                     title="No documents yet"
                     description="Members with permission to upload can add documents to this workspace."
                   />

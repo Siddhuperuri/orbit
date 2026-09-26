@@ -1,6 +1,14 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, Info } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Info,
+  Quote,
+  SearchX,
+  SlidersHorizontal,
+  Sparkles,
+} from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
@@ -27,6 +35,7 @@ import { DEFAULT_RESULT_LIMIT, type SearchResult } from "@/features/search/types
 import { useWorkspace } from "@/features/workspaces/hooks/use-workspace-context";
 import { announce } from "@/lib/a11y/announcer";
 import { routes } from "@/lib/navigation";
+import { cn } from "@/lib/utils/cn";
 import { pluralize } from "@/lib/utils/format";
 
 /** Explains a degraded search in terms of what the user gets, not which component failed. */
@@ -84,7 +93,7 @@ export function SearchPageContent() {
   }, [settled, data]);
 
   return (
-    <PageContainer width="narrow">
+    <PageContainer>
       <PageHeader
         title="Search"
         description="Find passages across every document in this workspace."
@@ -104,10 +113,7 @@ export function SearchPageContent() {
 
       <div className="mt-8" aria-busy={search.isFetching || undefined}>
         {state.query === "" ? (
-          <p className="text-fg-muted text-base">
-            Type a few words or a question. Results are the exact passages that match, with the
-            document and page they came from.
-          </p>
+          <SearchTips />
         ) : search.isPending ? (
           <ResultsSkeleton />
         ) : !data ? (
@@ -122,7 +128,7 @@ export function SearchPageContent() {
             {data.degraded ? (
               <p
                 role="status"
-                className="border-warning/30 bg-warning-soft text-warning mb-5 flex items-start gap-2 rounded-md border px-3 py-2.5 text-sm"
+                className="border-warning/40 text-warning mb-6 flex items-start gap-2 border px-4 py-3 text-sm"
               >
                 <Info className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
                 {degradedNotice(data.degraded)}
@@ -133,14 +139,14 @@ export function SearchPageContent() {
               <EmptyResults state={state} onChange={go} workspaceId={workspace.id} />
             ) : (
               <>
-                <p className="text-fg-muted mb-4 text-sm">
+                <p className="label-micro text-fg-subtle mb-4">
                   {/* A range, not a total: the API deliberately does not count every
                       matching chunk, and inventing "about N" would be a guess. */}
                   {state.page === 0 && !data.has_more
                     ? pluralize(data.results.length, "result")
                     : `Results ${first}–${last}`}
                 </p>
-                <ol aria-label="Search results">
+                <ol aria-label="Search results" className="border-line border-b">
                   {data.results.map((result) => (
                     <SearchResultItem
                       key={result.chunk.id}
@@ -163,6 +169,47 @@ export function SearchPageContent() {
   );
 }
 
+const TIPS = [
+  {
+    icon: Quote,
+    title: "Results are passages",
+    body: "Each result is the exact text that matched, with the document and page it came from.",
+  },
+  {
+    icon: Sparkles,
+    title: "Ask it like a question",
+    body: "Hybrid matching finds passages that mean what you asked, even in different words.",
+  },
+  {
+    icon: SlidersHorizontal,
+    title: "Narrow it down",
+    body: "Filter by folder, tag, or file type -- or switch to Keyword for names and codes.",
+  },
+];
+
+/** Before the first search: what search does here, in three lines. */
+function SearchTips() {
+  return (
+    <ul className="border-line bg-canvas grid border-y sm:grid-cols-3">
+      {TIPS.map(({ icon: Icon, title, body }, index) => (
+        <li
+          key={title}
+          className={cn(
+            "enter border-line p-6 sm:not-first:border-l",
+            index === 1 ? "enter-1" : index === 2 ? "enter-2" : "",
+          )}
+        >
+          <span className="border-line-strong text-accent mb-10 inline-flex size-9 items-center justify-center border">
+            <Icon className="size-4" strokeWidth={1.5} aria-hidden="true" />
+          </span>
+          <p className="text-fg font-serif text-xl font-light tracking-tight">{title}</p>
+          <p className="text-fg-muted mt-2 text-sm">{body}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /**
  * Nothing matched -- and *why* nothing matched decides what to offer.
  *
@@ -182,6 +229,7 @@ function EmptyResults({
   if (state.page > 0) {
     return (
       <EmptyState
+        icon={SearchX}
         title="No more results"
         description="You've reached the end of the matches for this search."
         action={
@@ -194,6 +242,7 @@ function EmptyResults({
   if (isNarrowed(state)) {
     return (
       <EmptyState
+        icon={SearchX}
         title="No matches with these filters"
         description="Your documents may still cover this. Searching everywhere is one click away."
         action={<Button onClick={() => onChange(withoutFilters(state))}>Search everywhere</Button>}
@@ -203,6 +252,7 @@ function EmptyResults({
 
   return (
     <EmptyState
+      icon={SearchX}
       title="No matching passages"
       description={
         state.mode === "lexical"

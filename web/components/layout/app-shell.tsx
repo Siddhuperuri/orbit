@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import { CommandPalette } from "@/components/layout/command-palette";
+import { GridLines } from "@/components/layout/grid-lines";
 import { SidebarContent } from "@/components/layout/sidebar";
 import { Topbar } from "@/components/layout/topbar";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
@@ -12,12 +13,12 @@ import { EmailVerificationBanner } from "@/features/auth/components/email-verifi
 /**
  * The authenticated application frame.
  *
- *   >= lg   persistent sidebar (15rem) beside the content column
+ *   >= lg   persistent sidebar (16rem) ruled off from the working column
  *   <  lg   the sidebar becomes a drawer opened from the top bar
  *
- * The frame is exactly the viewport tall and `<main>` scrolls inside it, so the
- * sidebar and top bar never move and a screen like chat can fill the remaining
- * height and manage its own scrolling.
+ * The frame is exactly the viewport tall and `<main>` scrolls inside the column,
+ * so the sidebar and top bar never move and a screen like chat can fill the
+ * remaining height and manage its own scrolling.
  *
  * Landmarks: `<nav>` (inside the sidebar), `<header>` (top bar), and a single
  * `<main id="main">`, which the skip link targets and which is focused after every
@@ -57,8 +58,8 @@ export function AppShell({ children }: { children: ReactNode }) {
   }, [pathname]);
 
   return (
-    <div className="flex h-dvh overflow-hidden">
-      <aside className="border-line bg-sunken hidden h-full w-60 shrink-0 border-r lg:block">
+    <div className="grain bg-canvas flex h-dvh overflow-hidden">
+      <aside className="border-line hidden h-full w-64 shrink-0 border-r lg:block">
         <SidebarContent />
       </aside>
 
@@ -70,7 +71,10 @@ export function AppShell({ children }: { children: ReactNode }) {
         </SheetContent>
       </Sheet>
 
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+      {/* The working column: one black field, ruled by the column grid, which runs
+          behind the top bar and the page alike. */}
+      <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
+        <GridLines />
         <Topbar
           onOpenNavigation={() => setNavOpen(true)}
           onOpenPalette={() => setPaletteOpen(true)}
@@ -80,7 +84,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           id="main"
           ref={mainRef}
           tabIndex={-1}
-          className="min-h-0 min-w-0 flex-1 overflow-y-auto"
+          className="relative min-h-0 min-w-0 flex-1 overflow-y-auto"
         >
           {children}
         </main>

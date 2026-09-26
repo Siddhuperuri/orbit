@@ -71,14 +71,14 @@ export function DocumentsToolbar({
 
   return (
     <div role="search" aria-label="Filter documents" className="mb-4 space-y-3">
-      <div className="flex flex-wrap items-end gap-x-3 gap-y-3">
+      <div className="flex flex-wrap items-center gap-2.5">
         <div className="min-w-48 flex-1">
-          <Label htmlFor="document-title-filter" className="text-fg-muted mb-1.5 block">
+          <Label htmlFor="document-title-filter" className="sr-only">
             Filter by title
           </Label>
           <div className="relative">
             <Search
-              className="text-fg-subtle pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2"
+              className="text-fg-subtle pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2"
               aria-hidden="true"
             />
             <Input
@@ -87,21 +87,21 @@ export function DocumentsToolbar({
               value={draft}
               maxLength={MAX_SEARCH_LENGTH}
               onChange={(event) => setDraft(event.target.value)}
-              placeholder="Part of a title"
+              placeholder="Filter by title…"
               autoComplete="off"
-              className="pl-8"
+              className="pl-9"
               aria-busy={busy || undefined}
             />
           </div>
         </div>
 
         <div>
-          <Label htmlFor="document-status-filter" className="text-fg-muted mb-1.5 block">
+          <Label htmlFor="document-status-filter" className="sr-only">
             Status
           </Label>
           <NativeSelect
             id="document-status-filter"
-            className="w-40"
+            className="w-38"
             value={state.status ?? ""}
             onChange={(event) =>
               onChange({
@@ -120,12 +120,12 @@ export function DocumentsToolbar({
         </div>
 
         <div>
-          <Label htmlFor="document-sort" className="text-fg-muted mb-1.5 block">
+          <Label htmlFor="document-sort" className="sr-only">
             Sort by
           </Label>
           <NativeSelect
             id="document-sort"
-            className="w-44"
+            className="w-42"
             value={state.sort}
             onChange={(event) => onChange({ ...state, sort: event.target.value as DocumentSort })}
           >

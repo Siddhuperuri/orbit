@@ -56,7 +56,12 @@ export function InviteMemberForm({ workspaceId }: { workspaceId: string }) {
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="max-w-xl space-y-4">
+    <form
+      method="post"
+      onSubmit={form.handleSubmit(onSubmit)}
+      noValidate
+      className="max-w-xl space-y-4"
+    >
       <FormError message={formError?.message} requestId={formError?.requestId} />
 
       <Field

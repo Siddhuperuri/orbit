@@ -21,14 +21,16 @@ export function RadioGroupItem({
       className={cn(
         "border-control bg-surface relative inline-flex size-4 shrink-0 items-center justify-center rounded-full border",
         "hover:border-fg-subtle transition-colors",
-        "data-[state=checked]:border-accent-solid",
+        // The ring and dot take the current ink, so a radio stays visible on an
+        // inverted (ink-filled) block as well as on the page.
+        "data-[state=checked]:border-current",
         "disabled:cursor-not-allowed disabled:opacity-50",
         "pointer-coarse:after:absolute pointer-coarse:after:-inset-3 pointer-coarse:after:content-['']",
         className,
       )}
       {...props}
     >
-      <RadioPrimitive.Indicator className="bg-accent-solid size-2 rounded-full" />
+      <RadioPrimitive.Indicator className="size-2 rounded-full bg-current" />
     </RadioPrimitive.Item>
   );
 }

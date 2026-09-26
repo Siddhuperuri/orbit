@@ -29,7 +29,7 @@ export function SheetContent({
       <DialogOverlay />
       <DialogPrimitive.Content
         className={cn(
-          "border-line bg-sunken shadow-float fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col border-r",
+          "border-line bg-canvas fixed inset-y-0 left-0 z-50 flex w-72 max-w-[85vw] flex-col border-r",
           "data-[state=open]:animate-slide-in-left data-[state=closed]:animate-slide-out-left",
           className,
         )}
@@ -37,7 +37,7 @@ export function SheetContent({
       >
         {children}
         <DialogPrimitive.Close
-          className="text-fg-muted hover:bg-line hover:text-fg absolute top-2.5 right-2.5 inline-flex size-8 items-center justify-center rounded-md pointer-coarse:size-11"
+          className="text-fg-muted hover:bg-fill hover:text-fg absolute top-3.5 right-3 inline-flex size-8 items-center justify-center rounded-md pointer-coarse:size-11"
           aria-label="Close navigation"
         >
           <X className="size-4" aria-hidden="true" />

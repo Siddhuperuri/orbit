@@ -2,7 +2,6 @@
 
 import { Check, ChevronsUpDown, Plus } from "lucide-react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
@@ -16,6 +15,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useWorkspaces } from "@/features/workspaces/api/use-workspaces";
 import { CreateWorkspaceDialog } from "@/features/workspaces/components/create-workspace-dialog";
+import { WorkspaceAvatar } from "@/features/workspaces/components/workspace-avatar";
+import { useActiveWorkspace } from "@/features/workspaces/hooks/use-active-workspace";
 import { ROLE_LABELS } from "@/features/workspaces/permissions";
 import { routes } from "@/lib/navigation";
 
@@ -25,14 +26,12 @@ import { routes } from "@/lib/navigation";
  * product that holds several people's private documents.
  */
 export function WorkspaceSwitcher() {
-  const { workspaceId } = useParams<{ workspaceId?: string }>();
+  const { workspace: current } = useActiveWorkspace();
   const { data: workspaces, isPending } = useWorkspaces();
   const [creating, setCreating] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
-  if (isPending) return <Skeleton className="h-9 w-full" />;
-
-  const current = workspaces?.find((workspace) => workspace.id === workspaceId);
+  if (isPending) return <Skeleton className="h-11 w-full" />;
 
   return (
     <>
@@ -41,29 +40,39 @@ export function WorkspaceSwitcher() {
           <button
             ref={triggerRef}
             type="button"
-            className="border-line-strong bg-surface hover:bg-sunken flex h-9 w-full items-center justify-between gap-2 rounded-md border px-2.5 text-left text-base pointer-coarse:h-11"
+            className="hover:bg-fill data-[state=open]:bg-fill group flex h-12 w-full items-center gap-3 px-3 text-left text-base transition-colors duration-300"
           >
-            <span className="min-w-0">
+            <WorkspaceAvatar name={current?.name} className="size-8" />
+            <span className="min-w-0 flex-1">
               <span className="sr-only">Workspace: </span>
-              <span className="text-fg block truncate font-medium">
+              <span className="text-fg block truncate leading-tight font-semibold">
                 {current?.name ?? "Choose a workspace"}
               </span>
+              {current?.role ? (
+                <span className="label-micro text-fg-subtle block truncate">
+                  {ROLE_LABELS[current.role]}
+                </span>
+              ) : null}
             </span>
-            <ChevronsUpDown className="text-fg-muted size-4 shrink-0" aria-hidden="true" />
+            <ChevronsUpDown
+              className="text-fg-subtle group-hover:text-fg-muted size-4 shrink-0"
+              aria-hidden="true"
+            />
           </button>
         </DropdownMenuTrigger>
 
         <DropdownMenuContent
           align="start"
-          className="w-(--radix-dropdown-menu-trigger-width) min-w-56"
+          className="w-(--radix-dropdown-menu-trigger-width) min-w-60"
         >
           <DropdownMenuLabel>Your workspaces</DropdownMenuLabel>
           {workspaces?.map((workspace) => (
             <DropdownMenuItem key={workspace.id} asChild>
               <Link
                 href={routes.documents(workspace.id)}
-                aria-current={workspace.id === workspaceId ? "true" : undefined}
+                aria-current={workspace.id === current?.id ? "true" : undefined}
               >
+                <WorkspaceAvatar name={workspace.name} />
                 <span className="min-w-0 flex-1">
                   <span className="block truncate">{workspace.name}</span>
                   {workspace.role ? (
@@ -72,7 +81,7 @@ export function WorkspaceSwitcher() {
                     </span>
                   ) : null}
                 </span>
-                {workspace.id === workspaceId ? <Check aria-hidden="true" /> : null}
+                {workspace.id === current?.id ? <Check aria-hidden="true" /> : null}
               </Link>
             </DropdownMenuItem>
           ))}

@@ -19,10 +19,8 @@ export function GroundingNotice({ grounding }: { grounding: Grounding | null | u
   return (
     <div
       className={cn(
-        "mb-3 flex gap-2.5 rounded-md border px-3 py-2 text-sm",
-        notice.tone === "warning"
-          ? "border-warning/30 bg-warning-soft text-warning"
-          : "border-line bg-sunken text-fg-muted",
+        "mb-4 flex gap-2.5 border px-4 py-3 text-sm",
+        notice.tone === "warning" ? "border-warning/50 text-warning" : "border-line text-fg-muted",
       )}
     >
       <Icon className="mt-0.5 size-4 shrink-0" aria-hidden="true" />

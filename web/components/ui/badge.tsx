@@ -9,15 +9,20 @@ import { cn } from "@/lib/utils/cn";
  * display.
  */
 const badgeVariants = cva(
-  "inline-flex items-center gap-1 rounded-sm border px-1.5 py-px text-xs font-medium whitespace-nowrap [&_svg]:size-3 [&_svg]:shrink-0",
+  cn(
+    "inline-flex h-5.5 items-center gap-1.5 border px-1.5 whitespace-nowrap",
+    "font-mono text-2xs font-medium tracking-[0.06em] uppercase",
+    "[&_svg]:size-3 [&_svg]:shrink-0",
+  ),
   {
     variants: {
+      // Outlined, like a catalogue tag: the tone is the rule and the ink, never a fill.
       tone: {
-        neutral: "border-line bg-sunken text-fg-muted",
-        accent: "border-accent/25 bg-accent-soft text-accent-soft-fg",
-        success: "border-success/30 bg-success-soft text-success",
-        warning: "border-warning/30 bg-warning-soft text-warning",
-        danger: "border-danger/30 bg-danger-soft text-danger",
+        neutral: "border-line-strong text-fg-muted",
+        accent: "border-accent/60 text-accent",
+        success: "border-success/60 text-success",
+        warning: "border-warning/60 text-warning",
+        danger: "border-danger/60 text-danger",
       },
     },
     defaultVariants: { tone: "neutral" },
