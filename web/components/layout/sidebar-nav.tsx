@@ -15,7 +15,7 @@ import { useActiveWorkspace } from "@/features/workspaces/hooks/use-active-works
 import { routes } from "@/lib/navigation";
 import { cn } from "@/lib/utils/cn";
 
-interface NavItem {
+export interface NavItem {
   label: string;
   href: (workspaceId: string) => string;
   /** Whether the current path belongs to this item, so a nested page keeps its section highlighted. */
@@ -52,6 +52,9 @@ const WORKSPACE: NavItem[] = [
     icon: Settings,
   },
 ];
+
+/** Every section, in order, for the floating navbar (the drawer groups the same items). */
+export const NAV_ITEMS: readonly NavItem[] = [...LIBRARY, ...WORKSPACE];
 
 function NavGroup({
   label,

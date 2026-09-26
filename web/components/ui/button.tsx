@@ -16,9 +16,9 @@ import { cn } from "@/lib/utils/cn";
  */
 const buttonVariants = cva(
   cn(
-    "relative isolate inline-flex shrink-0 items-center justify-center gap-2 overflow-hidden rounded-md",
-    // Labels are set like the navigation: uppercase, tight, crisp.
-    "text-xs font-medium tracking-[0.05em] whitespace-nowrap uppercase select-none",
+    "relative isolate inline-flex shrink-0 items-center justify-center gap-2 overflow-hidden rounded-lg",
+    // Labels are set like the navigation: mono, uppercase, crisp.
+    "font-mono text-xs font-medium tracking-[0.06em] whitespace-nowrap uppercase select-none",
     "transition-[color,background-color,border-color,opacity,transform] duration-300 ease-out",
     "active:translate-y-px",
     "disabled:pointer-events-none disabled:opacity-40 aria-disabled:pointer-events-none aria-disabled:opacity-40",
@@ -28,8 +28,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        // Solid ink: white on the night theme, black on paper.
-        primary: "bg-accent-solid text-on-accent hover:bg-accent-solid-hover",
+        // A key: dark on paper, pale under the lamp, with a faint top highlight and one
+        // orange signal dot in the corner.
+        primary: cn(
+          "bg-accent-solid text-on-accent shadow-button hover:bg-accent-solid-hover",
+          "after:bg-signal after:absolute after:top-1.5 after:right-1.5 after:size-1 after:rounded-full",
+        ),
         // An outline that fills with ink from below under the pointer -- the
         // inverted-block language of the navigation, as a gesture.
         secondary: cn(
@@ -56,6 +60,8 @@ const buttonVariants = cva(
     },
     compoundVariants: [
       { variant: "link", className: "h-auto px-0 text-sm pointer-coarse:min-h-0" },
+      // The signal dot belongs to a labelled key, not a square icon button.
+      { variant: "primary", size: ["icon", "icon-sm"], className: "after:hidden" },
     ],
     defaultVariants: { variant: "secondary", size: "md" },
   },

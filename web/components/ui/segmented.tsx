@@ -18,7 +18,10 @@ export function Segmented({
   return (
     <RadioPrimitive.Root
       orientation="horizontal"
-      className={cn("border-line inline-flex h-9 items-stretch border", className)}
+      className={cn(
+        "border-line inline-flex h-9 items-stretch overflow-hidden rounded-lg border",
+        className,
+      )}
       {...props}
     />
   );

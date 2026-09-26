@@ -85,7 +85,7 @@ export function CommandInput({
       <Search className="text-fg-subtle size-4.5 shrink-0" aria-hidden="true" />
       <CommandPrimitive.Input
         className={cn(
-          "text-fg placeholder:text-fg-subtle h-16 w-full bg-transparent font-serif text-xl tracking-tight",
+          "text-fg placeholder:text-fg-subtle h-16 w-full bg-transparent text-xl tracking-tight",
           // The palette's own focus ring would sit inside a bordered dialog; the
           // dialog itself is the visible focus container.
           "outline-none",

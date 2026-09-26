@@ -4,23 +4,24 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import { CommandPalette } from "@/components/layout/command-palette";
+import { FloatingNav } from "@/components/layout/floating-nav";
 import { GridLines } from "@/components/layout/grid-lines";
 import { SidebarContent } from "@/components/layout/sidebar";
-import { Topbar } from "@/components/layout/topbar";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import { EmailVerificationBanner } from "@/features/auth/components/email-verification-banner";
 
 /**
  * The authenticated application frame.
  *
- *   >= lg   persistent sidebar (16rem) ruled off from the working column
- *   <  lg   the sidebar becomes a drawer opened from the top bar
+ * The navigation floats: a pill over the middle of the page (workspace at the left,
+ * search and account at the right), and below `lg` a menu button opens the full
+ * navigation as a drawer.
  *
- * The frame is exactly the viewport tall and `<main>` scrolls inside the column,
- * so the sidebar and top bar never move and a screen like chat can fill the
- * remaining height and manage its own scrolling.
+ * The frame is exactly the viewport tall and `<main>` scrolls beneath the floating
+ * navbar, so the chrome never moves and a screen like chat can fill the remaining
+ * height and manage its own scrolling.
  *
- * Landmarks: `<nav>` (inside the sidebar), `<header>` (top bar), and a single
+ * Landmarks: `<nav>` (in the floating navbar), `<header>` (the navbar), and a single
  * `<main id="main">`, which the skip link targets and which is focused after every
  * client-side navigation -- without that, a keyboard or screen-reader user is left
  * on a link in a page that has since changed.
@@ -58,10 +59,14 @@ export function AppShell({ children }: { children: ReactNode }) {
   }, [pathname]);
 
   return (
-    <div className="grain bg-canvas flex h-dvh overflow-hidden">
-      <aside className="border-line hidden h-full w-64 shrink-0 border-r lg:block">
-        <SidebarContent />
-      </aside>
+    <div className="grain bg-canvas relative h-dvh overflow-hidden">
+      {/* The column grid runs behind everything, fixed while the page scrolls under it. */}
+      <GridLines />
+
+      <FloatingNav
+        onOpenNavigation={() => setNavOpen(true)}
+        onOpenPalette={() => setPaletteOpen(true)}
+      />
 
       <Sheet open={navOpen} onOpenChange={setNavOpen}>
         <SheetContent aria-describedby={undefined}>
@@ -71,24 +76,16 @@ export function AppShell({ children }: { children: ReactNode }) {
         </SheetContent>
       </Sheet>
 
-      {/* The working column: one black field, ruled by the column grid, which runs
-          behind the top bar and the page alike. */}
-      <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
-        <GridLines />
-        <Topbar
-          onOpenNavigation={() => setNavOpen(true)}
-          onOpenPalette={() => setPaletteOpen(true)}
-        />
+      {/* The page scrolls beneath the floating navbar; the top padding is its height. */}
+      <main
+        id="main"
+        ref={mainRef}
+        tabIndex={-1}
+        className="relative flex h-full min-w-0 flex-col overflow-y-auto pt-[5.25rem] sm:pt-[6.25rem]"
+      >
         <EmailVerificationBanner />
-        <main
-          id="main"
-          ref={mainRef}
-          tabIndex={-1}
-          className="relative min-h-0 min-w-0 flex-1 overflow-y-auto"
-        >
-          {children}
-        </main>
-      </div>
+        <div className="min-h-0 flex-1">{children}</div>
+      </main>
 
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
     </div>

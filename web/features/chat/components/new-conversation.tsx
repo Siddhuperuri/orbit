@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { OrbitArt } from "@/components/layout/orbit-art";
+import { AsciiField } from "@/components/ascii/ascii-field";
 import { LogoMark } from "@/components/layout/wordmark";
 import { KineticText } from "@/components/ui/kinetic-text";
 import { ConversationsButton } from "@/features/chat/components/chat-layout";
@@ -63,16 +63,13 @@ export function NewConversation() {
         <ConversationsButton />
       </div>
       <div className="@container relative flex min-h-0 flex-1 flex-col items-center overflow-x-clip overflow-y-auto px-4 py-10 sm:px-6 lg:px-10">
-        {/* The artwork turns slowly in the corner behind the question, and shifts with the
-            pointer; set off-centre so its rings frame the page rather than cross the text. */}
-        <OrbitArt
-          body={false}
-          className="absolute -top-[34%] -right-[44%] size-[min(64rem,100cqi)] opacity-60"
-        />
+        {/* A field of drifting characters behind the question, faded toward the middle so it
+            frames the words rather than crossing them. */}
+        <AsciiField className="absolute inset-0 [mask-image:radial-gradient(ellipse_55%_50%_at_50%_48%,transparent_30%,#000_100%)] opacity-60" />
         <div className="relative my-auto w-full max-w-3xl">
           <div className="mb-10 text-center">
             <LogoMark className="enter text-fg mx-auto mb-8 size-8" />
-            <h1 className="text-fg font-serif text-[clamp(2.5rem,1rem+5cqi,5.25rem)] leading-[0.95] font-light tracking-[-0.035em] text-balance">
+            <h1 className="text-fg text-[clamp(2.5rem,1rem+5cqi,5.25rem)] leading-[0.95] font-semibold tracking-[-0.035em] text-balance">
               <KineticText text="What would you like to know?" />
             </h1>
             <p className="enter enter-2 text-fg-muted mx-auto mt-6 max-w-lg text-base">
@@ -97,10 +94,13 @@ export function NewConversation() {
               />
               <ul
                 aria-label="Suggested questions"
-                className="enter enter-4 border-line bg-canvas mt-8 grid border-t border-l sm:grid-cols-2"
+                className="enter enter-4 border-line bg-surface/70 mt-8 grid overflow-hidden rounded-2xl border sm:grid-cols-2"
               >
                 {STARTERS.map((starter) => (
-                  <li key={starter} className="border-line border-r border-b">
+                  <li
+                    key={starter}
+                    className="border-line [&:not(:nth-last-child(-n+2))]:border-b [&:nth-child(odd)]:sm:border-r sm:[&:nth-last-child(2)]:border-b"
+                  >
                     <button
                       type="button"
                       onClick={() =>

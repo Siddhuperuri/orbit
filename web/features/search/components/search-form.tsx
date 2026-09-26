@@ -32,7 +32,7 @@ function ScopeChip({
     <p className="text-fg-muted flex flex-wrap items-center gap-2 text-sm">
       <span>Searching within</span>
       <span className="border-line-strong inline-flex max-w-full items-center gap-1 border py-0.5 pr-0.5 pl-2.5">
-        <span className="text-fg truncate font-serif">{document?.title ?? "one document"}</span>
+        <span className="text-fg truncate">{document?.title ?? "one document"}</span>
         <button
           type="button"
           onClick={onClear}
@@ -103,7 +103,7 @@ export function SearchForm({
           autoComplete="off"
           autoFocus={!state.query}
           enterKeyHint="search"
-          className="text-fg placeholder:text-fg-subtle h-14 min-w-0 flex-1 bg-transparent font-serif text-xl font-light tracking-tight focus-visible:outline-none sm:text-2xl"
+          className="text-fg placeholder:text-fg-subtle h-14 min-w-0 flex-1 bg-transparent text-xl font-normal tracking-tight focus-visible:outline-none sm:text-2xl"
         />
         <Button type="submit" variant="primary" size="lg" disabled={text.trim() === ""}>
           Search

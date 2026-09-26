@@ -28,7 +28,7 @@ export function FileKindIcon({ kind, className }: { kind: FileKind; className?: 
     <span
       aria-hidden="true"
       className={cn(
-        "inline-flex size-10 shrink-0 items-center justify-center border",
+        "inline-flex size-10 shrink-0 items-center justify-center rounded-xl border",
         TINTS[kind],
         className,
       )}

@@ -97,7 +97,7 @@ export function DocumentsTable({
                     <div className="min-w-0 flex-1 transition-transform duration-500 ease-out group-hover:translate-x-1.5">
                       <Link
                         href={routes.document(workspaceId, document.id)}
-                        className="text-fg line-clamp-2 rounded-xs font-serif text-lg leading-snug tracking-tight [overflow-wrap:anywhere] after:absolute after:inset-0 after:content-[''] sm:line-clamp-1 pointer-coarse:-my-2 pointer-coarse:py-2"
+                        className="text-fg line-clamp-2 rounded-xs text-lg leading-snug tracking-tight [overflow-wrap:anywhere] after:absolute after:inset-0 after:content-[''] sm:line-clamp-1 pointer-coarse:-my-2 pointer-coarse:py-2"
                       >
                         {document.title}
                       </Link>

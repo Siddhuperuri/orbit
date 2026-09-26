@@ -75,7 +75,7 @@ export function Composer({
             borderless textarea inside it. */}
         <div
           className={cn(
-            "border-control bg-canvas flex flex-col gap-2 border p-3 transition-[border-color,box-shadow] duration-500",
+            "border-control bg-surface flex flex-col gap-2 rounded-2xl border p-3 transition-[border-color,box-shadow] duration-500",
             "hover:border-fg-subtle has-[textarea:focus-visible]:border-accent",
             "has-[textarea:focus-visible]:ring-focus/30 has-[textarea:focus-visible]:ring-3",
             variant === "hero" && "bg-surface/80 backdrop-blur-md",
@@ -101,7 +101,7 @@ export function Composer({
             // Grows with its content up to a ceiling, then scrolls. Where the
             // browser lacks `field-sizing` it stays at its row count and scrolls.
             className={cn(
-              "text-fg placeholder:text-fg-subtle field-sizing-content max-h-48 min-h-10 w-full resize-none bg-transparent px-1.5 py-1 font-serif font-light tracking-tight focus-visible:outline-none",
+              "text-fg placeholder:text-fg-subtle field-sizing-content max-h-48 min-h-10 w-full resize-none bg-transparent px-1.5 py-1 font-normal tracking-tight focus-visible:outline-none",
               variant === "hero" ? "text-xl" : "text-lg",
             )}
           />

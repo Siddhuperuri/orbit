@@ -155,58 +155,57 @@ Events are `started`, `retrieval`, `delta`…, then one `done` or `error`.
 
 ## 6. Design system
 
-The brief is explicit that ORBIT must not look AI-generated. The direction is an
-**observatory at night**: cinematic minimalism on a pitch-black field, composed on a
-visible column grid, with oversized editorial type and purposeful motion. The light
-theme is the same drawing printed on paper. Expressed as constraints:
+The brief is explicit that ORBIT must not look AI-generated. The direction is **a field
+notebook for machines**: warm paper and charcoal ink, a monospaced voice for labels and
+status, dark "keycap" controls with one orange signal, and ASCII -- text drawn as an
+image -- for the few places the product shows off. It merges two references: the
+hairline column grid and pointer-lit rules of denmu.com, and the paper/charcoal split,
+pill navbar, keycaps and ASCII canvases of contentarchitecture.dev. The dark theme is the
+same notebook under a desk lamp. Expressed as constraints:
 
-- **The grid is visible.** Hairline column rules (2 / 4 / 6 columns by breakpoint) run
-  behind the top bar and every page (`components/layout/grid-lines.tsx`). Page bodies sit
-  on chosen columns (`PageContainer` `width`: wide 1–6, default 1–5, narrow 2–5), so
-  blocks land exactly between rules. Content blocks sit on the canvas colour and mask the
-  rules; the rules show in the open space around them.
-- **Three typographic voices, each with one job.** Serif (Newsreader) is *reading and
-  display* — page titles are set very large, light and tight (`display-title`, sized in
-  container units so they fill their column); answers, excerpts and document titles are
-  serif too. Sans (IBM Plex Sans) is the interface; buttons and navigation are uppercase
-  and tight. Mono (IBM Plex Mono) is identifiers and the small uppercase labels that name
-  columns, sections and places (`label-micro`). Fonts are self-hosted; nothing loads from
-  a third party.
-- **Colour has three jobs.** The interface is *monochrome ink*: the primary action and
-  the current place are an **inverted block** (white on black, black on paper). Cobalt
-  (`accent`) is light — focus, links, the satellite in the mark, citations, and the glow
-  that follows the pointer along the rules. The **highlighter** (`highlight`) marks
-  evidence: a matched term, a cited passage. Semantic colours exist for state and are
-  always paired with an icon and a label; tags and statuses are outlined, never filled.
-- **Everything is square except what orbits.** Radii are 0–4 px; only the mark, avatars,
-  radios, orbit rings and the send button are round.
-- **Depth without drop shadows.** Layers, rules, backdrop blur on floating layers, a
-  faint film grain on the night theme (`public/grain.svg`, same-origin), and light — not
-  shadows on everyday surfaces.
-- **Motion is choreographed and CSS-first.** On arrival the rules draw down the page,
-  the title's words rise out of masks one after another (`KineticText`), and the rest of
-  the header follows in a short stagger (`.enter`). On scroll, rows and sections rise into
-  place (`.scroll-reveal`, a `view()` timeline) and the title card drifts up and dims
-  (`.scroll-drift`); artwork moves on a slower layer (`.scroll-depth`). Under the pointer,
-  ink fills rise through outlined buttons, fills sweep across rows, viewfinder corners
-  close on cards, underlines draw in, and the orbit artwork shifts in parallax by depth.
-  Scroll-driven effects are progressive (`@supports (animation-timeline: view())`);
-  everything is off under `prefers-reduced-motion`, and pointer effects are off on touch.
-  Pointer positions are written through the CSSOM once per frame — no React state, and
-  no inline `style` attribute for a Content-Security-Policy to refuse.
-- **Tokens, not values.** The Tailwind palette is switched off (`--color-*: initial`),
-  so `bg-red-500` does not exist. A subtree can take the other theme's tokens with its own
-  `data-theme` (the sign-in brand panel is always night).
-- **Contrast is a test.** `app/tokens.test.ts` parses `globals.css` and asserts WCAG AA
-  for every text pair and 3:1 for focus rings and control borders, in both themes.
-- **Focus** is one global `:focus-visible` outline. Text fields are the one exception:
-  an accent border and a focus-coloured halo (the search field draws an accent line across
-  its rule instead), which reads as "typing here".
+- **Two typographic voices** (Geist, self-hosted from npm; nothing loads from a third
+  party). Sans for statements and the interface: page titles are bold, tight and large
+  (`display-title`, sized in container units so they fill their column), and answers and
+  body text are sans too. Mono for labels and identifiers: the small uppercase tags that
+  name a place, a status, a shortcut (`label-micro`, `label-caps`).
+- **Colour has three jobs.** Ink (paper and charcoal) is the interface; the primary
+  action is a dark key and the current place an inverted block. **Signal orange** is the
+  dot on a key, focus, links and citations. The **highlighter** marks evidence: a matched
+  term, a cited passage. Semantic colours always carry an icon and a label; tags and
+  statuses are outlined, never filled.
+- **The navigation floats.** A dithered pill (`.dither`) over the middle of the page holds
+  the sections as mono labels, the current one lit, with a ticker beneath it carrying the
+  workspace name and your role (`components/layout/floating-nav.tsx`); the workspace
+  switcher, search and account are pills at the corners. Below `lg` the pill shrinks to the
+  current section and a menu button that opens the full navigation as a drawer.
+- **ASCII is a first-class medium.** `AsciiVortex` sets a phrase along a spiral that turns
+  slowly and bends toward the pointer (sign-in, 404); `AsciiField` is a sparse field of
+  drifting characters that flare where the pointer passes (chat). Both are canvas
+  (DPR-aware, paused off-screen, one still frame under `prefers-reduced-motion`),
+  `aria-hidden`, and read their colours from the theme's variables at draw time.
+- **The grid stays.** Hairline column rules (2 / 4 / 6 by breakpoint) run behind every
+  page, and light up in the accent near the pointer; page bodies sit on chosen columns.
+- **Softly rounded.** Radii run 4-20 px: keys 8, cards 16-20, pills full. Hairlines do most
+  of the separating; a little shadow marks what floats or presses.
+- **Motion is CSS-first.** The rules draw in, titles rise word by word (`KineticText`),
+  the rest of a header follows in a short stagger (`.enter`); rows and sections rise on
+  scroll (`.scroll-reveal`, a `view()` timeline, progressive); fills sweep across rows and
+  ink rises through outlined buttons on hover; the ticker slides. Everything is off under
+  `prefers-reduced-motion`, and pointer effects are off on touch. Pointer positions are
+  written through the CSSOM once per frame -- no React state, no inline `style` attribute
+  for a Content-Security-Policy to refuse.
+- **Tokens, not values.** The Tailwind palette is switched off (`--color-*: initial`), so
+  `bg-red-500` does not exist. A subtree can take the other theme's tokens with its own
+  `data-theme` (the sign-in art panel is always charcoal).
+- **Contrast is a test.** `app/tokens.test.ts` parses `globals.css` and asserts WCAG AA for
+  every text pair and 3:1 for focus rings and control borders, in both themes.
+- **Focus** is one global `:focus-visible` outline. Text fields are the one exception: an
+  accent border and a focus-coloured halo (the search field draws an accent line across its
+  rule), which reads as "typing here".
 - Theme is `system`/`light`/`dark`, applied before first paint by `public/theme-init.js`
   (a same-origin file, so no inline script and no CSP `unsafe-inline`).
-- Document titles default to a readable form of the filename (extension dropped,
-  underscores as spaces — `title_from_filename` in the backend domain), and a list row
-  shows the file's *kind* and page count beneath the title rather than repeating the name.
+- Document titles default to a readable form of the filename (`title_from_filename` in the
+  backend domain), and a list row shows the file's *kind* and page count beneath the title.
 
 ## 7. Every state is designed
 

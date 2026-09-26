@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils/cn";
  */
 const badgeVariants = cva(
   cn(
-    "inline-flex h-5.5 items-center gap-1.5 border px-1.5 whitespace-nowrap",
+    "inline-flex h-5.5 items-center gap-1.5 rounded-md border px-1.5 whitespace-nowrap",
     "font-mono text-2xs font-medium tracking-[0.06em] uppercase",
     "[&_svg]:size-3 [&_svg]:shrink-0",
   ),

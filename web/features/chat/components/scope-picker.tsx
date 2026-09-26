@@ -95,7 +95,7 @@ export function ScopePicker({
                         disabled={!checked && atLimit}
                         onCheckedChange={(value) => toggle(document.id, value === true)}
                       />
-                      <span className="text-fg min-w-0 flex-1 truncate font-serif text-base">
+                      <span className="text-fg min-w-0 flex-1 truncate text-base">
                         {document.title}
                       </span>
                     </label>

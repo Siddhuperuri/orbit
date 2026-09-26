@@ -109,7 +109,7 @@ function GoneBanner({ workspaceId }: { workspaceId: string }) {
 }
 
 /** A ruled panel: hairline frame, no fill -- the grid shows the structure. */
-const CARD = "scroll-reveal border-line bg-canvas border p-6";
+const CARD = "scroll-reveal border-line bg-surface/70 rounded-2xl border p-6";
 
 function DocumentView({ document, gone }: { document: Document; gone: boolean }) {
   const { workspace } = useWorkspace();
@@ -183,9 +183,7 @@ export function DocumentDetail({ documentId }: { documentId: string }) {
 
       {notFound && !query.data ? (
         <div className="py-16 text-center">
-          <h1 className="text-fg font-serif text-4xl font-light tracking-tight">
-            Document not found
-          </h1>
+          <h1 className="text-fg text-4xl font-semibold tracking-tight">Document not found</h1>
           <p className="text-fg-muted mt-1.5 text-base">
             It may have been deleted, or it may belong to a different workspace.
           </p>

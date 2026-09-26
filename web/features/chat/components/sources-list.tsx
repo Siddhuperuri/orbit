@@ -57,7 +57,7 @@ export function SourcesList({
                   {handle}
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="text-fg block truncate font-serif text-lg font-light tracking-tight">
+                  <span className="text-fg block truncate text-lg font-medium tracking-tight">
                     {citation.document.title}
                   </span>
                   {location ? (

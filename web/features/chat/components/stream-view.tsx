@@ -104,7 +104,7 @@ export function StreamView({
     });
 
     return (
-      <div className="border-danger/50 border px-4 py-1">
+      <div className="border-danger/50 rounded-xl border px-4 py-1">
         <ErrorState compact error={asApiError} title={describeError(asApiError).title} />
         <div className="flex gap-2 pb-3">
           {error.retryable ? (
