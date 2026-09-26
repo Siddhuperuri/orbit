@@ -195,7 +195,7 @@ class TestAsk:
         (document,) = world.pipeline.uow_factory.state.documents.values()
         citation = body["citations"][0]
         assert f"[{citation['handle']}]" in body["content"]
-        assert citation["document"] == {"id": str(document.id), "title": "leave.txt"}
+        assert citation["document"] == {"id": str(document.id), "title": "leave"}
         assert citation["version"]["version_number"] == 1
         assert citation["chunk"]["id"] is not None
         assert set(citation["location"]) == {

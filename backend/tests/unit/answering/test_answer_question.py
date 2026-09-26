@@ -240,7 +240,7 @@ class TestGroundedAnswer:
         stored = {c.chunk_id: c for c in h.pipeline.chunks(h.documents["leave"])}
         for citation in message.citations:
             chunk = stored[citation.chunk_id]  # type: ignore[index]
-            assert citation.document_title == "leave.txt"
+            assert citation.document_title == "leave"
             assert citation.document_version_id == version.id
             assert citation.version_number == version.version_number
             assert citation.chunk_ordinal == chunk.ordinal
