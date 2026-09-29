@@ -80,7 +80,7 @@ function NewVersion({ document }: { document: Document }) {
   const { state } = upload;
 
   return (
-    <div className="border-line bg-sunken/40 mb-3 space-y-2 rounded-md border p-3">
+    <div className="border-line bg-surface mb-3 space-y-2 rounded-lg border p-3">
       <input
         ref={input}
         type="file"
@@ -181,7 +181,7 @@ export function VersionsPanel({ document }: { document: Document }) {
 
   return (
     <section aria-labelledby="versions-heading">
-      <h2 id="versions-heading" className="text-md text-fg mb-2 font-semibold">
+      <h2 id="versions-heading" className="label-micro text-fg mb-4">
         Versions
       </h2>
 

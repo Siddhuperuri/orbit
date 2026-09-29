@@ -23,7 +23,7 @@ export function PopoverContent({
         align={align}
         collisionPadding={8}
         className={cn(
-          "border-line bg-surface shadow-float z-50 w-80 max-w-[calc(100vw-1rem)] rounded-md border p-3",
+          "bg-surface border-line shadow-float z-50 w-80 max-w-[calc(100vw-1rem)] border p-4",
           "data-[state=open]:animate-pop-in data-[state=closed]:animate-pop-out",
           className,
         )}

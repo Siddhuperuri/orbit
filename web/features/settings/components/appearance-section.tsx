@@ -14,7 +14,7 @@ const OPTIONS: Array<{ value: ThemePreference; label: string; hint: string; icon
     hint: "Follows your device's light or dark setting.",
     icon: Monitor,
   },
-  { value: "light", label: "Light", hint: "Warm paper background, dark text.", icon: Sun },
+  { value: "light", label: "Light", hint: "Bright stone background, dark ink.", icon: Sun },
   { value: "dark", label: "Dark", hint: "Low-glare background for dim rooms.", icon: Moon },
 ];
 
@@ -27,20 +27,26 @@ export function AppearanceSection() {
       value={preference}
       onValueChange={(value) => setPreference(value as ThemePreference)}
       aria-label="Theme"
-      className="max-w-md gap-1"
+      className="border-line gap-0 overflow-hidden rounded-xl border sm:grid-cols-3"
     >
       {OPTIONS.map((option) => (
         <div
           key={option.value}
-          className="hover:bg-sunken has-[[data-state=checked]]:border-line has-[[data-state=checked]]:bg-sunken flex items-start gap-3 rounded-md border border-transparent px-2 py-2"
+          className="border-line hover:bg-fill has-[[data-state=checked]]:bg-fg has-[[data-state=checked]]:text-canvas group/theme relative flex flex-col gap-8 p-5 transition-colors duration-500 sm:not-last:border-r"
         >
-          <RadioGroupItem value={option.value} id={`theme-${option.value}`} className="mt-0.5" />
-          <Label htmlFor={`theme-${option.value}`} className="flex-1 cursor-pointer space-y-0.5">
-            <span className="flex items-center gap-2">
-              <option.icon className="text-fg-muted size-4" aria-hidden="true" />
-              {option.label}
+          <div className="flex items-center justify-between">
+            <span className="border-line-strong inline-flex size-9 items-center justify-center rounded-lg border group-has-[[data-state=checked]]/theme:border-current">
+              <option.icon className="size-4" strokeWidth={1.5} aria-hidden="true" />
             </span>
-            <span className="text-fg-muted block text-sm font-normal">{option.hint}</span>
+            <RadioGroupItem value={option.value} id={`theme-${option.value}`} />
+          </div>
+          {/* The label covers the whole card, so anywhere on it selects the option. */}
+          <Label
+            htmlFor={`theme-${option.value}`}
+            className="cursor-pointer space-y-0.5 text-current after:absolute after:inset-0 after:content-['']"
+          >
+            <span className="block text-xl font-medium tracking-tight">{option.label}</span>
+            <span className="block text-sm font-normal opacity-75">{option.hint}</span>
           </Label>
         </div>
       ))}

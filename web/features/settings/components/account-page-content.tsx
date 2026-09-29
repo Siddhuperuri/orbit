@@ -15,14 +15,14 @@ export function AccountPageContent() {
   const logout = useLogout();
 
   return (
-    <PageContainer width="narrow">
+    <PageContainer>
       <PageHeader title="Account" description="Your profile and how ORBIT looks on this device." />
 
-      <SettingsSection title="Profile">
+      <SettingsSection title="Profile" description="Who you are signed in as.">
         <ProfileSection />
       </SettingsSection>
 
-      <SettingsSection title="Appearance">
+      <SettingsSection title="Appearance" description="Saved in this browser only.">
         <AppearanceSection />
       </SettingsSection>
 
@@ -33,7 +33,7 @@ export function AccountPageContent() {
         </Button>
       </SettingsSection>
 
-      <SettingsSection title="About">
+      <SettingsSection title="About" description="The build of ORBIT answering you.">
         <AboutSection />
       </SettingsSection>
     </PageContainer>

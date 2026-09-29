@@ -13,7 +13,7 @@ export function Checkbox({
   return (
     <CheckboxPrimitive.Root
       className={cn(
-        "peer border-control bg-surface text-on-accent inline-flex size-4 shrink-0 items-center justify-center rounded-xs border",
+        "peer border-control bg-surface text-on-accent inline-flex size-4 shrink-0 items-center justify-center border",
         "hover:border-fg-subtle transition-colors",
         "data-[state=checked]:border-accent-solid data-[state=checked]:bg-accent-solid",
         "disabled:cursor-not-allowed disabled:opacity-50",

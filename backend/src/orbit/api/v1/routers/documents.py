@@ -243,8 +243,9 @@ async def delete_document(
     summary="Upload a document",
     description=(
         "The request body is the raw file content -- not `multipart/form-data`. "
-        "`filename` is required; `title` defaults to the filename; `folder_id` "
-        "is optional. Supported formats: PDF, Markdown, plain text. "
+        "`filename` is required; `title` defaults to one made from the filename "
+        "(extension dropped, underscores as spaces); `folder_id` is optional. "
+        "Supported formats: PDF, Markdown, plain text. "
         "Re-uploading content that already exists in this workspace returns the "
         "existing document with `deduplicated: true`, rather than creating a "
         "second copy."

@@ -23,6 +23,7 @@ import {
   handbookFilename,
   handbookPages,
   handbookTitle,
+  handbookUploadTitle,
   page1Term,
 } from "../fixtures/pdf";
 import { expect, test } from "../fixtures/orbit";
@@ -66,9 +67,9 @@ test("a new user registers, uploads a document, searches it, and asks about it",
       buffer: handbook,
     });
 
-    // Listed under its file name: an upload through the UI sends no title, and
-    // ORBIT does not take one from inside the file.
-    await expect(page.getByText(handbookFilename, { exact: false }).first()).toBeVisible();
+    // Listed under a title made from its file name: an upload through the UI sends
+    // no title, and ORBIT does not take one from inside the file.
+    await expect(page.getByRole("link", { name: handbookUploadTitle }).first()).toBeVisible();
   });
 
   await test.step("5. wait for processing to finish", async () => {
@@ -90,17 +91,17 @@ test("a new user registers, uploads a document, searches it, and asks about it",
 
     // `page1Term` appears in this document and nowhere else in the workspace,
     // so exactly one document may match.
-    const results = page.getByRole("link", { name: new RegExp(handbookFilename, "i") });
+    const results = page.getByRole("link", { name: new RegExp(handbookUploadTitle, "i") });
     await expect(results.first()).toBeVisible();
   });
 
   await test.step("7. open the result", async () => {
     await page
-      .getByRole("link", { name: new RegExp(handbookFilename, "i") })
+      .getByRole("link", { name: new RegExp(handbookUploadTitle, "i") })
       .first()
       .click();
     await expect(page).toHaveURL(/\/documents\/[0-9a-f-]+/);
-    await expect(page.getByRole("heading", { name: handbookFilename })).toBeVisible();
+    await expect(page.getByRole("heading", { name: handbookUploadTitle })).toBeVisible();
     // The passage that matched is on the page, not just the title.
     await expect(page.getByText(new RegExp(page1Term, "i")).first()).toBeVisible();
   });
@@ -130,7 +131,7 @@ test("a new user registers, uploads a document, searches it, and asks about it",
     // document's name, and only the disclosure controls a panel.
     const source = page
       .locator("button[aria-controls]")
-      .filter({ hasText: handbookFilename })
+      .filter({ hasText: handbookUploadTitle })
       .first();
     await expect(source).toHaveAttribute("aria-expanded", "true");
     await expect(page.locator("blockquote").first()).toBeVisible();

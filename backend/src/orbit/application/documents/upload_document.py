@@ -41,6 +41,7 @@ from orbit.core.uploads import (
 )
 from orbit.core.validation import require_non_blank
 from orbit.domain.access import AccessContext, Permission
+from orbit.domain.documents import title_from_filename
 from orbit.domain.errors import ConflictError, NotFoundError
 from orbit.domain.errors import UnsupportedContentTypeError as DomainUnsupportedContentTypeError
 from orbit.domain.errors import UploadTooLargeError as DomainUploadTooLargeError
@@ -151,7 +152,7 @@ class UploadDocument:
         resolved_title = (
             require_non_blank(title, field_name="title", max_length=512)
             if title
-            else prepared.sanitized_filename
+            else title_from_filename(prepared.sanitized_filename)
         )
 
         async with self._uow_factory() as uow:

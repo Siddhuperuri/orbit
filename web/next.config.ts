@@ -45,6 +45,15 @@ const nextConfig: NextConfig = {
 
   ...(distDir ? { distDir } : {}),
 
+  // `next dev` refuses its own scripts to any host but `localhost` unless listed.
+  // On this project's Windows + WSL setup the stack is often reached at 127.0.0.1
+  // (`localhost` resolves to ::1 first); without this the page renders but never
+  // hydrates, so nothing is interactive and forms fall back to native submission.
+  allowedDevOrigins: ["127.0.0.1"],
+
+  // The floating dev-tools badge sits over the sidebar's account menu.
+  devIndicators: false,
+
   experimental: {
     proxyClientMaxBodySize: BACKEND_MAX_UPLOAD_BYTES,
     proxyTimeout: PROXY_TIMEOUT_MS,

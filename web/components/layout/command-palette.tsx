@@ -151,7 +151,7 @@ export function CommandPalette({
                   onSelect={go(routes.document(workspaceId, document.id))}
                 >
                   <FileText aria-hidden="true" />
-                  <span className="truncate font-serif">{document.title}</span>
+                  <span className="truncate">{document.title}</span>
                 </CommandItem>
               ))}
             </CommandGroup>

@@ -163,16 +163,29 @@ where someone finally does is production, during a lockout.
 
 | Variable | Default | Notes |
 |---|---|---|
-| `ORBIT_EMAIL_PROVIDER` | `unconfigured` | `unconfigured` \| `console`. |
+| `ORBIT_EMAIL_PROVIDER` | `unconfigured` | `unconfigured` \| `console` \| `smtp`. |
 | `ORBIT_EMAIL_FROM_ADDRESS` | `no-reply@orbit.local` | Sender address. |
 | `ORBIT_PASSWORD_RESET_URL_TEMPLATE` | localhost | Must contain `{token}`; https required in production. |
 | `ORBIT_EMAIL_VERIFICATION_URL_TEMPLATE` | localhost | Same. |
 
 - `unconfigured` — every send raises `EmailDeliveryError`. Any flow depending
   on real delivery fails visibly the first time it is exercised.
+- `smtp` — delivers through any SMTP relay (SES, Postmark, Mailgun, Gmail, a company server).
+  Requires `ORBIT_SMTP_HOST`; the rest are below. Gmail needs an **app password**
+  (Google account → Security → 2-Step Verification → App passwords), not the account password:
+  `ORBIT_SMTP_HOST=smtp.gmail.com`, `ORBIT_SMTP_PORT=587`, `ORBIT_SMTP_USERNAME=<address>`,
+  `ORBIT_SMTP_PASSWORD=<app password>`, and set `ORBIT_EMAIL_FROM_ADDRESS` to the same address.
 - `console` — writes the message to the log so a developer can copy the link.
   **Rejected at startup in production**: a one-time account link in a log
   stream is a credential in a log stream, readable by anyone with log access.
+
+| Variable | Default | Notes |
+|---|---|---|
+| `ORBIT_SMTP_HOST` | — | Required for `smtp`. |
+| `ORBIT_SMTP_PORT` | `587` | 587 = STARTTLS; 465 = implicit TLS (`ORBIT_SMTP_USE_SSL`). |
+| `ORBIT_SMTP_USERNAME` / `ORBIT_SMTP_PASSWORD` | — | Set together, or both omitted for an open relay. |
+| `ORBIT_SMTP_STARTTLS` / `ORBIT_SMTP_USE_SSL` | `true` / `false` | Mutually exclusive; production requires one. |
+| `ORBIT_SMTP_TIMEOUT_SECONDS` | `15` | 1–120. |
 
 Link templates point at the **frontend**, which posts the token back to the
 API. The token therefore never appears in an API URL that a reverse proxy,
@@ -235,6 +248,7 @@ Semantics, alerting, and runbook: [worker.md](worker.md).
 | `ORBIT_SEARCH_LEXICAL_MATCH` | `any` | `any` (OR) or `all` (AND) over query terms. `all` halved MRR in evaluation. |
 | `ORBIT_LLM_MODEL` | `gpt-4o-mini` | Chat model for answers. Ignored by `fake` (`orbit-fake-llm-v1`). Must not be blank. |
 | `ORBIT_LLM_CONTEXT_WINDOW` | `128000` | The model's window; the context budget is computed from it. |
+| `ORBIT_LLM_REASONING_EFFORT` | unset | `none` \| `minimal` \| `low` \| `medium` \| `high`, sent as `reasoning_effort`, for reasoning models only (unset sends nothing; gpt-4o-mini rejects it). A reasoning model counts its thinking against `ORBIT_ANSWER_MAX_TOKENS`, so at its default level it can spend the whole budget thinking and truncate the answer -- Gemini does; use `low`. |
 | `ORBIT_LLM_REQUEST_TIMEOUT_SECONDS` | `30` | Per request, and between streamed chunks. |
 | `ORBIT_LLM_MAX_RETRIES` | `2` | In-process retries; a stream is retried only before its first token. |
 | `ORBIT_LLM_RETRY_BASE_SECONDS` | `0.5` | First retry delay ceiling; doubles, equal jitter. |
@@ -264,6 +278,29 @@ and no network.
 > [docs/database/embeddings.md](../database/embeddings.md). It is not a knob.
 > Changing `ORBIT_EMBEDDING_MODEL` at the same width is a re-index, not a
 > migration: `npm run worker:index-status`, then `npm run worker:reindex`.
+
+### Using Google Gemini
+
+`openai` names the HTTP API, not the vendor. Google serves the same API for
+Gemini at `https://generativelanguage.googleapis.com/v1beta/openai`, so Gemini
+is configuration only -- see the commented block in `.env.example`. Measured
+against it (2026-09):
+
+- `gemini-embedding-001` honours `dimensions: 1536`, so the schema is unchanged.
+  It omits `index` on the first item of a batch (protobuf drops zero values);
+  the adapter reads a missing index as 0.
+- Chat models are reasoning models; set `ORBIT_LLM_REASONING_EFFORT=low`, or
+  answers are cut short. `gemini-2.5-flash` is closed to new keys.
+- Errors arrive as a one-element JSON list, and the retry delay is in the body
+  (`google.rpc.RetryInfo`), not a `Retry-After` header; both are read.
+- The free tier allows **1,000 embedded texts per day per model**
+  (`EmbedContentRequestsPerDayPerUserPerProjectPerModel-FreeTier`), and every
+  text counts, including those in requests Google rejects. A 1,209-chunk corpus
+  therefore cannot be embedded in one day if retries are wasted: keep batches
+  small (40), retry little (2), and expect a re-index that hits the limit to stop
+  with `stale_chunks` remaining. It resumes where it stopped (`npm run
+  worker:reindex`) after the daily reset (midnight Pacific), or finish at once by
+  enabling billing on the Google project, which has no daily cap.
 
 ## Observability
 

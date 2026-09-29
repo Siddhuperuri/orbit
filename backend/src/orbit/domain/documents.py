@@ -9,10 +9,12 @@ database:
   "take it out of its folder", which a plain `folder_id: UUID | None` cannot.
 * `without_overlap` -- turns stored passages back into continuously readable
   text, using the character offsets the chunker recorded.
+* `title_from_filename` -- the title a document gets when its uploader gave none.
 """
 
 from __future__ import annotations
 
+import re
 import uuid
 from collections.abc import Sequence
 from dataclasses import dataclass, replace
@@ -29,6 +31,27 @@ MAX_FILTER_TAGS: Final = 5
 MAX_TEXT_FILTER_LENGTH: Final = 100
 #: Mirrors the `documents.title` column and the request schema.
 MAX_DOCUMENT_TITLE_LENGTH: Final = 512
+
+
+_TITLE_SEPARATORS: Final = re.compile(r"[_\s]+")
+
+
+def title_from_filename(filename: str) -> str:
+    """A readable default title for a file uploaded without one.
+
+    ``Deep_Learning_Unit1_Guide.pdf`` becomes ``Deep Learning Unit1 Guide``: the
+    extension goes (the file's type is shown beside the title, not in it) and
+    underscores become spaces, because they are how people type spaces into a
+    filename. Hyphens are kept -- ``COVID-19`` and ``2026-09-25`` mean something.
+    The original filename is kept on the version, so nothing is lost.
+
+    A name with nothing left after that (``.pdf``, ``___.txt``) keeps the filename
+    as it was rather than producing an empty title.
+    """
+    stem, dot, _extension = filename.rpartition(".")
+    base = stem if dot else filename
+    title = _TITLE_SEPARATORS.sub(" ", base).strip(" .")
+    return title[:MAX_DOCUMENT_TITLE_LENGTH] if title else filename
 
 
 class DocumentSort(StrEnum):

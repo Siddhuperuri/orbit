@@ -19,9 +19,9 @@ import { formatBytes, formatDateTime, pluralize, shortId } from "@/lib/utils/for
 
 function Fact({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="min-w-0">
-      <dt className="text-fg-muted text-xs font-medium tracking-wide uppercase">{label}</dt>
-      <dd className="text-fg mt-0.5 text-base [overflow-wrap:anywhere]">{children}</dd>
+    <div className="grid min-w-0 grid-cols-[5.5rem_minmax(0,1fr)] gap-x-3 py-2">
+      <dt className="text-fg-subtle pt-px text-sm">{label}</dt>
+      <dd className="text-fg text-base [overflow-wrap:anywhere]">{children}</dd>
     </div>
   );
 }
@@ -57,11 +57,11 @@ export function DocumentMetadata({ document }: { document: Document }) {
 
   return (
     <section aria-labelledby="details-heading">
-      <h2 id="details-heading" className="text-md text-fg mb-3 font-semibold">
+      <h2 id="details-heading" className="label-micro text-fg mb-4">
         Details
       </h2>
 
-      <dl className="grid grid-cols-2 gap-x-6 gap-y-4">
+      <dl className="divide-line -my-2 divide-y">
         <Fact label="Folder">
           {document.folder_id === null ? (
             <span className="text-fg-muted">Not in a folder</span>
@@ -86,7 +86,7 @@ export function DocumentMetadata({ document }: { document: Document }) {
               ref={moveTrigger}
               size="sm"
               variant="ghost"
-              className="mt-1 -ml-2 block"
+              className="mt-0.5 -ml-2 h-7"
               onClick={() => setMoving(true)}
             >
               Move…
@@ -132,8 +132,8 @@ export function DocumentMetadata({ document }: { document: Document }) {
         ) : null}
       </dl>
 
-      <div className="mt-5">
-        <h3 className="text-fg-muted mb-1.5 text-xs font-medium tracking-wide uppercase">Tags</h3>
+      <div className="border-line mt-4 border-t pt-4">
+        <h3 className="text-fg-subtle mb-2 text-sm">Tags</h3>
         <DocumentTags document={document} />
       </div>
 

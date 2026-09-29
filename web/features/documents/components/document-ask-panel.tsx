@@ -80,10 +80,16 @@ export function DocumentAskPanel({ document }: { document: Document }) {
   const started = conversationId !== null;
 
   return (
-    <section aria-labelledby="ask-heading" className="border-line bg-surface rounded-lg border">
-      <div className="px-4 pt-4">
-        <h2 id="ask-heading" className="text-md text-fg flex items-center gap-2 font-semibold">
-          <MessageSquare className="text-fg-muted size-4" aria-hidden="true" />
+    <section
+      aria-labelledby="ask-heading"
+      className="scroll-reveal border-line bg-surface/70 overflow-hidden rounded-2xl border"
+    >
+      <div className="px-5 pt-5">
+        <h2
+          id="ask-heading"
+          className="text-fg flex items-center gap-2.5 text-xl font-medium tracking-tight"
+        >
+          <MessageSquare className="text-accent size-4" aria-hidden="true" />
           Ask about this document
         </h2>
         <p className="text-fg-muted mt-1 text-sm">

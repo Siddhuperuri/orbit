@@ -12,7 +12,7 @@ import { formatDate } from "@/lib/utils/format";
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid gap-x-6 gap-y-1 py-2.5 sm:grid-cols-[10rem_1fr]">
+    <div className="grid gap-x-6 gap-y-1 py-3 sm:grid-cols-[9rem_1fr]">
       <dt className="text-fg-muted text-sm font-medium">{label}</dt>
       <dd className="text-fg min-w-0 text-base">{children}</dd>
     </div>
@@ -28,7 +28,7 @@ export function ProfileSection() {
   const resend = useResendVerification();
 
   return (
-    <dl className="divide-line max-w-2xl divide-y">
+    <dl className="divide-line -my-3 divide-y">
       <Row label="Name">{user.full_name}</Row>
       <Row label="Email">
         <div className="flex flex-wrap items-center gap-2">
@@ -45,7 +45,7 @@ export function ProfileSection() {
                 Not verified
               </Badge>
               <Button
-                size="sm"
+                size="xs"
                 loading={resend.isPending}
                 onClick={() =>
                   resend.mutate(undefined, {

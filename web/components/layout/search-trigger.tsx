@@ -31,9 +31,13 @@ export function SearchTrigger({ onOpen }: { onOpen: () => void }) {
         onClick={onOpen}
         aria-haspopup="dialog"
         aria-keyshortcuts="Control+K Meta+K"
-        className="border-control bg-surface text-fg-muted hover:border-fg-subtle hover:text-fg hidden h-8 w-64 items-center gap-2 rounded-md border px-2.5 text-left text-base transition-colors sm:flex lg:w-80"
+        className="border-line bg-surface/85 text-fg-subtle hover:border-fg-subtle hover:text-fg shadow-card group hidden h-11 w-56 items-center gap-3 rounded-2xl border px-3.5 text-left text-sm backdrop-blur-md transition-colors duration-300 xl:flex"
       >
-        <Search className="size-4 shrink-0" aria-hidden="true" />
+        <Search
+          className="size-4 shrink-0 transition-transform duration-500 ease-out group-hover:scale-110"
+          strokeWidth={1.75}
+          aria-hidden="true"
+        />
         <span className="flex-1 truncate">Search or jump to…</span>
         <Kbd aria-hidden="true">{shortcut}</Kbd>
       </button>
@@ -43,7 +47,7 @@ export function SearchTrigger({ onOpen }: { onOpen: () => void }) {
         onClick={onOpen}
         aria-haspopup="dialog"
         aria-label="Search or jump to"
-        className="text-fg-muted hover:bg-sunken hover:text-fg inline-flex size-8 items-center justify-center rounded-md sm:hidden pointer-coarse:size-11"
+        className="border-line bg-surface/85 text-fg-muted hover:text-fg shadow-card inline-flex size-11 items-center justify-center rounded-2xl border backdrop-blur-md transition-colors xl:hidden"
       >
         <Search className="size-4" aria-hidden="true" />
       </button>

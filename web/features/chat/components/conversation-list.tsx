@@ -1,6 +1,6 @@
 "use client";
 
-import { MoreHorizontal, Plus, Trash2 } from "lucide-react";
+import { MessagesSquare, MoreHorizontal, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
@@ -57,12 +57,14 @@ function ConversationRow({
         onClick={onNavigate}
         aria-current={active ? "page" : undefined}
         className={cn(
-          "block rounded-md py-2 pr-10 pl-2.5 pointer-coarse:min-h-12",
-          active ? "bg-accent-soft text-accent-soft-fg" : "text-fg hover:bg-line/60",
+          "relative block py-3 pr-10 pl-5 transition-colors duration-300 pointer-coarse:min-h-12",
+          active
+            ? "bg-fill text-fg before:bg-accent before:absolute before:inset-y-0 before:left-0 before:w-0.5"
+            : "text-fg-muted hover:bg-fill hover:text-fg",
         )}
       >
         <span className="block truncate text-base font-medium">{conversation.title}</span>
-        <span className={cn("block text-xs", active ? "text-accent-soft-fg" : "text-fg-muted")}>
+        <span className="label-micro text-fg-subtle mt-0.5 block">
           {formatRelativeTime(conversation.updated_at)}
         </span>
       </Link>
@@ -73,7 +75,7 @@ function ConversationRow({
             ref={triggerRef}
             type="button"
             aria-label={`Actions for ${conversation.title}`}
-            className="text-fg-muted hover:bg-line absolute top-1.5 right-1 inline-flex size-7 items-center justify-center rounded-md opacity-0 group-focus-within:opacity-100 group-hover:opacity-100 focus-visible:opacity-100 data-[state=open]:opacity-100 pointer-coarse:size-10 pointer-coarse:opacity-100"
+            className="text-fg-muted hover:bg-line absolute top-3 right-2 inline-flex size-7 items-center justify-center opacity-0 group-focus-within:opacity-100 group-hover:opacity-100 focus-visible:opacity-100 data-[state=open]:opacity-100 pointer-coarse:size-10 pointer-coarse:opacity-100"
           >
             <MoreHorizontal className="size-4" aria-hidden="true" />
           </button>
@@ -112,9 +114,9 @@ export function ConversationList({
 
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="flex items-center justify-between gap-2 px-3 pt-3 pb-2">
-        <h2 className="text-fg text-sm font-semibold">Conversations</h2>
-        <Button asChild size="sm">
+      <div className="border-line flex h-14 shrink-0 items-center justify-between gap-2 border-b pr-3 pl-5">
+        <h2 className="label-micro text-fg">Conversations</h2>
+        <Button asChild size="sm" variant="secondary">
           <Link href={routes.chat(workspaceId)} onClick={onNavigate}>
             <Plus aria-hidden="true" />
             New
@@ -122,7 +124,7 @@ export function ConversationList({
         </Button>
       </div>
 
-      <nav aria-label="Conversations" className="min-h-0 flex-1 overflow-y-auto px-2 pb-3">
+      <nav aria-label="Conversations" className="min-h-0 flex-1 overflow-y-auto pb-3">
         <QueryBoundary
           query={query}
           loading={<ListSkeleton />}
@@ -131,6 +133,7 @@ export function ConversationList({
           empty={
             <EmptyState
               className="py-10"
+              icon={MessagesSquare}
               title="No conversations yet"
               description="Ask your first question and it will appear here."
             />
@@ -138,7 +141,7 @@ export function ConversationList({
         >
           {() => (
             <>
-              <ul className="space-y-0.5">
+              <ul className="divide-line divide-y">
                 {conversations.map((conversation) => (
                   <ConversationRow
                     key={conversation.id}

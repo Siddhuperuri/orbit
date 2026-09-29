@@ -56,7 +56,7 @@ export function DocumentRowMenu({ document }: { document: Document }) {
             ref={triggerRef}
             type="button"
             aria-label={`Actions for ${document.title}`}
-            className="text-fg-muted hover:bg-line/60 hover:text-fg inline-flex size-8 items-center justify-center rounded-md pointer-coarse:size-11"
+            className="text-fg-muted hover:bg-fill hover:text-fg inline-flex size-8 items-center justify-center rounded-md pointer-coarse:size-11"
           >
             <MoreHorizontal className="size-4" aria-hidden="true" />
           </button>
